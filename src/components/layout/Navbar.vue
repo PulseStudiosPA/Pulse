@@ -1,49 +1,31 @@
 <template>
   <nav 
-    class="fixed top-0 w-full z-50 transition-all duration-700 ease-out"
+    ref="navRef"
+    class="fixed top-0 w-full z-50 transition-all duration-500 ease-out"
     :class="{ 
-      'bg-slate-900/95 backdrop-blur-xl border-b border-cyan-500/20 shadow-lg shadow-cyan-500/5': scrolled, 
-      'bg-transparent': !scrolled 
+      'bg-slate-950/90 backdrop-blur-xl border-b border-cyan-500/20': scrolled, 
+      'bg-slate-950/20 backdrop-blur-sm': !scrolled 
     }"
-    v-motion
-    :initial="{ y: -100, opacity: 0 }"
-    :enter="{ y: 0, opacity: 1, transition: { duration: 1000, ease: 'easeOut' } }"
   >
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="flex justify-between items-center h-18">
         <!-- Logo -->
-        <div 
-          class="text-2xl font-bold tracking-[0.2em] bg-gradient-to-r from-cyan-400 via-blue-500 to-teal-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 cursor-pointer"
-          v-motion
-          :initial="{ opacity: 0, x: -20, scale: 0.8 }"
-          :enter="{ opacity: 1, x: 0, scale: 1, transition: { delay: 300, duration: 800, ease: 'backOut' } }"
-        >
-          PulseWare
+        <div class="nav-logo">
+          <h2 class="text-2xl font-light tracking-[0.2em] text-white hover:text-cyan-400 transition-colors duration-300 cursor-pointer">
+            PULSE
+          </h2>
         </div>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center space-x-10">
+        <div class="hidden md:flex items-center space-x-8">
           <a 
-            v-for="(item, index) in navigation" 
+            v-for="item in navigation" 
             :key="item.name" 
             :href="item.href"
-            class="relative text-sm font-medium text-slate-300 hover:text-cyan-400 transition-all duration-500 group py-3 px-1"
-            v-motion
-            :initial="{ opacity: 0, y: -15, rotateX: -90 }"
-            :enter="{ 
-              opacity: 1, 
-              y: 0, 
-              rotateX: 0,
-              transition: { 
-                delay: 400 + (index * 150), 
-                duration: 700,
-                ease: 'backOut'
-              } 
-            }"
+            class="nav-item relative text-sm font-light text-white/80 hover:text-white transition-colors duration-300 group py-2"
           >
             {{ item.name }}
-            <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500 group-hover:w-full rounded-full"></span>
-            <span class="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></span>
+            <span class="nav-underline absolute bottom-0 left-0 w-full h-[1px] bg-white origin-left scale-x-0 transition-transform duration-300"></span>
           </a>
         </div>
 
@@ -51,7 +33,6 @@
         <button 
           @click="mobileMenuOpen = !mobileMenuOpen" 
           class="md:hidden p-2 text-white"
-          v-motion
           :initial="{ opacity: 0, scale: 0.8 }"
           :enter="{ opacity: 1, scale: 1, transition: { delay: 500, duration: 400 } }"
         >
@@ -98,9 +79,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+import gsap from 'gsap'
 
 const scrolled = ref(false)
 const mobileMenuOpen = ref(false)
+const navRef = ref(null)
 
 const navigation = [
   { name: 'Inicio', href: '#home' },
@@ -115,6 +98,76 @@ const handleScroll = () => {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+  
+  if (navRef.value) {
+    // Animación de entrada del navbar
+    gsap.from(navRef.value, {
+      y: -100,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.5
+    })
+    
+    // Animación del logo
+    gsap.from(navRef.value.querySelector('.nav-logo'), {
+      x: -50,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'back.out(1.7)',
+      delay: 0.8
+    })
+    
+    // Animación de los elementos del menú
+    gsap.from(navRef.value.querySelectorAll('.nav-item'), {
+      y: -20,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: 'power2.out',
+      delay: 1
+    })
+
+    // Efectos de hover para los elementos del menú
+    const navItems = navRef.value.querySelectorAll('.nav-item')
+    navItems.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        gsap.to(item, {
+          scale: 1.1,
+          y: -2,
+          duration: 0.3,
+          ease: 'back.out(1.7)'
+        })
+        
+        const underline = item.querySelector('.nav-underline')
+        if (underline) {
+          gsap.to(underline, {
+            scaleX: 1,
+            duration: 0.3,
+            ease: 'power2.out'
+          })
+        }
+      })
+      
+      item.addEventListener('mouseleave', () => {
+        gsap.to(item, {
+          scale: 1,
+          y: 0,
+          duration: 0.3,
+          ease: 'power2.out'
+        })
+        
+        const underline = item.querySelector('.nav-underline')
+        if (underline) {
+          gsap.to(underline, {
+            scaleX: 0,
+            duration: 0.3,
+            ease: 'power2.out'
+          })
+        }
+      })
+    })
+  }
 })
 
 onUnmounted(() => {
