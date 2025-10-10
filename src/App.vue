@@ -27,9 +27,11 @@ onMounted(() => {
       e.preventDefault()
       const target = document.querySelector(this.getAttribute('href'))
       if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+        const headerHeight = document.querySelector('header').offsetHeight // Altura del header en px
+        const targetPosition = target.offsetTop - headerHeight
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
         })
       }
     })
