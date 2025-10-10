@@ -1,21 +1,21 @@
 <template>
-  <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900" ref="heroRef">
+  <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0A0A2E] via-purple-950 to-[#0A0A2E] pt-20" ref="heroRef">
     <!-- Elaborate animated background with GSAP -->
     <div class="absolute inset-0">
       <!-- Main gradient orbs -->
-      <div class="floating-orb absolute top-1/4 left-1/5 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-blue-600/15 rounded-full blur-3xl"></div>
-      <div class="floating-orb absolute bottom-1/4 right-1/5 w-80 h-80 bg-gradient-to-l from-teal-500/15 to-cyan-600/20 rounded-full blur-3xl"></div>
+      <div class="floating-orb absolute top-1/4 left-1/5 w-96 h-96 bg-gradient-to-r from-primary/20 to-purple-600/15 rounded-full blur-3xl"></div>
+      <div class="floating-orb absolute bottom-1/4 right-1/5 w-80 h-80 bg-gradient-to-l from-violet-500/15 to-primary/20 rounded-full blur-3xl"></div>
       
       <!-- Floating particles -->
-      <div class="floating-particle absolute top-20 left-1/4 w-4 h-4 bg-cyan-400/40 rounded-full"></div>
-      <div class="floating-particle absolute top-1/3 right-1/3 w-3 h-3 bg-blue-400/30 rounded-full"></div>
-      <div class="floating-particle absolute bottom-1/4 left-1/2 w-5 h-5 bg-teal-400/35 rounded-full"></div>
-      <div class="floating-particle absolute top-1/2 left-1/6 w-2 h-2 bg-cyan-300/50 rounded-full"></div>
-      <div class="floating-particle absolute bottom-1/3 right-1/4 w-3 h-3 bg-blue-300/40 rounded-full"></div>
+      <div class="floating-particle absolute top-20 left-1/4 w-4 h-4 bg-primary/40 rounded-full"></div>
+      <div class="floating-particle absolute top-1/3 right-1/3 w-3 h-3 bg-purple-400/30 rounded-full"></div>
+      <div class="floating-particle absolute bottom-1/4 left-1/2 w-5 h-5 bg-violet-400/35 rounded-full"></div>
+      <div class="floating-particle absolute top-1/2 left-1/6 w-2 h-2 bg-primary/50 rounded-full"></div>
+      <div class="floating-particle absolute bottom-1/3 right-1/4 w-3 h-3 bg-purple-300/40 rounded-full"></div>
       
       <!-- Geometric shapes -->
-      <div class="floating-orb absolute top-1/3 right-1/2 w-32 h-32 bg-gradient-to-r from-blue-400/20 to-cyan-400/15 rounded-full blur-2xl"></div>
-      <div class="floating-orb absolute bottom-1/2 left-3/4 w-24 h-24 bg-gradient-to-l from-teal-400/25 to-blue-500/15 rounded-full blur-xl"></div>
+      <div class="floating-orb absolute top-1/3 right-1/2 w-32 h-32 bg-gradient-to-r from-purple-400/20 to-primary/15 rounded-full blur-2xl"></div>
+      <div class="floating-orb absolute bottom-1/2 left-3/4 w-24 h-24 bg-gradient-to-l from-violet-400/25 to-purple-500/15 rounded-full blur-xl"></div>
     </div>
     
     <div class="relative z-10 text-center px-6 lg:px-8 max-w-4xl mx-auto">
@@ -23,15 +23,15 @@
         <!-- Main title -->
         <h1 class="gsap-title text-5xl sm:text-6xl lg:text-8xl font-bold leading-tight text-white tracking-wide">
           Bienvenido a 
-          <div class="gsap-pulse mt-4 font-black inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-teal-400 bg-clip-text text-transparent">
-            <span class="pulse-letter">P</span><span class="pulse-letter">u</span><span class="pulse-letter">l</span><span class="pulse-letter">s</span><span class="pulse-letter">e</span><span class="pulse-letter">W</span><span class="pulse-letter">a</span><span class="pulse-letter">r</span><span class="pulse-letter">e</span>
+          <div class="gsap-pulse mt-4 font-black inline-block bg-gradient-to-r from-primary via-purple-500 to-violet-400 bg-clip-text text-transparent">
+            <span class="pulse-letter">P</span><span class="pulse-letter">u</span><span class="pulse-letter">l</span><span class="pulse-letter">s</span><span class="pulse-letter">e</span>
           </div>
         </h1>
 
         <!-- Subtitle -->
         <p class="gsap-subtitle text-xl sm:text-2xl text-slate-300 max-w-3xl mx-auto font-medium leading-relaxed mt-8">
           Impulsamos tu negocio hacia el futuro con 
-          <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-semibold">
+          <span class="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent font-semibold">
             soluciones innovadoras
           </span> 
           y tecnología de vanguardia
@@ -39,19 +39,19 @@
 
         <!-- CTA Buttons -->
         <div class="gsap-btn-container flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
-          <button class="group relative px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-lg rounded-full shadow-2xl shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 overflow-hidden">
+          <button class="group relative px-10 py-4 bg-gradient-to-r from-primary to-purple-600 text-white font-semibold text-lg rounded-full shadow-2xl shadow-primary/25 hover:shadow-primary/40 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 overflow-hidden">
             <span class="relative z-10 flex items-center gap-3">
               Comenzar Ahora
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
               </svg>
             </span>
-            <div class="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full blur opacity-30 group-hover:opacity-70 transition-opacity duration-300"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-full blur opacity-30 group-hover:opacity-70 transition-opacity duration-300"></div>
           </button>
-          <button class="group px-10 py-4 border-2 border-slate-600 text-slate-300 font-medium text-lg rounded-full hover:border-cyan-400 hover:text-cyan-400 hover:bg-cyan-400/5 transition-all duration-500 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden">
+          <button class="group px-10 py-4 border-2 border-slate-600 text-slate-300 font-medium text-lg rounded-full hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-500 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden">
             <span class="relative z-10">Ver Nuestro Trabajo</span>
-            <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
         </div>
       </div>
@@ -87,7 +87,7 @@ onMounted(async () => {
     
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
     
-    // Animación simple del título principal (incluyendo PulseWare)
+    // Animación simple del título principal (incluyendo Pulse)
     tl.from(heroRef.value.querySelector('.gsap-title'), {
       y: 50,
       opacity: 0,
@@ -135,7 +135,7 @@ onMounted(async () => {
       stagger: 0.3
     })
 
-    // Parpadeo de PulseWare cada 2 segundos
+    // Parpadeo de Pulse cada 2 segundos
     const pulseLogo = heroRef.value.querySelector('.gsap-pulse')
     if (pulseLogo) {
       gsap.to(pulseLogo, {

@@ -3,15 +3,16 @@
     ref="navRef"
     class="fixed top-0 w-full z-50 transition-all duration-500 ease-out"
     :class="{ 
-      'bg-slate-950/90 backdrop-blur-xl border-b border-cyan-500/20': scrolled, 
-      'bg-slate-950/20 backdrop-blur-sm': !scrolled 
+      'bg-[#0A0A2E]/95 backdrop-blur-xl border-b border-primary/20': scrolled, 
+      'bg-[#0A0A2E]/30 backdrop-blur-sm': !scrolled 
     }"
   >
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="flex justify-between items-center h-18">
         <!-- Logo -->
-        <div class="nav-logo">
-          <h2 class="text-2xl font-light tracking-[0.2em] text-white hover:text-cyan-400 transition-colors duration-300 cursor-pointer">
+        <div class="nav-logo flex items-center gap-3">
+          <img src="../../assets/Pulse.svg" alt="Pulse Logo" class="h-10 w-10" />
+          <h2 class="text-2xl font-light tracking-[0.2em] text-white hover:text-primary transition-colors duration-300 cursor-pointer">
             PULSE
           </h2>
         </div>

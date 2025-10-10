@@ -1,22 +1,22 @@
 <template>
-  <section id="services" class="py-20 lg:py-32 bg-slate-950 relative overflow-hidden" ref="servicesRef">
+  <section id="services" class="py-20 lg:py-32 bg-[#0A0A2E] relative overflow-hidden" ref="servicesRef">
     <!-- Background Effects -->
     <div class="absolute inset-0">
-      <div class="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/10 to-blue-600/10 rounded-full blur-3xl animate-pulse"></div>
-      <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-l from-teal-500/10 to-cyan-600/10 rounded-full blur-3xl animate-pulse"></div>
-      <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/5 to-indigo-600/5 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-primary/10 to-purple-600/10 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-l from-violet-500/10 to-primary/10 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/5 to-violet-600/5 rounded-full blur-3xl animate-pulse"></div>
     </div>
     
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
       <!-- Section Header -->
       <div class="text-center mb-20">
-        <h2 class="services-title text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent tracking-wide">
+        <h2 class="services-title text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-purple-500 to-violet-500 bg-clip-text text-transparent tracking-wide">
           Nuestros Servicios
         </h2>
         <p class="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
           Soluciones tecnológicas completas que transforman tu visión en realidad digital
         </p>
-        <div class="w-32 h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 mx-auto mt-8 rounded-full"></div>
+        <div class="w-32 h-1 bg-gradient-to-r from-primary via-purple-500 to-violet-500 mx-auto mt-8 rounded-full"></div>
       </div>
       
       <!-- Carousel Container -->
@@ -24,7 +24,7 @@
         <!-- Navigation Buttons -->
         <button 
           @click="prevSlide"
-          class="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-white hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform -translate-x-6"
+          class="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-full flex items-center justify-center text-white hover:scale-110 hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform -translate-x-6"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -33,7 +33,7 @@
         
         <button 
           @click="nextSlide"
-          class="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-white hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform translate-x-6"
+          class="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-full flex items-center justify-center text-white hover:scale-110 hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform translate-x-6"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -52,25 +52,25 @@
               class="w-full flex-shrink-0 flex justify-center px-4"
             >
               <div 
-                class="service-card group relative p-12 max-w-lg bg-gradient-to-br from-slate-900/90 to-slate-800/60 rounded-2xl border border-slate-700/30 hover:border-cyan-500/60 transition-all duration-700 transform hover:-translate-y-6 hover:scale-105 hover:rotate-1"
+                class="service-card group relative p-12 max-w-lg bg-gradient-to-br from-slate-900/90 to-slate-800/60 rounded-2xl border border-slate-700/30 hover:border-primary/60 transition-all duration-700 transform hover:-translate-y-6 hover:scale-105 hover:rotate-1"
                 @mouseenter="onCardHover"
                 @mouseleave="onCardLeave"
               >
                 <!-- Hover glow effect -->
-                <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/15 to-blue-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/15 to-purple-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <div class="absolute -inset-1 bg-gradient-to-r from-primary/30 to-purple-500/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
                 
                 <div class="relative z-10">
                   <!-- Icon with dynamic gradient -->
                   <div 
-                    class="w-24 h-24 mx-auto mb-8 flex items-center justify-center rounded-xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 shadow-lg shadow-cyan-500/25 group-hover:shadow-cyan-500/50"
+                    class="w-24 h-24 mx-auto mb-8 flex items-center justify-center rounded-xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 shadow-lg shadow-primary/25 group-hover:shadow-primary/50"
                     :class="`bg-gradient-to-br ${service.color}`"
                   >
                     <component :is="service.icon" class="h-10 w-10 text-white group-hover:scale-110 transition-transform duration-300" />
                   </div>
                   
                   <!-- Content -->
-                  <h3 class="text-3xl font-bold mb-6 text-white group-hover:text-cyan-400 transition-colors duration-300 text-center group-hover:scale-105 transform">
+                  <h3 class="text-3xl font-bold mb-6 text-white group-hover:text-primary transition-colors duration-300 text-center group-hover:scale-105 transform">
                     {{ service.title }}
                   </h3>
                   <p class="text-lg text-slate-400 leading-relaxed text-center group-hover:text-slate-300 transition-colors duration-300">

@@ -2,7 +2,7 @@
   <footer class="bg-slate-900 border-t border-slate-800/50 text-white py-16 relative overflow-hidden">
     <!-- Background Effects -->
     <div class="absolute inset-0">
-      <div class="absolute top-0 left-1/4 w-80 h-80 bg-gradient-to-r from-cyan-500/5 to-blue-600/5 rounded-full blur-3xl"></div>
+      <div class="absolute top-0 left-1/4 w-80 h-80 bg-gradient-to-r from-primary/5 to-purple-600/5 rounded-full blur-3xl"></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
@@ -20,15 +20,16 @@
             } 
           }"
         >
-          <h3 class="text-2xl font-bold tracking-[0.2em] mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            PulseWare
-          </h3>
+          <div class="flex items-center gap-3 mb-4">
+            <img src="../../assets/Pulse.svg" alt="Pulse Logo" class="h-16 w-16" />
+            
+          </div>
           <p class="text-slate-400 font-light leading-relaxed max-w-md mb-6">
             Impulsando el futuro digital con soluciones innovadoras y tecnología de vanguardia.
           </p>
           <div class="flex space-x-4">
             <a v-for="social in socialLinks" :key="social.name" :href="social.href"
-               class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:bg-slate-700 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25">
+               class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary hover:bg-slate-700 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-primary/25">
               <component :is="social.icon" class="h-5 w-5" />
             </a>
           </div>
@@ -53,17 +54,17 @@
           </h4>
           <ul class="space-y-3">
             <li>
-              <a href="#services" class="text-slate-400 hover:text-cyan-400 transition-colors duration-300 text-sm hover:translate-x-1 transform inline-block">
+              <a href="#services" class="text-slate-400 hover:text-primary transition-colors duration-300 text-sm hover:translate-x-1 transform inline-block">
                 Desarrollo Web
               </a>
             </li>
             <li>
-              <a href="#services" class="text-slate-400 hover:text-cyan-400 transition-colors duration-300 text-sm hover:translate-x-1 transform inline-block">
+              <a href="#services" class="text-slate-400 hover:text-primary transition-colors duration-300 text-sm hover:translate-x-1 transform inline-block">
                 Apps Móviles
               </a>
             </li>
             <li>
-              <a href="#services" class="text-slate-400 hover:text-cyan-400 transition-colors duration-300 text-sm hover:translate-x-1 transform inline-block">
+              <a href="#services" class="text-slate-400 hover:text-primary transition-colors duration-300 text-sm hover:translate-x-1 transform inline-block">
                 Optimización
               </a>
             </li>
@@ -89,12 +90,12 @@
           </h4>
           <ul class="space-y-3">
             <li>
-              <a href="#about" class="text-slate-400 hover:text-cyan-400 transition-colors duration-300 text-sm hover:translate-x-1 transform inline-block">
+              <a href="#about" class="text-slate-400 hover:text-primary transition-colors duration-300 text-sm hover:translate-x-1 transform inline-block">
                 Nosotros
               </a>
             </li>
             <li>
-              <a href="#contact" class="text-slate-400 hover:text-cyan-400 transition-colors duration-300 text-sm hover:translate-x-1 transform inline-block">
+              <a href="#contact" class="text-slate-400 hover:text-primary transition-colors duration-300 text-sm hover:translate-x-1 transform inline-block">
                 Contacto
               </a>
             </li>
@@ -122,7 +123,7 @@
         }"
       >
         <p class="text-slate-400 text-sm">
-          &copy; 2025 PulseWare. Todos los derechos reservados.
+          &copy; 2025 Pulse. Todos los derechos reservados.
         </p>
       </div>
     </div>

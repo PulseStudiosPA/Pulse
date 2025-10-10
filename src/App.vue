@@ -1,17 +1,19 @@
 <template>
   <div class="overflow-x-hidden">
-    <Navbar />
-    <HeroSection />
-    <ServicesSection />
-    <AboutSection />
-    <ContactSection />
-    <Footer />
+    <Header />
+    <main>
+      <HeroSection />
+      <ServicesSection />
+      <AboutSection />
+      <ContactSection />
+      <Footer />
+    </main>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from 'vue'
-import Navbar from './components/layout/Navbar.vue'
+import Header from './components/layout/Header.vue'
 import HeroSection from './components/sections/HeroSection.vue'
 import ServicesSection from './components/sections/ServicesSection.vue'
 import AboutSection from './components/sections/AboutSection.vue'

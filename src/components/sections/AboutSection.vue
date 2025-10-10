@@ -1,41 +1,41 @@
 <template>
-  <section id="about" class="py-20 lg:py-32 bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 relative overflow-hidden" ref="aboutRef">
+  <section id="about" class="py-20 lg:py-32 bg-gradient-to-br from-slate-900 via-[#0A0A2E] to-purple-950 relative overflow-hidden" ref="aboutRef">
     <!-- Enhanced Background Effects -->
     <div class="absolute inset-0">
-      <div class="absolute top-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-cyan-500/15 to-blue-600/15 rounded-full blur-3xl animate-pulse"></div>
-      <div class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-l from-teal-500/12 to-cyan-600/12 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/8 to-indigo-600/8 rounded-full blur-3xl animate-pulse delay-2000"></div>
+      <div class="absolute top-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-primary/15 to-purple-600/15 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-l from-violet-500/12 to-primary/12 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/8 to-violet-600/8 rounded-full blur-3xl animate-pulse delay-2000"></div>
       
       <!-- Floating geometric shapes -->
-      <div class="absolute top-20 left-10 w-4 h-4 bg-cyan-400/30 rotate-45 animate-bounce"></div>
-      <div class="absolute bottom-20 right-10 w-6 h-6 bg-blue-400/25 rounded-full animate-pulse"></div>
-      <div class="absolute top-1/3 right-20 w-3 h-3 bg-teal-400/35 rotate-12 animate-spin"></div>
+      <div class="absolute top-20 left-10 w-4 h-4 bg-primary/30 rotate-45 animate-bounce"></div>
+      <div class="absolute bottom-20 right-10 w-6 h-6 bg-purple-400/25 rounded-full animate-pulse"></div>
+      <div class="absolute top-1/3 right-20 w-3 h-3 bg-violet-400/35 rotate-12 animate-spin"></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
         <!-- Content -->
         <div>
-          <h2 class="about-title text-4xl lg:text-6xl font-bold mb-8 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent tracking-wide">
+          <h2 class="about-title text-4xl lg:text-6xl font-bold mb-8 bg-gradient-to-r from-primary via-purple-500 to-violet-500 bg-clip-text text-transparent tracking-wide">
             Sobre Nosotros
           </h2>
-          <div class="w-32 h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 mb-8 rounded-full"></div>
+          <div class="w-32 h-1 bg-gradient-to-r from-primary via-purple-500 to-violet-500 mb-8 rounded-full"></div>
           
           <div class="space-y-6 text-lg text-slate-300 leading-relaxed">
             <p class="about-text">
-              En <span class="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors duration-300">PulseWare</span>, somos expertos en transformación digital. 
+              En <span class="text-primary font-semibold hover:text-purple-300 transition-colors duration-300">Pulse</span>, somos expertos en transformación digital. 
               Nuestro equipo de profesionales apasionados trabaja incansablemente para 
               convertir tus ideas en realidades digitales exitosas.
             </p>
             <p class="about-text">
               Con años de experiencia en el mercado, hemos ayudado a empresas de 
               todos los tamaños a alcanzar sus objetivos tecnológicos y 
-              <span class="text-blue-400 font-semibold hover:text-blue-300 transition-colors duration-300">superar sus expectativas</span>.
+              <span class="text-purple-400 font-semibold hover:text-purple-300 transition-colors duration-300">superar sus expectativas</span>.
             </p>
             <p class="about-text">
               Nuestra filosofía se basa en la innovación constante, la excelencia técnica 
               y el compromiso absoluto con el éxito de nuestros clientes en el 
-              <span class="text-purple-400 font-semibold hover:text-purple-300 transition-colors duration-300">mundo digital</span>.
+              <span class="text-violet-400 font-semibold hover:text-violet-300 transition-colors duration-300">mundo digital</span>.
             </p>
           </div>
         </div>
@@ -45,11 +45,11 @@
           <div 
             v-for="(stat, index) in stats" 
             :key="stat.label"
-            class="stat-card group relative text-center py-10 px-8 bg-gradient-to-br from-slate-800/70 to-slate-700/50 rounded-2xl border border-slate-600/40 hover:border-cyan-500/60 transition-all duration-500 transform hover:scale-110 hover:-translate-y-3 cursor-pointer"
+            class="stat-card group relative text-center py-10 px-8 bg-gradient-to-br from-slate-800/70 to-slate-700/50 rounded-2xl border border-slate-600/40 hover:border-primary/60 transition-all duration-500 transform hover:scale-110 hover:-translate-y-3 cursor-pointer"
           >
             <!-- Enhanced Glow effect -->
-            <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/15 to-blue-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500/25 to-blue-500/25 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/15 to-purple-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="absolute -inset-1 bg-gradient-to-r from-primary/25 to-purple-500/25 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
             
             <div class="relative z-10">
               <!-- Icon -->
@@ -58,7 +58,7 @@
               </div>
               
               <!-- Animated counter -->
-              <div class="stat-value text-5xl lg:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent mb-4 tracking-wide group-hover:scale-110 transition-transform duration-300">
+              <div class="stat-value text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary via-purple-500 to-violet-500 bg-clip-text text-transparent mb-4 tracking-wide group-hover:scale-110 transition-transform duration-300">
                 {{ stat.value }}
               </div>
               
@@ -69,7 +69,7 @@
               
               <!-- Progress bar -->
               <div class="mt-4 w-full bg-slate-700/50 rounded-full h-2 overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left"></div>
+                <div class="h-full bg-gradient-to-r from-primary to-purple-500 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left"></div>
               </div>
             </div>
           </div>
