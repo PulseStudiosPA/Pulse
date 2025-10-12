@@ -212,17 +212,17 @@ const form = ref({
 const contactInfo = [
   {
     label: 'Email',
-    value: 'info@Pulse.com',
+    value: 'contacto@pulsestudio.dev',
     icon: EnvelopeIcon
   },
   {
     label: 'Teléfono',
-    value: '+1 (555) 123-4567',
+    value: '+507 6065-6128',
     icon: PhoneIcon
   },
   {
     label: 'Dirección',
-    value: '123 Ocean Drive, Deep Sea City',
+    value: 'Panamá, Panamá Oeste',
     icon: MapPinIcon
   }
 ]
