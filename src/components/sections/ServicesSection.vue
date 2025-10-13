@@ -21,10 +21,10 @@
       
       <!-- Carousel Container -->
       <div class="relative">
-        <!-- Navigation Buttons -->
+        <!-- Navigation Buttons (solo desktop) -->
         <button 
           @click="prevSlide"
-          class="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-full flex items-center justify-center text-white hover:scale-110 hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform -translate-x-6"
+          class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-full items-center justify-center text-white hover:scale-110 hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform -translate-x-6"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -33,7 +33,7 @@
         
         <button 
           @click="nextSlide"
-          class="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-full flex items-center justify-center text-white hover:scale-110 hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform translate-x-6"
+          class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-full items-center justify-center text-white hover:scale-110 hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform translate-x-6"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -43,12 +43,15 @@
         <!-- Services Carousel -->
         <div class="overflow-hidden">
           <div 
-            class="carousel-container flex transition-transform duration-800 ease-out" 
-            :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+            class="carousel-container flex will-change-transform" 
+            ref="carouselContainer"
+            style="transition: none !important;"
+            @touchstart="handleTouchStart"
+            @touchend="handleTouchEnd"
           >
             <div 
-              v-for="(service, index) in services" 
-              :key="service.title"
+              v-for="(service, index) in [...services, services[0]]" 
+              :key="`slide-${index}`"
               class="w-full flex-shrink-0 flex justify-center px-4"
             >
               <div 
@@ -56,12 +59,10 @@
                 @mouseenter="onCardHover"
                 @mouseleave="onCardLeave"
               >
-                <!-- Hover glow effect -->
                 <div class="absolute inset-0 bg-gradient-to-br from-primary/15 to-purple-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="absolute -inset-1 bg-gradient-to-r from-primary/30 to-purple-500/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
                 
                 <div class="relative z-10">
-                  <!-- Icon with dynamic gradient -->
                   <div 
                     class="w-24 h-24 mx-auto mb-8 flex items-center justify-center rounded-xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 shadow-lg shadow-primary/25 group-hover:shadow-primary/50"
                     :class="`bg-gradient-to-br ${service.color}`"
@@ -69,7 +70,6 @@
                     <component :is="service.icon" class="h-10 w-10 text-white group-hover:scale-110 transition-transform duration-300" />
                   </div>
                   
-                  <!-- Content -->
                   <h3 class="text-3xl font-bold mb-6 text-white group-hover:text-primary transition-colors duration-300 text-center group-hover:scale-105 transform">
                     {{ service.title }}
                   </h3>
@@ -87,7 +87,7 @@
           <button 
             v-for="n in services.length" 
             :key="n"
-            @click="currentSlide = n - 1; animateSlide()"
+            @click="goToSlide(n - 1)"
             class="w-3 h-3 rounded-full transition-all duration-300"
             :class="currentSlide === n - 1 ? 'bg-gradient-to-r from-cyan-400 to-blue-500 scale-125' : 'bg-slate-600 hover:bg-slate-500'"
           ></button>
@@ -98,7 +98,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, nextTick } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
@@ -110,10 +110,21 @@ import {
   ShieldCheckIcon
 } from '@heroicons/vue/24/outline'
 
+
+
 gsap.registerPlugin(ScrollTrigger)
 
 const servicesRef = ref(null)
+const carouselContainer = ref(null)
 const currentSlide = ref(0)
+const isTransitioning = ref(false)
+
+// Variables para swipe táctil
+const touchStartX = ref(0)
+const touchEndX = ref(0)
+const touchStartY = ref(0)
+const touchEndY = ref(0)
+const minSwipeDistance = 50
 
 const services = [
   {
@@ -154,65 +165,102 @@ const services = [
   }
 ]
 
+const animateToSlide = (newSlide) => {
+  gsap.to(carouselContainer.value, {
+    x: -(newSlide * 100) + '%',
+    duration: 0.8,
+    ease: 'power3.out',
+    onComplete: () => {
+      if (newSlide === services.length) {
+        currentSlide.value = 0
+        gsap.set(carouselContainer.value, { x: '0%' })
+      } else if (newSlide === -1) {
+        currentSlide.value = services.length - 1
+        gsap.set(carouselContainer.value, { x: -((services.length - 1) * 100) + '%' })
+      } else {
+        currentSlide.value = newSlide
+      }
+      isTransitioning.value = false
+    }
+  })
+}
+
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % services.length
-  animateSlide()
+  if (isTransitioning.value) return
+  isTransitioning.value = true
+  animateToSlide(currentSlide.value + 1)
 }
 
 const prevSlide = () => {
-  currentSlide.value = currentSlide.value === 0 ? services.length - 1 : currentSlide.value - 1
-  animateSlide()
+  if (isTransitioning.value) return
+  isTransitioning.value = true
+  animateToSlide(currentSlide.value - 1)
 }
 
-const animateSlide = () => {
-  if (servicesRef.value) {
-    gsap.to(servicesRef.value.querySelector('.carousel-container'), {
-      x: -currentSlide.value * 100 + '%',
-      duration: 0.8,
-      ease: 'power3.out'
-    })
-  }
+const goToSlide = (index) => {
+  if (isTransitioning.value) return
+  isTransitioning.value = true
+  animateToSlide(index)
 }
 
-onMounted(() => {
-  if (servicesRef.value) {
-    // Animación de entrada del título
-    gsap.from(servicesRef.value.querySelector('.services-title'), {
-      y: 100,
-      opacity: 0,
-      scale: 0.8,
-      duration: 1.2,
-      ease: 'back.out(1.7)',
-      scrollTrigger: {
-        trigger: servicesRef.value.querySelector('.services-title'),
-        start: 'top 80%'
-      }
-    })
+// Funciones para swipe táctil
+const handleTouchStart = (e) => {
+  touchStartX.value = e.touches[0].clientX
+  touchStartY.value = e.touches[0].clientY
+}
 
-    // Animación de las tarjetas del carousel
-    gsap.set('.service-card', { opacity: 0, y: 100, rotationX: 45, scale: 0.8 })
-    
-    ScrollTrigger.create({
-      trigger: '.services-grid',
-      start: 'top 70%',
-      onEnter: () => {
-        gsap.to('.service-card', {
-          opacity: 1,
-          y: 0,
-          rotationX: 0,
-          scale: 1,
-          duration: 1,
-          stagger: 0.2,
-          ease: 'back.out(1.7)'
-        })
-      }
-    })
+const handleTouchEnd = (e) => {
+  touchEndX.value = e.changedTouches[0].clientX
+  touchEndY.value = e.changedTouches[0].clientY
+  handleSwipe()
+}
 
-    // Auto-play del carousel
-    setInterval(() => {
+const handleSwipe = () => {
+  const deltaX = touchEndX.value - touchStartX.value
+  const deltaY = touchEndY.value - touchStartY.value
+  
+  // Solo procesar swipe horizontal si es mayor que vertical
+  if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+    if (deltaX > 0) {
+      // Swipe derecha - slide anterior
+      prevSlide()
+    } else {
+      // Swipe izquierda - slide siguiente
       nextSlide()
-    }, 5000)
+    }
   }
+}
+
+onMounted(async () => {
+  if (!servicesRef.value) return
+
+  // Esperar al siguiente tick para asegurar que todo esté renderizado
+  await nextTick()
+
+  // Inicializar carousel
+  if (carouselContainer.value) {
+    gsap.set(carouselContainer.value, { x: '0%' })
+  }
+
+  // Animaciones de entrada con referencias específicas
+  const titleElement = servicesRef.value.querySelector('.services-title')
+  if (titleElement) {
+    gsap.from(titleElement, {
+      y: 100, opacity: 0, scale: 0.8, duration: 1.2, ease: 'back.out(1.7)',
+      scrollTrigger: { trigger: titleElement, start: 'top 80%' }
+    })
+  }
+
+  const cardElements = servicesRef.value.querySelectorAll('.service-card')
+  if (cardElements.length > 0) {
+    gsap.fromTo(cardElements, 
+      { opacity: 0, y: 100, rotationX: 45, scale: 0.8 },
+      { opacity: 1, y: 0, rotationX: 0, scale: 1, duration: 1, stagger: 0.2, ease: 'back.out(1.7)', delay: 0.5 }
+    )
+  }
+
+  // Auto-play
+  setInterval(nextSlide, 5000)
 })
 
 // Animaciones de hover para las tarjetas
@@ -250,3 +298,17 @@ const onCardLeave = (event) => {
   })
 }
 </script>
+
+<style scoped>
+.carousel-container { 
+  transition: none !important;
+  touch-action: pan-y pinch-zoom; /* Permite scroll vertical pero previene scroll horizontal */
+  user-select: none; /* Previene selección de texto durante swipe */
+}
+
+@media (max-width: 768px) {
+  .carousel-container {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+</style>
