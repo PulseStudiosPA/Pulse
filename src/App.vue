@@ -1,13 +1,15 @@
 <template>
-  <div class="overflow-x-hidden">
+  <div class="overflow-x-hidden bg-[#0A0A2E]">
     <Header />
     <main>
       <HeroSection />
+      <PortfolioSection />
       <ServicesSection />
+      <TestimonialsSection />
       <AboutSection />
       <ContactSection />
-      <Footer />
     </main>
+    <Footer />
   </div>
 </template>
 
@@ -15,7 +17,9 @@
 import { onMounted } from 'vue'
 import Header from './components/layout/Header.vue'
 import HeroSection from './components/sections/HeroSection.vue'
+import PortfolioSection from './components/sections/PortfolioSection.vue'
 import ServicesSection from './components/sections/ServicesSection.vue'
+import TestimonialsSection from './components/sections/TestimonialsSection.vue'
 import AboutSection from './components/sections/AboutSection.vue'
 import ContactSection from './components/sections/ContactSection.vue'
 import Footer from './components/layout/Footer.vue'
@@ -27,7 +31,7 @@ onMounted(() => {
       e.preventDefault()
       const target = document.querySelector(this.getAttribute('href'))
       if (target) {
-        const headerHeight = document.querySelector('header').offsetHeight // Altura del header en px
+        const headerHeight = 80
         const targetPosition = target.offsetTop - headerHeight
         window.scrollTo({
           top: targetPosition,
@@ -38,7 +42,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<style scoped>
-/* Componente específico de estilos si es necesario */
-</style>

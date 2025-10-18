@@ -1,12 +1,12 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 :root {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.5;
-  font-weight: 300;
-  
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -15,34 +15,19 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  background: #0a0a2e;
   font-weight: 300;
 }
 
 #app {
   min-height: 100vh;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.5);
 }
 
 /* Smooth transitions */
@@ -72,6 +57,24 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8b5cf6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a78bfa;
+}
+
 /* Custom focus styles */
 input:focus,
 textarea:focus {
@@ -83,4 +86,42 @@ textarea:focus {
   .backdrop-blur-lg {
     background-color: rgba(2, 6, 23, 0.9);
   }
+}
+
+/* Selection color */
+::selection {
+  background: #8b5cf6;
+  color: white;
+}
+
+/* Inicializar elementos animados como invisibles */
+.portfolio-title,
+.portfolio-card,
+.testimonials-title,
+.testimonial-card,
+.about-title,
+.about-text,
+.stat-card,
+.services-title,
+.service-card,
+.contact-title,
+.contact-form,
+.contact-info {
+  opacity: 0;
+}
+
+/* Solo aplicar cuando GSAP no está disponible */
+.no-js .portfolio-title,
+.no-js .portfolio-card,
+.no-js .testimonials-title,
+.no-js .testimonial-card,
+.no-js .about-title,
+.no-js .about-text,
+.no-js .stat-card,
+.no-js .services-title,
+.no-js .service-card,
+.no-js .contact-title,
+.no-js .contact-form,
+.no-js .contact-info {
+  opacity: 1;
 }

@@ -1,0 +1,43 @@
+# Dependencias de Vue para el proyecto Pulse
+
+## Core Vue Dependencies
+vue@3.5.22
+vite@7.1.10
+@vitejs/plugin-vue@6.0.1
+
+## Animation Libraries
+gsap@latest (para animaciones suaves y scroll triggers)
+@vueuse/motion@3.0.3 (utilidades de animación para Vue)
+
+## UI Icons
+@heroicons/vue@latest (iconos para la interfaz)
+
+## Styling
+tailwindcss@^4.1.9
+@tailwindcss/postcss@^4.1.9
+postcss@^8.5
+autoprefixer@^10.4.20
+
+## TypeScript (opcional pero recomendado)
+typescript@^5
+@types/node@^22
+
+## Build Tools
+postcss.config.js
+tailwind.config.js
+
+## Notas de Instalación
+Para instalar todas las dependencias, ejecuta:
+npm install vue@3.5.22 vite@7.1.10 @vitejs/plugin-vue@6.0.1 gsap @vueuse/motion@3.0.3 @heroicons/vue tailwindcss@^4.1.9 @tailwindcss/postcss@^4.1.9 postcss@^8.5 autoprefixer@^10.4.20
+
+Para desarrollo con TypeScript:
+npm install -D typescript @types/node
+
+## Scripts recomendados para package.json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
