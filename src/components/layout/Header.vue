@@ -48,7 +48,7 @@
               PULSE
             </span>
             <span class="logo-tagline block text-xs text-slate-400 tracking-widest uppercase mt-0.5 group-hover:text-cyan-400 transition-colors duration-300">
-              Innovation
+               
             </span>
           </div>
         </a>
@@ -157,7 +157,7 @@
         <div class="px-6 pb-6 pt-4 border-t border-white/5">
           <div class="flex items-center justify-center gap-2 text-sm text-slate-500">
             <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-            <span>Pulse Innovation © 2024</span>
+            <span>Pulse   © 2024</span>
           </div>
         </div>
       </div>
