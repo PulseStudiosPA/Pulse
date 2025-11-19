@@ -21,29 +21,41 @@
         class="contact-form space-y-6 max-w-2xl mx-auto"
       >
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <input 
-            v-model="form.name" 
-            type="text" 
-            placeholder="Tu Nombre" 
-            required
-            class="px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:outline-none transition-all duration-300"
-          />
-          <input 
-            v-model="form.email" 
-            type="email" 
-            placeholder="Tu Email" 
-            required
-            class="px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:outline-none transition-all duration-300"
-          />
+          <div class="relative">
+            <label for="name" class="sr-only">Nombre</label>
+            <input 
+              id="name"
+              v-model="form.name" 
+              type="text" 
+              placeholder="Tu Nombre" 
+              required
+              class="w-full px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:outline-none transition-all duration-300"
+            />
+          </div>
+          <div class="relative">
+            <label for="email" class="sr-only">Email</label>
+            <input 
+              id="email"
+              v-model="form.email" 
+              type="email" 
+              placeholder="Tu Email" 
+              required
+              class="w-full px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:outline-none transition-all duration-300"
+            />
+          </div>
         </div>
         
-        <textarea 
-          v-model="form.message" 
-          placeholder="Tu Mensaje" 
-          rows="6" 
-          required
-          class="w-full px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:outline-none transition-all duration-300 resize-none"
-        ></textarea>
+        <div class="relative">
+          <label for="message" class="sr-only">Mensaje</label>
+          <textarea 
+            id="message"
+            v-model="form.message" 
+            placeholder="Tu Mensaje" 
+            rows="6" 
+            required
+            class="w-full px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:outline-none transition-all duration-300 resize-none"
+          ></textarea>
+        </div>
         
         <button 
           type="submit" 
@@ -68,7 +80,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -87,51 +99,59 @@ const submitForm = () => {
   form.value = { name: '', email: '', message: '' }
 }
 
+let ctx
+
 onMounted(() => {
   if (!contactRef.value) return
   
-  // Configurar estado inicial de elementos antes de animar
-  gsap.set('.contact-title', { opacity: 0, y: 50 })
-  gsap.set('.contact-form', { opacity: 0, y: 40 })
-  gsap.set('.contact-info', { opacity: 0, y: 20 })
-  
-  // Animar el título
-  gsap.to('.contact-title', {
-    y: 0,
-    opacity: 1,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.contact-title',
-      start: 'top 80%',
-      once: true
-    }
-  })
+  ctx = gsap.context(() => {
+    // Configurar estado inicial de elementos antes de animar
+    gsap.set('.contact-title', { opacity: 0, y: 50 })
+    gsap.set('.contact-form', { opacity: 0, y: 40 })
+    gsap.set('.contact-info', { opacity: 0, y: 20 })
+    
+    // Animar el título
+    gsap.to('.contact-title', {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.contact-title',
+        start: 'top 80%',
+        once: true
+      }
+    })
 
-  // Animar el formulario
-  gsap.to('.contact-form', {
-    y: 0,
-    opacity: 1,
-    duration: 0.8,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.contact-form',
-      start: 'top 80%',
-      once: true
-    }
-  })
+    // Animar el formulario
+    gsap.to('.contact-form', {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.contact-form',
+        start: 'top 80%',
+        once: true
+      }
+    })
 
-  // Animar la información de contacto
-  gsap.to('.contact-info', {
-    y: 0,
-    opacity: 1,
-    duration: 0.8,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.contact-info',
-      start: 'top 85%',
-      once: true
-    }
-  })
+    // Animar la información de contacto
+    gsap.to('.contact-info', {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.contact-info',
+        start: 'top 85%',
+        once: true
+      }
+    })
+  }, contactRef.value)
+})
+
+onUnmounted(() => {
+  ctx && ctx.revert()
 })
 </script>

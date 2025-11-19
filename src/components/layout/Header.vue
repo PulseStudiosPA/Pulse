@@ -96,23 +96,28 @@ const handleScroll = () => {
   scrolled.value = window.scrollY > 50
 }
 
+let ctx
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   
   // Asegurar que el header esté visible inicialmente
   if (headerRef.value) {
-    gsap.set(headerRef.value, { opacity: 0, y: -100 })
-    gsap.to(headerRef.value, {
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power3.out',
-      delay: 0.2
-    })
+    ctx = gsap.context(() => {
+      gsap.set(headerRef.value, { opacity: 0, y: -100 })
+      gsap.to(headerRef.value, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: 0.2
+      })
+    }, headerRef.value)
   }
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  ctx && ctx.revert()
 })
 </script>

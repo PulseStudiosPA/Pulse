@@ -63,11 +63,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref, nextTick } from 'vue'
+import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import gsap from 'gsap'
 
 const heroRef = ref(null)
 const descriptionText = 'Impulsamos negocios en Panamá con soluciones digitales excepcionales. Diseño web, desarrollo de aplicaciones y estrategias digitales para tu empresa.'
+
+let ctx
 
 onMounted(async () => {
   if (!heroRef.value) return
@@ -75,70 +77,76 @@ onMounted(async () => {
   // Wait for DOM to be fully rendered
   await nextTick()
 
-  // Simple fade in for PULSE title
-  gsap.from('.hero-title', {
-    opacity: 0,
-    y: 30,
-    duration: 1,
-    ease: 'power3.out'
-  })
-
-  // Get all character elements for description
-  const chars = gsap.utils.toArray('.description-char')
-  
-  // Create array of indices and shuffle them for random order - Description
-  const charIndices = chars.map((_, i) => i)
-  for (let i = charIndices.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [charIndices[i], charIndices[j]] = [charIndices[j], charIndices[i]]
-  }
-
-  // Set initial state for all characters
-  gsap.set(chars, { opacity: 0, y: 20 })
-
-  // Animate description characters in random order
-  charIndices.forEach((charIndex, i) => {
-    gsap.to(chars[charIndex], {
-      opacity: 1,
-      y: 0,
-      duration: 0.3,
-      delay: 0.3 + (i * 0.008),
-      ease: 'power2.out'
+  ctx = gsap.context(() => {
+    // Simple fade in for PULSE title
+    gsap.from('.hero-title', {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      ease: 'power3.out'
     })
-  })
 
-  // Animate CTA buttons
-  gsap.from('.hero-cta', {
-    y: 20,
-    opacity: 0,
-    duration: 0.6,
-    delay: 1.2,
-    ease: 'power3.out'
-  })
+    // Get all character elements for description
+    const chars = gsap.utils.toArray('.description-char')
+    
+    // Create array of indices and shuffle them for random order - Description
+    const charIndices = chars.map((_, i) => i)
+    for (let i = charIndices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [charIndices[i], charIndices[j]] = [charIndices[j], charIndices[i]]
+    }
 
-  // Floating orbs animation
-  gsap.to('.floating-orb', {
-    y: '+=30',
-    x: '+=20',
-    duration: 8,
-    ease: 'sine.inOut',
-    repeat: -1,
-    yoyo: true,
-    stagger: 1
-  })
+    // Set initial state for all characters
+    gsap.set(chars, { opacity: 0, y: 20 })
 
-  // Animate particles
-  gsap.utils.toArray('.particle').forEach((particle, i) => {
-    gsap.to(particle, {
-      y: 'random(-100, 100)',
-      x: 'random(-100, 100)',
-      duration: 'random(3, 6)',
+    // Animate description characters in random order
+    charIndices.forEach((charIndex, i) => {
+      gsap.to(chars[charIndex], {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        delay: 0.3 + (i * 0.008),
+        ease: 'power2.out'
+      })
+    })
+
+    // Animate CTA buttons
+    gsap.from('.hero-cta', {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      delay: 1.2,
+      ease: 'power3.out'
+    })
+
+    // Floating orbs animation
+    gsap.to('.floating-orb', {
+      y: '+=30',
+      x: '+=20',
+      duration: 8,
+      ease: 'sine.inOut',
       repeat: -1,
       yoyo: true,
-      ease: 'sine.inOut',
-      delay: i * 0.2
+      stagger: 1
     })
-  })
+
+    // Animate particles
+    gsap.utils.toArray('.particle').forEach((particle, i) => {
+      gsap.to(particle, {
+        y: 'random(-100, 100)',
+        x: 'random(-100, 100)',
+        duration: 'random(3, 6)',
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: i * 0.2
+      })
+    })
+  }, heroRef.value)
+})
+
+onUnmounted(() => {
+  ctx && ctx.revert()
 })
 </script>
 

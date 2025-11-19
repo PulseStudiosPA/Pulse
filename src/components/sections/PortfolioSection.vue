@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -99,38 +99,46 @@ const projects = [
   }
 ]
 
+let ctx
+
 onMounted(() => {
   if (!portfolioRef.value) return
   
-  // Configurar estado inicial de elementos antes de animar
-  gsap.set('.portfolio-title', { opacity: 0, y: 50 })
-  gsap.set('.portfolio-card', { opacity: 0, y: 80 })
-  
-  // Animar el título
-  gsap.to('.portfolio-title', {
-    y: 0,
-    opacity: 1,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.portfolio-title',
-      start: 'top 80%',
-      once: true
-    }
-  })
+  ctx = gsap.context(() => {
+    // Configurar estado inicial de elementos antes de animar
+    gsap.set('.portfolio-title', { opacity: 0, y: 50 })
+    gsap.set('.portfolio-card', { opacity: 0, y: 80 })
+    
+    // Animar el título
+    gsap.to('.portfolio-title', {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.portfolio-title',
+        start: 'top 80%',
+        once: true
+      }
+    })
 
-  // Animar las tarjetas
-  gsap.to('.portfolio-card', {
-    y: 0,
-    opacity: 1,
-    duration: 0.8,
-    stagger: 0.15,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: portfolioRef.value,
-      start: 'top 85%',
-      once: true
-    }
-  })
+    // Animar las tarjetas
+    gsap.to('.portfolio-card', {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: portfolioRef.value,
+        start: 'top 85%',
+        once: true
+      }
+    })
+  }, portfolioRef.value)
+})
+
+onUnmounted(() => {
+  ctx && ctx.revert()
 })
 </script>

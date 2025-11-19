@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -58,75 +58,65 @@ const testimonialsRef = ref(null)
 
 const testimonials = [
   {
-    text: 'Trabajar con Pulse fue un placer absoluto. Entregaron un sitio web impresionante que superó nuestras expectativas y ayudó a crecer nuestra presencia en línea significativamente.',
+    text: 'Trabajar con Pulse fue un placer absoluto. Entregaron un sitio web impresionante que superó nuestras expectativas.',
     name: 'María González',
     role: 'CEO, Innovación Digital PTY',
     initials: 'MG'
   },
   {
-    text: 'El equipo de Pulse transformó nuestro sitio web obsoleto en una plataforma moderna y de alto rendimiento. Nuestras tasas de conversión han aumentado un 150% desde el lanzamiento.',
+    text: 'El equipo transformó nuestro sitio web obsoleto en una plataforma moderna. Nuestras tasas de conversión han aumentado un 150%.',
     name: 'Carlos Rodríguez',
     role: 'Director de Marketing, Crecimiento SA',
     initials: 'CR'
   },
   {
-    text: 'Profesionales, receptivos e increíblemente talentosos. Pulse nos construyó una solución de comercio electrónico personalizada que se adapta perfectamente a nuestras necesidades.',
+    text: 'Profesionales, receptivos e increíblemente talentosos. Pulse nos construyó una solución de comercio electrónico perfecta.',
     name: 'Ana Martínez',
     role: 'Fundadora, EstiloHub Panamá',
     initials: 'AM'
-  },
-  {
-    text: 'Desde el concepto hasta el lanzamiento, el equipo de Pulse estuvo con nosotros en cada paso. Su atención al detalle y compromiso con la calidad es inigualable.',
-    name: 'Roberto Sánchez',
-    role: 'CTO, InnovaLabs',
-    initials: 'RS'
-  },
-  {
-    text: 'Nuestro nuevo sitio web no solo se ve increíble, sino que funciona excepcionalmente bien. La optimización SEO nos ha llevado a la cima de los resultados de búsqueda.',
-    name: 'Laura Pérez',
-    role: 'Propietaria, Eco Verde Panamá',
-    initials: 'LP'
-  },
-  {
-    text: 'Pulse entregó una aplicación móvil que nuestros usuarios aman. El diseño UI/UX es intuitivo y el rendimiento es impecable. ¡Altamente recomendado!',
-    name: 'Jorge Morales',
-    role: 'Gerente de Producto, AppVenture',
-    initials: 'JM'
   }
 ]
+
+let ctx
 
 onMounted(() => {
   if (!testimonialsRef.value) return
   
-  // Configurar estado inicial de elementos antes de animar
-  gsap.set('.testimonials-title', { opacity: 0, y: 50 })
-  gsap.set('.testimonial-card', { opacity: 0, y: 60 })
-  
-  // Animar el título
-  gsap.to('.testimonials-title', {
-    y: 0,
-    opacity: 1,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.testimonials-title',
-      start: 'top 80%',
-      once: true
-    }
-  })
+  ctx = gsap.context(() => {
+    // Configurar estado inicial de elementos antes de animar
+    gsap.set('.testimonials-title', { opacity: 0, y: 50 })
+    gsap.set('.testimonial-card', { opacity: 0, y: 60 })
+    
+    // Animar el título
+    gsap.to('.testimonials-title', {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.testimonials-title',
+        start: 'top 80%',
+        once: true
+      }
+    })
 
-  // Animar las tarjetas
-  gsap.to('.testimonial-card', {
-    y: 0,
-    opacity: 1,
-    duration: 0.8,
-    stagger: 0.1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: testimonialsRef.value,
-      start: 'top 85%',
-      once: true
-    }
-  })
+    // Animar las tarjetas
+    gsap.to('.testimonial-card', {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: testimonialsRef.value,
+        start: 'top 85%',
+        once: true
+      }
+    })
+  }, testimonialsRef.value)
+})
+
+onUnmounted(() => {
+  ctx && ctx.revert()
 })
 </script>

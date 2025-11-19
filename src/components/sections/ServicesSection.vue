@@ -1,10 +1,10 @@
 <template>
   <section id="services" class="py-32 bg-slate-900 relative overflow-hidden" ref="servicesRef">
     <!-- Background Effects -->
-    <div class="absolute inset-0">
-      <div class="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-primary/10 to-purple-600/10 rounded-full blur-3xl animate-pulse"></div>
-      <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-l from-violet-500/10 to-primary/10 rounded-full blur-3xl animate-pulse"></div>
-      <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/5 to-violet-600/5 rounded-full blur-3xl animate-pulse"></div>
+    <!-- Background Effects (Simplified) -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl"></div>
     </div>
     
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
@@ -65,69 +65,77 @@ const servicesRef = ref(null)
 
 const services = [
   {
-    title: 'Diseño Web Personalizado',
-    description: 'Sitios web a medida que reflejan perfectamente tu marca y objetivos de negocio con tecnología de vanguardia.',
+    title: 'Diseño Web',
+    description: 'Sitios web a medida que reflejan tu marca con tecnología moderna.',
     icon: CodeBracketIcon
   },
   {
-    title: 'Tiendas en Línea',
-    description: 'Plataformas de comercio electrónico completas con integración de pagos y gestión de inventario para el mercado panameño.',
+    title: 'E-Commerce',
+    description: 'Tiendas en línea completas con pagos y gestión de inventario.',
     icon: DevicePhoneMobileIcon
   },
   {
     title: 'Diseño UI/UX',
-    description: 'Diseño centrado en el usuario que crea experiencias intuitivas y atractivas en todos los puntos de contacto digitales.',
+    description: 'Experiencias digitales intuitivas y centradas en el usuario.',
     icon: RocketLaunchIcon
   },
   {
-    title: 'Optimización Web',
-    description: 'Mejora de rendimiento y SEO para asegurar que tu sitio cargue rápido y se posicione bien en buscadores.',
+    title: 'SEO y Performance',
+    description: 'Optimización para carga rápida y mejor posicionamiento.',
     icon: CloudIcon
   },
   {
-    title: 'Integración de APIs',
-    description: 'Integración perfecta con servicios de terceros y APIs para extender la funcionalidad de tu sitio web.',
+    title: 'Integraciones',
+    description: 'Conexión con APIs y servicios externos para extender funcionalidad.',
     icon: CogIcon
   },
   {
-    title: 'Mantenimiento y Soporte',
-    description: 'Mantenimiento continuo, actualizaciones de seguridad y soporte técnico para mantener tu sitio funcionando sin problemas.',
+    title: 'Soporte',
+    description: 'Mantenimiento continuo y actualizaciones de seguridad.',
     icon: ShieldCheckIcon
   }
 ]
 
+let ctx
+
 onMounted(() => {
   if (!servicesRef.value) return
   
-  // Configurar estado inicial de elementos antes de animar
-  gsap.set('.services-title', { opacity: 0, y: 50 })
-  gsap.set('.service-card', { opacity: 0, y: 60 })
-  
-  // Animar el título
-  gsap.to('.services-title', {
-    y: 0,
-    opacity: 1,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.services-title',
-      start: 'top 80%',
-      once: true
-    }
-  })
+  ctx = gsap.context(() => {
+    // Configurar estado inicial de elementos antes de animar
+    gsap.set('.services-title', { opacity: 0, y: 50 })
+    gsap.set('.service-card', { opacity: 0, y: 60 })
+    
+    // Animar el título
+    gsap.to('.services-title', {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.services-title',
+        start: 'top 80%',
+        once: true
+      }
+    })
 
-  // Animar las tarjetas
-  gsap.to('.service-card', {
-    y: 0,
-    opacity: 1,
-    duration: 0.8,
-    stagger: 0.1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: servicesRef.value,
-      start: 'top 85%',
-      once: true
-    }
-  })
+    // Animar las tarjetas
+    gsap.to('.service-card', {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: servicesRef.value,
+        start: 'top 85%',
+        once: true
+      }
+    })
+  }, servicesRef.value)
+})
+
+onUnmounted(() => {
+  ctx && ctx.revert()
 })
 </script>
