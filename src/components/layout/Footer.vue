@@ -1,17 +1,16 @@
 <template>
-  <footer class="bg-[#0A0A2E] border-t border-slate-800/50 py-12">
+  <footer class="bg-[#0A0A2E] border-t border-slate-800/50 py-12" role="contentinfo">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
         <!-- Brand -->
         <div>
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span class="text-white font-bold text-xl">P</span>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-violet-500 flex items-center justify-center shadow-lg shadow-primary/20">
+              <span class="text-white font-bold text-sm">P</span>
             </div>
-            <span class="text-white font-bold text-xl tracking-tight">PULSE</span>
+            <span class="text-xl font-bold tracking-tight text-white">PULSE</span>
           </div>
-          <!-- Translated tagline to Spanish -->
-          <p class="text-slate-400 text-sm leading-relaxed">
+          <p class="text-slate-400 text-sm leading-relaxed max-w-xs">
             Impulsamos negocios con soluciones digitales innovadoras en Panamá.
           </p>
         </div>
@@ -22,6 +21,7 @@
           <ul class="space-y-2">
             <li><a href="#portfolio" class="text-slate-400 hover:text-primary transition-colors duration-300 text-sm">Portafolio</a></li>
             <li><a href="#about" class="text-slate-400 hover:text-primary transition-colors duration-300 text-sm">Nosotros</a></li>
+            <li><a href="#team" class="text-slate-400 hover:text-primary transition-colors duration-300 text-sm">Equipo</a></li>
             <li><a href="#services" class="text-slate-400 hover:text-primary transition-colors duration-300 text-sm">Servicios</a></li>
             <li><a href="#contact" class="text-slate-400 hover:text-primary transition-colors duration-300 text-sm">Contacto</a></li>
           </ul>

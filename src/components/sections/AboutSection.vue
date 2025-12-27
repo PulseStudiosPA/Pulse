@@ -52,10 +52,10 @@ gsap.registerPlugin(ScrollTrigger)
 const aboutRef = ref(null)
 
 const stats = [
-  { value: '150+', label: 'Proyectos Completados' },
+  { value: '8', label: 'Proyectos Entregados' },
   { value: '100%', label: 'Satisfacción del Cliente' },
-  { value: '8+', label: 'Años de Experiencia' },
-  { value: '50+', label: 'Clientes Felices' }
+  { value: '7', label: 'Profesionales' },
+  { value: '15', label: 'Clientes Activos' }
 ]
 
 onMounted(() => {

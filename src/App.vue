@@ -7,6 +7,7 @@
       <ServicesSection />
       <TestimonialsSection />
       <AboutSection />
+      <TeamSection />
       <ContactSection />
     </main>
     <Footer />
@@ -21,6 +22,7 @@ import PortfolioSection from './components/sections/PortfolioSection.vue'
 import ServicesSection from './components/sections/ServicesSection.vue'
 import TestimonialsSection from './components/sections/TestimonialsSection.vue'
 import AboutSection from './components/sections/AboutSection.vue'
+import TeamSection from './components/sections/TeamSection.vue'
 import ContactSection from './components/sections/ContactSection.vue'
 import Footer from './components/layout/Footer.vue'
 

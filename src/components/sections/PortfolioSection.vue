@@ -1,51 +1,59 @@
 <template>
-  <section id="portfolio" class="py-32 bg-gradient-to-b from-[#0A0A2E] to-slate-900 relative overflow-hidden" ref="portfolioRef">
+  <section id="portfolio" class="py-32 bg-gradient-to-b from-[#0A0A2E] to-slate-900 relative overflow-hidden" ref="portfolioRef" aria-labelledby="portfolio-heading">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Translated section header -->
       <div class="text-center mb-20">
         <p class="text-sm uppercase tracking-[0.3em] text-primary font-medium mb-4">
           Nuestro Trabajo
         </p>
-        <h2 class="portfolio-title text-4xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+        <h2 id="portfolio-heading" class="portfolio-title text-4xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
           Proyectos Destacados
         </h2>
         <div class="w-20 h-1 bg-primary mx-auto"></div>
       </div>
       
-      <!-- Portfolio grid with hover effects -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div 
+      <!-- Portfolio grid - 2 columns for larger cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <article 
           v-for="(project, index) in projects" 
           :key="index"
-          class="portfolio-card group relative bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700/50 hover:border-primary/50 transition-all duration-500 cursor-pointer"
+          class="portfolio-card group relative bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 transition-all duration-500 cursor-pointer"
+          :class="project.borderColor"
         >
-          <!-- Project Image -->
-          <div class="aspect-[4/3] overflow-hidden bg-slate-700">
-            <img 
-              :src="project.image" 
-              :alt="project.title"
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-            />
+          <!-- Project Image / Placeholder -->
+          <div class="aspect-[16/10] overflow-hidden bg-gradient-to-br relative" :class="project.gradient">
+            <!-- Decorative elements for placeholder -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center">
+                <div class="w-20 h-20 mx-auto mb-4 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                  <span class="text-3xl font-bold text-white">{{ project.title.charAt(0) }}</span>
+                </div>
+                <span class="text-white/60 text-sm font-medium">Próximamente</span>
+              </div>
+            </div>
+            <!-- Animated gradient overlay on hover -->
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
           </div>
           
-          <!-- Project Info Overlay -->
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A2E] via-[#0A0A2E]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">{{ project.title }}</h3>
-            <p class="text-slate-300 text-sm mb-4">{{ project.description }}</p>
+          <!-- Project Info -->
+          <div class="p-8">
+            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors duration-300">
+              {{ project.title }}
+            </h3>
+            <p class="text-slate-400 text-base mb-6 leading-relaxed">
+              {{ project.description }}
+            </p>
             <div class="flex gap-2 flex-wrap">
               <span 
                 v-for="tag in project.tags" 
                 :key="tag"
-                class="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full border border-primary/30"
+                class="px-3 py-1.5 bg-primary/10 text-primary text-xs font-medium rounded-full border border-primary/20"
               >
                 {{ tag }}
               </span>
             </div>
           </div>
-          
-          <!-- Hover Glow Effect -->
-          <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-        </div>
+        </article>
       </div>
     </div>
   </section>
@@ -62,40 +70,20 @@ const portfolioRef = ref(null)
 
 const projects = [
   {
-    title: 'Plataforma E-Commerce',
-    description: 'Tienda en línea moderna con experiencia de compra optimizada',
-    image: '/placeholder.svg?height=400&width=600',
-    tags: ['E-Commerce', 'Diseño Web', 'UX/UI']
+    title: 'Stash',
+    description: 'Sistema integral de gestión de inventarios y sucursales. Control de stock, seguimiento de productos y administración multi-ubicación.',
+    image: '/placeholder-stash.svg',
+    tags: ['Inventario', 'Gestión', 'Multi-sucursal'],
+    gradient: 'from-emerald-500/20 to-teal-500/20',
+    borderColor: 'hover:border-emerald-500/50'
   },
   {
-    title: 'Sitio Web Corporativo',
-    description: 'Sitio web profesional para empresa panameña con CMS',
-    image: '/placeholder.svg?height=400&width=600',
-    tags: ['Diseño Web', 'CMS', 'Responsive']
-  },
-  {
-    title: 'App Móvil',
-    description: 'Aplicación móvil intuitiva para servicios locales',
-    image: '/placeholder.svg?height=400&width=600',
-    tags: ['Diseño UI', 'Móvil', 'App']
-  },
-  {
-    title: 'Dashboard Empresarial',
-    description: 'Panel de control con análisis de datos en tiempo real',
-    image: '/placeholder.svg?height=400&width=600',
-    tags: ['Dashboard', 'Analytics', 'Web App']
-  },
-  {
-    title: 'Sitio de Restaurante',
-    description: 'Página web con sistema de reservas y menú digital',
-    image: '/placeholder.svg?height=400&width=600',
-    tags: ['Restaurante', 'Reservas', 'Diseño']
-  },
-  {
-    title: 'Portal Inmobiliario',
-    description: 'Plataforma para búsqueda y gestión de propiedades',
-    image: '/placeholder.svg?height=400&width=600',
-    tags: ['Inmobiliaria', 'Portal', 'Búsqueda']
+    title: 'Plenty',
+    description: 'Plataforma de gestión de eventos. Organiza, coordina y administra eventos de cualquier escala con herramientas intuitivas.',
+    image: '/placeholder-plenty.svg',
+    tags: ['Eventos', 'Organización', 'Coordinación'],
+    gradient: 'from-amber-500/20 to-orange-500/20',
+    borderColor: 'hover:border-amber-500/50'
   }
 ]
 

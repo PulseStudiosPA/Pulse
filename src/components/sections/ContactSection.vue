@@ -22,38 +22,38 @@
       >
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div class="relative">
-            <label for="name" class="sr-only">Nombre</label>
+            <label for="name" class="block text-sm font-medium text-slate-300 mb-2 text-left">Nombre</label>
             <input 
               id="name"
               v-model="form.name" 
               type="text" 
-              placeholder="Tu Nombre" 
+              placeholder="Tu nombre completo" 
               required
-              class="w-full px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:outline-none transition-all duration-300"
+              class="w-full px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300"
             />
           </div>
           <div class="relative">
-            <label for="email" class="sr-only">Email</label>
+            <label for="email" class="block text-sm font-medium text-slate-300 mb-2 text-left">Email</label>
             <input 
               id="email"
               v-model="form.email" 
               type="email" 
-              placeholder="Tu Email" 
+              placeholder="tu@email.com" 
               required
-              class="w-full px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:outline-none transition-all duration-300"
+              class="w-full px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300"
             />
           </div>
         </div>
         
         <div class="relative">
-          <label for="message" class="sr-only">Mensaje</label>
+          <label for="message" class="block text-sm font-medium text-slate-300 mb-2 text-left">Mensaje</label>
           <textarea 
             id="message"
             v-model="form.message" 
-            placeholder="Tu Mensaje" 
+            placeholder="Cuéntanos sobre tu proyecto..." 
             rows="6" 
             required
-            class="w-full px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:outline-none transition-all duration-300 resize-none"
+            class="w-full px-6 py-4 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 resize-none"
           ></textarea>
         </div>
         

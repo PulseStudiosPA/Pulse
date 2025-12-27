@@ -30,16 +30,12 @@ body {
   min-height: 100vh;
 }
 
-/* Smooth transitions */
-* {
-  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-}
-
-/* Focus styles */
+/* Focus styles - improved for accessibility */
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
-  outline: 1px solid #000;
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid #8b5cf6;
   outline-offset: 2px;
 }
 
@@ -104,6 +100,8 @@ textarea:focus {
 .stat-card,
 .services-title,
 .service-card,
+.team-title,
+.team-card,
 .contact-title,
 .contact-form,
 .contact-info {
@@ -120,6 +118,8 @@ textarea:focus {
 .no-js .stat-card,
 .no-js .services-title,
 .no-js .service-card,
+.no-js .team-title,
+.no-js .team-card,
 .no-js .contact-title,
 .no-js .contact-form,
 .no-js .contact-info {
