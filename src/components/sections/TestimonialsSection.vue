@@ -49,10 +49,6 @@
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const testimonialsRef = ref(null)
 
@@ -79,15 +75,17 @@ const testimonials = [
 
 let ctx
 
-onMounted(() => {
+onMounted(async () => {
   if (!testimonialsRef.value) return
   
+  const { default: gsap } = await import('gsap')
+  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+  gsap.registerPlugin(ScrollTrigger)
+  
   ctx = gsap.context(() => {
-    // Configurar estado inicial de elementos antes de animar
     gsap.set('.testimonials-title', { opacity: 0, y: 50 })
     gsap.set('.testimonial-card', { opacity: 0, y: 60 })
     
-    // Animar el título
     gsap.to('.testimonials-title', {
       y: 0,
       opacity: 1,
@@ -100,7 +98,6 @@ onMounted(() => {
       }
     })
 
-    // Animar las tarjetas
     gsap.to('.testimonial-card', {
       y: 0,
       opacity: 1,
@@ -120,3 +117,4 @@ onUnmounted(() => {
   ctx && ctx.revert()
 })
 </script>
+

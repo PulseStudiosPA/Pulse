@@ -75,8 +75,6 @@
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
   UserIcon,
   CodeBracketIcon,
@@ -87,125 +85,57 @@ import {
   RocketLaunchIcon
 } from '@heroicons/vue/24/outline'
 
-gsap.registerPlugin(ScrollTrigger)
-
 const teamRef = ref(null)
 
-// Team members ordered alphabetically by last name
 const teamMembers = [
-  {
-    name: 'Irvin Benitez',
-    role: 'Desarrollador',
-    icon: CodeBracketIcon
-  },
-  {
-    name: 'Derek Britton',
-    role: 'Desarrollador',
-    icon: CommandLineIcon
-  },
-  {
-    name: 'Dereck Diaz',
-    role: 'Desarrollador',
-    icon: CpuChipIcon
-  },
-  {
-    name: 'Adrian Jimenez',
-    role: 'Desarrollador',
-    icon: PuzzlePieceIcon
-  },
-  {
-    name: 'Daniel Nie',
-    role: 'Desarrollador',
-    icon: LightBulbIcon
-  },
-  {
-    name: 'Carlos Reina',
-    role: 'Desarrollador',
-    icon: RocketLaunchIcon
-  },
-  {
-    name: 'Giancarlo Santillana',
-    role: 'Desarrollador',
-    icon: UserIcon
-  }
+  { name: 'Irvin Benitez', role: 'Desarrollador', icon: CodeBracketIcon },
+  { name: 'Derek Britton', role: 'Desarrollador', icon: CommandLineIcon },
+  { name: 'Dereck Diaz', role: 'Desarrollador', icon: CpuChipIcon },
+  { name: 'Adrian Jimenez', role: 'Desarrollador', icon: PuzzlePieceIcon },
+  { name: 'Daniel Nie', role: 'Desarrollador', icon: LightBulbIcon },
+  { name: 'Carlos Reina', role: 'Desarrollador', icon: RocketLaunchIcon },
+  { name: 'Giancarlo Santillana', role: 'Desarrollador', icon: UserIcon }
 ]
 
 let ctx
 
-onMounted(() => {
+onMounted(async () => {
   if (!teamRef.value) return
   
+  const { default: gsap } = await import('gsap')
+  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+  gsap.registerPlugin(ScrollTrigger)
+  
   ctx = gsap.context(() => {
-    // Set initial state
     gsap.set('.team-title', { opacity: 0, y: 50 })
     gsap.set('.team-subtitle', { opacity: 0, y: 30 })
     gsap.set('.team-card', { opacity: 0, y: 80, rotateX: 15, scale: 0.9 })
     gsap.set('.team-avatar', { scale: 0, rotation: -180 })
     
-    // Title animation
     gsap.to('.team-title', {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.team-title',
-        start: 'top 80%',
-        once: true
-      }
+      y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: '.team-title', start: 'top 80%', once: true }
     })
 
-    // Subtitle animation
     gsap.to('.team-subtitle', {
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      delay: 0.2,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.team-title',
-        start: 'top 80%',
-        once: true
-      }
+      y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power3.out',
+      scrollTrigger: { trigger: '.team-title', start: 'top 80%', once: true }
     })
 
-    // Cards wave animation - staggered with random variation
     const cards = gsap.utils.toArray('.team-card')
     cards.forEach((card, i) => {
-      const delay = i * 0.12 + Math.random() * 0.05
-      
       gsap.to(card, {
-        y: 0,
-        opacity: 1,
-        rotateX: 0,
-        scale: 1,
-        duration: 1,
-        delay: delay,
-        ease: 'back.out(1.2)',
-        scrollTrigger: {
-          trigger: teamRef.value,
-          start: 'top 75%',
-          once: true
-        }
+        y: 0, opacity: 1, rotateX: 0, scale: 1, duration: 1,
+        delay: i * 0.12 + Math.random() * 0.05, ease: 'back.out(1.2)',
+        scrollTrigger: { trigger: teamRef.value, start: 'top 75%', once: true }
       })
     })
 
-    // Avatar pop-in animation with spin
     const avatars = gsap.utils.toArray('.team-avatar')
     avatars.forEach((avatar, i) => {
-      const delay = 0.3 + i * 0.1
-      
       gsap.to(avatar, {
-        scale: 1,
-        rotation: 0,
-        duration: 0.6,
-        delay: delay,
-        ease: 'back.out(2)',
-        scrollTrigger: {
-          trigger: teamRef.value,
-          start: 'top 75%',
-          once: true
-        }
+        scale: 1, rotation: 0, duration: 0.6, delay: 0.3 + i * 0.1, ease: 'back.out(2)',
+        scrollTrigger: { trigger: teamRef.value, start: 'top 75%', once: true }
       })
     })
   }, teamRef.value)
@@ -215,4 +145,5 @@ onUnmounted(() => {
   ctx && ctx.revert()
 })
 </script>
+
 

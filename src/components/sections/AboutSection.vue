@@ -44,10 +44,6 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const aboutRef = ref(null)
 
@@ -58,15 +54,17 @@ const stats = [
   { value: '15', label: 'Clientes Activos' }
 ]
 
-onMounted(() => {
+onMounted(async () => {
   if (!aboutRef.value) return
   
-  // Configurar estado inicial de elementos antes de animar
+  const { default: gsap } = await import('gsap')
+  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+  gsap.registerPlugin(ScrollTrigger)
+  
   gsap.set('.about-title', { opacity: 0, x: -50 })
   gsap.set('.about-text', { opacity: 0, y: 30 })
   gsap.set('.stat-card', { opacity: 0, y: 50 })
   
-  // Animar el título
   gsap.to('.about-title', {
     x: 0,
     opacity: 1,
@@ -79,7 +77,6 @@ onMounted(() => {
     }
   })
 
-  // Animar el texto
   gsap.to('.about-text', {
     y: 0,
     opacity: 1,
@@ -93,7 +90,6 @@ onMounted(() => {
     }
   })
 
-  // Animar las estadísticas
   gsap.to('.stat-card', {
     y: 0,
     opacity: 1,
@@ -108,3 +104,4 @@ onMounted(() => {
   })
 })
 </script>
+

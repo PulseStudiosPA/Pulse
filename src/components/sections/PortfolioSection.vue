@@ -61,10 +61,6 @@
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const portfolioRef = ref(null)
 
@@ -89,15 +85,18 @@ const projects = [
 
 let ctx
 
-onMounted(() => {
+onMounted(async () => {
   if (!portfolioRef.value) return
   
+  // Dynamic import - GSAP only loads when this component mounts
+  const { default: gsap } = await import('gsap')
+  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+  gsap.registerPlugin(ScrollTrigger)
+  
   ctx = gsap.context(() => {
-    // Configurar estado inicial de elementos antes de animar
     gsap.set('.portfolio-title', { opacity: 0, y: 50 })
     gsap.set('.portfolio-card', { opacity: 0, y: 80 })
     
-    // Animar el título
     gsap.to('.portfolio-title', {
       y: 0,
       opacity: 1,
@@ -110,7 +109,6 @@ onMounted(() => {
       }
     })
 
-    // Animar las tarjetas
     gsap.to('.portfolio-card', {
       y: 0,
       opacity: 1,
@@ -130,3 +128,4 @@ onUnmounted(() => {
   ctx && ctx.revert()
 })
 </script>
+

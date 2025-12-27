@@ -48,8 +48,6 @@
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
   CodeBracketIcon,
   DevicePhoneMobileIcon,
@@ -58,8 +56,6 @@ import {
   CloudIcon,
   ShieldCheckIcon
 } from '@heroicons/vue/24/outline'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const servicesRef = ref(null)
 
@@ -98,15 +94,17 @@ const services = [
 
 let ctx
 
-onMounted(() => {
+onMounted(async () => {
   if (!servicesRef.value) return
   
+  const { default: gsap } = await import('gsap')
+  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+  gsap.registerPlugin(ScrollTrigger)
+  
   ctx = gsap.context(() => {
-    // Configurar estado inicial de elementos antes de animar
     gsap.set('.services-title', { opacity: 0, y: 50 })
     gsap.set('.service-card', { opacity: 0, y: 60 })
     
-    // Animar el título
     gsap.to('.services-title', {
       y: 0,
       opacity: 1,
@@ -119,7 +117,6 @@ onMounted(() => {
       }
     })
 
-    // Animar las tarjetas
     gsap.to('.service-card', {
       y: 0,
       opacity: 1,
@@ -139,3 +136,4 @@ onUnmounted(() => {
   ctx && ctx.revert()
 })
 </script>
+
