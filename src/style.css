@@ -23,11 +23,14 @@ body {
   margin: 0;
   min-height: 100vh;
   background: #0a0a2e;
-  font-weight: 300;
+  font-weight: 400;
+  /* Matches loaded font weights */
 }
 
 #app {
   min-height: 100vh;
+  contain: layout;
+  /* Performance optimization */
 }
 
 /* Focus styles - improved for accessibility */
@@ -37,15 +40,6 @@ textarea:focus-visible,
 a:focus-visible {
   outline: 2px solid #8b5cf6;
   outline-offset: 2px;
-}
-
-.animate-gradient-x {
-  animation: gradient-x 3s ease infinite;
-  background-size: 200% 200%;
-}
-
-.animate-wave {
-  animation: wave 3s ease-in-out infinite;
 }
 
 /* Custom scroll behavior */

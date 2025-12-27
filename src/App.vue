@@ -15,32 +15,51 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, defineAsyncComponent } from 'vue'
+
+// Critical above-the-fold components (load immediately)
 import Header from './components/layout/Header.vue'
 import HeroSection from './components/sections/HeroSection.vue'
-import PortfolioSection from './components/sections/PortfolioSection.vue'
-import ServicesSection from './components/sections/ServicesSection.vue'
-import TestimonialsSection from './components/sections/TestimonialsSection.vue'
-import AboutSection from './components/sections/AboutSection.vue'
-import TeamSection from './components/sections/TeamSection.vue'
-import ContactSection from './components/sections/ContactSection.vue'
-import Footer from './components/layout/Footer.vue'
+
+// Lazy-loaded below-the-fold components (reduces initial TBT)
+const PortfolioSection = defineAsyncComponent(() => 
+  import('./components/sections/PortfolioSection.vue')
+)
+const ServicesSection = defineAsyncComponent(() => 
+  import('./components/sections/ServicesSection.vue')
+)
+const TestimonialsSection = defineAsyncComponent(() => 
+  import('./components/sections/TestimonialsSection.vue')
+)
+const AboutSection = defineAsyncComponent(() => 
+  import('./components/sections/AboutSection.vue')
+)
+const TeamSection = defineAsyncComponent(() => 
+  import('./components/sections/TeamSection.vue')
+)
+const ContactSection = defineAsyncComponent(() => 
+  import('./components/sections/ContactSection.vue')
+)
+const Footer = defineAsyncComponent(() => 
+  import('./components/layout/Footer.vue')
+)
 
 onMounted(() => {
-  // Smooth scrolling for navigation links
+  // Smooth scrolling for navigation links (using passive listener for performance)
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault()
       const target = document.querySelector(this.getAttribute('href'))
       if (target) {
-        const headerHeight = 80
+        const headerHeight = 64
         const targetPosition = target.offsetTop - headerHeight
         window.scrollTo({
           top: targetPosition,
           behavior: 'smooth'
         })
       }
-    })
+    }, { passive: false })
   })
 })
 </script>
+

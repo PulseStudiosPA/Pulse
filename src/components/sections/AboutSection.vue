@@ -1,17 +1,17 @@
 <template>
-  <section id="about" class="py-32 bg-gradient-to-b from-slate-900 to-[#0A0A2E] relative overflow-hidden" ref="aboutRef">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+  <section id="about" class="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-slate-900 to-[#0A0A2E] relative overflow-hidden" ref="aboutRef">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
         <!-- Content -->
-        <div>
-          <p class="text-sm uppercase tracking-[0.3em] text-primary font-medium mb-4">
+        <div class="text-center lg:text-left">
+          <p class="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary font-medium mb-3 sm:mb-4">
             Nosotros
           </p>
-          <h2 class="about-title text-4xl lg:text-5xl font-bold text-white mb-8 tracking-tight">
+          <h2 class="about-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 tracking-tight">
             Impulsamos Negocios en Panamá con Soluciones Digitales
           </h2>
           
-          <div class="space-y-6 text-lg text-slate-400 leading-relaxed">
+          <div class="space-y-4 sm:space-y-6 text-base sm:text-lg text-slate-400 leading-relaxed">
             <p class="about-text">
               En <span class="text-white font-medium">Pulse</span>, creemos en el poder de la transformación digital. 
               Nuestro equipo de diseñadores y desarrolladores apasionados trabaja incansablemente para crear experiencias digitales excepcionales que impulsan el crecimiento de tu negocio.
@@ -23,16 +23,16 @@
         </div>
         
         <!-- Stats -->
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 mt-8 lg:mt-0">
           <div 
             v-for="(stat, index) in stats" 
             :key="index"
-            class="stat-card text-center p-8 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-primary/50 transition-all duration-500"
+            class="stat-card text-center p-4 sm:p-6 md:p-8 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-primary/50 transition-all duration-500"
           >
-            <div class="stat-value text-5xl font-bold text-primary mb-2">
+            <div class="stat-value text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-1 sm:mb-2">
               {{ stat.value }}
             </div>
-            <div class="text-slate-400 font-medium">
+            <div class="text-slate-400 text-xs sm:text-sm md:text-base font-medium">
               {{ stat.label }}
             </div>
           </div>
