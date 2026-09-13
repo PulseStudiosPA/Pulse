@@ -1,130 +1,183 @@
 <template>
   <header 
     ref="headerRef"
-    class="fixed top-0 w-full z-50 transition-all duration-300"
-    :class="{ 
-      'bg-[#0A0A2E]/95 backdrop-blur-xl border-b border-slate-800/50': scrolled, 
-      'bg-transparent': !scrolled 
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b"
+    :class="{
+      'bg-[#0A0A2E]/95 backdrop-blur-md border-slate-800 shadow-md': scrolled,
+      'bg-[#0A0A2E] border-slate-800/80': !scrolled
     }"
   >
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <!-- Logo - Clean Text-Based Design -->
-        <a href="#home" class="flex items-center gap-2 group" aria-label="Ir al inicio">
-          <!-- Small icon accent -->
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-violet-500 flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/40 transition-all duration-300">
-            <span class="text-white font-bold text-sm">P</span>
-          </div>
-          <!-- Text logo -->
-          <span class="text-xl font-bold tracking-tight text-white group-hover:text-primary transition-colors duration-300">
-            PULSE
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 h-18 flex items-center justify-between py-3.5">
+      
+      <!-- Logo con color original Pulse -->
+      <a href="#home" class="flex items-center gap-3" aria-label="Inicio PULSE">
+        <img 
+          src="/237520570.jpeg" 
+          alt="PULSE Logo" 
+          class="w-9 h-9 rounded-lg object-cover shadow-sm" 
+        />
+        <div>
+          <span class="text-xl font-bold tracking-tight text-white">PULSE</span>
+          <span class="hidden sm:inline-block text-[11px] font-medium text-slate-400 ml-2 pl-2 border-l border-slate-800">
+            Tecnología & Soporte IT
           </span>
-        </a>
+        </div>
+      </a>
 
-        <!-- Desktop Menu -->
-        <nav class="hidden md:flex items-center gap-1" aria-label="Navegación principal">
-          <a 
-            v-for="item in navigation" 
-            :key="item.name" 
-            :href="item.href"
-            class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-300"
-          >
-            {{ item.name }}
-          </a>
-          <a 
-            href="#contact" 
-            class="ml-4 px-5 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
-          >
-            Contacto
-          </a>
-        </nav>
-
-        <!-- Mobile Menu Button -->
-        <button 
-          @click="mobileMenuOpen = !mobileMenuOpen" 
-          class="md:hidden p-2 text-white hover:bg-white/5 rounded-lg transition-colors"
-          :aria-expanded="mobileMenuOpen"
-          aria-label="Abrir menú de navegación"
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-6" aria-label="Navegación principal">
+        <a 
+          v-for="item in navigation" 
+          :key="item.name" 
+          :href="item.href"
+          class="text-sm font-medium transition-colors"
+          :class="item.active ? 'text-violet-400 font-semibold' : 'text-slate-300 hover:text-white'"
         >
-          <svg v-if="!mobileMenuOpen" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-          <svg v-else class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
+          {{ item.name }}
+        </a>
+      </nav>
+
+      <!-- Desktop Actions -->
+      <div class="hidden md:flex items-center gap-3">
+        <a 
+          href="#contact" 
+          class="px-4 py-2 bg-primary hover:bg-violet-700 text-white text-xs font-semibold rounded-lg transition-colors shadow-sm"
+        >
+          Solicitar Propuesta
+        </a>
       </div>
+
+      <!-- Mobile Button -->
+      <button 
+        @click="mobileMenuOpen = !mobileMenuOpen" 
+        class="md:hidden p-2 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800"
+        :aria-expanded="mobileMenuOpen"
+        aria-label="Menú"
+      >
+        <svg v-if="!mobileMenuOpen" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg v-else class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
     </div>
 
-    <!-- Mobile Menu -->
-    <nav 
+    <!-- Mobile Navigation Drawer -->
+    <div 
       v-if="mobileMenuOpen" 
-      class="md:hidden bg-[#0A0A2E]/98 backdrop-blur-xl border-t border-slate-800/50"
-      aria-label="Navegación móvil"
+      class="md:hidden bg-[#0A0A2E] border-b border-slate-800 px-6 py-4 space-y-3"
     >
-      <div class="px-6 py-4 space-y-1">
+      <nav class="space-y-2">
         <a 
           v-for="item in navigation" 
           :key="item.name" 
           :href="item.href"
           @click="mobileMenuOpen = false"
-          class="block px-4 py-3 text-base font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-300"
+          class="block py-2 text-sm font-medium transition-colors"
+          :class="item.active ? 'text-violet-400 font-semibold' : 'text-slate-300 hover:text-white'"
         >
           {{ item.name }}
         </a>
+      </nav>
+      <div class="pt-3 border-t border-slate-800 flex flex-col gap-2">
         <a 
           href="#contact" 
           @click="mobileMenuOpen = false"
-          class="block mt-2 px-4 py-3 bg-primary text-white text-center font-medium rounded-lg hover:bg-primary/90 transition-all duration-300"
+          class="w-full py-2.5 px-4 text-center rounded-lg bg-primary text-white font-semibold text-xs"
         >
-          Contacto
+          Solicitar Propuesta
         </a>
       </div>
-    </nav>
+    </div>
   </header>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import gsap from 'gsap'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 const scrolled = ref(false)
 const mobileMenuOpen = ref(false)
 const headerRef = ref(null)
+const currentHash = ref(typeof window !== 'undefined' ? window.location.hash : '')
+const activeSection = ref('home')
 
-const navigation = [
-  { name: 'Portafolio', href: '#portfolio' },
-  { name: 'Nosotros', href: '#about' },
-  { name: 'Equipo', href: '#team' },
-  { name: 'Servicios', href: '#services' }
+const navItems = [
+  { name: 'Inicio', href: '#home', id: 'home' },
+  { name: 'Servicios IT', href: '#services', id: 'services' },
+  { name: 'Productos', href: '#productos', id: 'productos' },
+  { name: 'Nosotros', href: '#about', id: 'about' },
+  { name: 'Contacto', href: '#contact', id: 'contact' }
 ]
 
-const handleScroll = () => {
-  scrolled.value = window.scrollY > 50
+const isProductosPage = computed(() => {
+  return currentHash.value.startsWith('#productos') || 
+         currentHash.value.startsWith('#/productos') || 
+         currentHash.value.startsWith('#servicios-it')
+})
+
+const navigation = computed(() => {
+  if (isProductosPage.value) {
+    return navItems.map(item => ({
+      ...item,
+      active: item.id === 'productos'
+    }))
+  }
+  return navItems.map(item => ({
+    ...item,
+    active: item.id === activeSection.value
+  }))
+})
+
+const updateActiveSectionFromScroll = () => {
+  const scrollY = window.scrollY
+  scrolled.value = scrollY > 20
+
+  if (isProductosPage.value) {
+    activeSection.value = 'productos'
+    return
+  }
+
+  const sections = ['contact', 'about', 'services', 'home']
+  const offset = 140
+
+  for (const id of sections) {
+    const el = document.getElementById(id)
+    if (el) {
+      const top = el.offsetTop
+      if (scrollY + offset >= top) {
+        activeSection.value = id
+        return
+      }
+    }
+  }
+  activeSection.value = 'home'
 }
 
-let ctx
+const handleHashChange = () => {
+  currentHash.value = window.location.hash
+  if (currentHash.value.startsWith('#productos') || currentHash.value.startsWith('#servicios-it')) {
+    activeSection.value = 'productos'
+  } else if (currentHash.value && currentHash.value.length > 1) {
+    activeSection.value = currentHash.value.replace('#', '')
+  } else {
+    updateActiveSectionFromScroll()
+  }
+}
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-  
-  // Asegurar que el header esté visible inicialmente
-  if (headerRef.value) {
-    ctx = gsap.context(() => {
-      gsap.set(headerRef.value, { opacity: 0, y: -100 })
-      gsap.to(headerRef.value, {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power3.out',
-        delay: 0.2
-      })
-    }, headerRef.value)
+  currentHash.value = window.location.hash
+  if (currentHash.value.startsWith('#productos') || currentHash.value.startsWith('#servicios-it')) {
+    activeSection.value = 'productos'
+  } else {
+    updateActiveSectionFromScroll()
   }
+  window.addEventListener('scroll', updateActiveSectionFromScroll, { passive: true })
+  window.addEventListener('hashchange', handleHashChange)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-  ctx && ctx.revert()
+  window.removeEventListener('scroll', updateActiveSectionFromScroll)
+  window.removeEventListener('hashchange', handleHashChange)
 })
 </script>
