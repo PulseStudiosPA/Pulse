@@ -1,107 +1,90 @@
 <template>
-  <section id="about" class="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-slate-900 to-[#0A0A2E] relative overflow-hidden" ref="aboutRef">
+  <section id="about" class="py-20 md:py-28 bg-white text-slate-900 border-t border-b border-slate-200 relative" ref="aboutRef">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-        <!-- Content -->
-        <div class="text-center lg:text-left">
-          <p class="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary font-medium mb-3 sm:mb-4">
-            Nosotros
-          </p>
-          <h2 class="about-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 tracking-tight">
-            Impulsamos Negocios en Panamá con Soluciones Digitales
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Content: Concise and non-technical -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-violet-200/80 bg-violet-50 text-xs font-bold uppercase tracking-wider text-violet-700">
+            Sobre Pulse
+          </div>
+          
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+            Compromiso técnico con la continuidad operativa de tu empresa
           </h2>
           
-          <div class="space-y-4 sm:space-y-6 text-base sm:text-lg text-slate-400 leading-relaxed">
-            <p class="about-text">
-              En <span class="text-white font-medium">Pulse</span>, creemos en el poder de la transformación digital. 
-              Nuestro equipo de diseñadores y desarrolladores apasionados trabaja incansablemente para crear experiencias digitales excepcionales que impulsan el crecimiento de tu negocio.
-            </p>
-            <p class="about-text">
-              Con años de experiencia y cientos de proyectos exitosos en Panamá y la región, hemos ayudado a empresas de todos los tamaños a alcanzar sus objetivos digitales y superar sus expectativas.
-            </p>
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+            Nos encargamos de que la tecnología de tu negocio funcione siempre bien: resolvemos problemas del día a día, protegemos tu información y te ayudamos a operar con tranquilidad en Panamá.
+          </p>
+
+          <div class="pt-2">
+            <a 
+              href="#contact" 
+              class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-violet-700 transition-colors group"
+            >
+              <span>Consultar cómo podemos ayudarte</span>
+              <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+            </a>
           </div>
         </div>
         
-        <!-- Stats -->
-        <div class="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 mt-8 lg:mt-0">
+        <!-- Everyday Practical Solutions Cards -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           <div 
-            v-for="(stat, index) in stats" 
+            v-for="(pillar, index) in pillars" 
             :key="index"
-            class="stat-card text-center p-4 sm:p-6 md:p-8 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-primary/50 transition-all duration-500"
+            class="p-6 bg-slate-50/90 rounded-2xl border border-slate-200/90 hover:border-violet-300 hover:shadow-md transition-all space-y-3 shadow-sm"
           >
-            <div class="stat-value text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-1 sm:mb-2">
-              {{ stat.value }}
+            <div class="w-11 h-11 rounded-xl bg-violet-100 border border-violet-200/80 flex items-center justify-center text-primary">
+              <component :is="pillar.icon" class="w-5 h-5 text-primary" />
             </div>
-            <div class="text-slate-400 text-xs sm:text-sm md:text-base font-medium">
-              {{ stat.label }}
-            </div>
+            
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">
+              {{ pillar.title }}
+            </h3>
+            
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+              {{ pillar.description }}
+            </p>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
+import {
+  WrenchScrewdriverIcon,
+  ShieldCheckIcon,
+  FolderArrowDownIcon,
+  CodeBracketIcon
+} from '@heroicons/vue/24/outline'
 
 const aboutRef = ref(null)
 
-const stats = [
-  { value: '8', label: 'Proyectos Entregados' },
-  { value: '100%', label: 'Satisfacción del Cliente' },
-  { value: '7', label: 'Profesionales' },
-  { value: '15', label: 'Clientes Activos' }
+const pillars = [
+  {
+    title: 'Soporte rápido para tu oficina',
+    description: 'Si se cae el internet, una computadora no enciende o una impresora falla, te atendemos directamente en tus instalaciones sin vueltas ni esperas.',
+    icon: WrenchScrewdriverIcon
+  },
+  {
+    title: 'Protección contra virus y hackeos',
+    description: 'Cuidamos el dinero y la información de tu negocio. Bloqueamos páginas sospechosas, correos trampa y accesos no autorizados a tus equipos.',
+    icon: ShieldCheckIcon
+  },
+  {
+    title: 'Tus facturas y archivos siempre a salvo',
+    description: 'Guardamos copias automáticas de tu contabilidad y documentos clave para que jamás pierdas información importante si un equipo se daña.',
+    icon: FolderArrowDownIcon
+  },
+  {
+    title: 'Software a la medida de tu empresa',
+    description: 'Creamos sistemas y aplicaciones adaptadas exactamente a cómo funciona tu negocio, automatizando tareas repetitivas y ahorrándote tiempo.',
+    icon: CodeBracketIcon
+  }
 ]
-
-onMounted(async () => {
-  if (!aboutRef.value) return
-  
-  const { default: gsap } = await import('gsap')
-  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-  gsap.registerPlugin(ScrollTrigger)
-  
-  gsap.set('.about-title', { opacity: 0, x: -50 })
-  gsap.set('.about-text', { opacity: 0, y: 30 })
-  gsap.set('.stat-card', { opacity: 0, y: 50 })
-  
-  gsap.to('.about-title', {
-    x: 0,
-    opacity: 1,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.about-title',
-      start: 'top 80%',
-      once: true
-    }
-  })
-
-  gsap.to('.about-text', {
-    y: 0,
-    opacity: 1,
-    duration: 0.8,
-    stagger: 0.2,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: aboutRef.value,
-      start: 'top 85%',
-      once: true
-    }
-  })
-
-  gsap.to('.stat-card', {
-    y: 0,
-    opacity: 1,
-    duration: 0.8,
-    stagger: 0.1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.stat-card',
-      start: 'top 85%',
-      once: true
-    }
-  })
-})
 </script>
-

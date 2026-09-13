@@ -1,72 +1,135 @@
 <template>
-  <section id="team" class="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-[#0A0A2E] to-slate-900 relative overflow-hidden" ref="teamRef">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute top-1/4 left-1/4 w-48 md:w-64 h-48 md:h-64 bg-primary/5 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-1/4 right-1/4 w-56 md:w-80 h-56 md:h-80 bg-violet-500/5 rounded-full blur-3xl"></div>
-    </div>
-
+  <section id="equipo" class="py-20 md:py-24 bg-white text-slate-900 border-b border-slate-200 relative" ref="teamRef">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <!-- Section Header -->
-      <div class="text-center mb-10 md:mb-16">
-        <p class="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary font-medium mb-3 sm:mb-4">
-          Nuestro Equipo
-        </p>
-        <h2 class="team-title text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
-          Conoce al Equipo
+      <div class="text-center mb-12 sm:mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md border border-violet-200/80 bg-violet-50 text-xs font-semibold uppercase tracking-wider text-violet-700 mb-4">
+          Equipo de Ingeniería
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
+          Ingenieros y especialistas en Panamá
         </h2>
-        <div class="w-16 sm:w-20 h-1 bg-primary mx-auto mb-4 sm:mb-6 lg:mb-8"></div>
-        <p class="team-subtitle text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl mx-auto px-4">
-          Un equipo apasionado de profesionales dedicados a crear experiencias digitales excepcionales.
+        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+          Especialistas locales dedicados a la infraestructura, seguridad y desarrollo de tu empresa.
         </p>
       </div>
       
-      <!-- Team Grid - Mobile: 2 cols grid, Desktop: 3+4 centered rows -->
-      <!-- First Row (3 members) - visible on lg+ as flex, grid on smaller -->
-      <div class="hidden lg:flex justify-center gap-6 mb-6">
-        <div 
-          v-for="(member, index) in teamMembers.slice(0, 3)" 
-          :key="'lg-' + index"
-          :data-index="index"
-          class="team-card group text-center p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50 hover:border-primary/50 transition-all duration-500 hover:-translate-y-3 hover:shadow-xl hover:shadow-primary/10 w-full max-w-[220px]"
-        >
-          <div class="team-avatar w-20 h-20 mx-auto mb-5 flex items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-violet-500/20 border-2 border-primary/30 group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/30 transition-all duration-500">
-            <component :is="member.icon" class="h-10 w-10 text-primary group-hover:scale-110 transition-transform duration-300" aria-hidden="true" />
-          </div>
-          <h3 class="text-lg font-bold text-white mb-1 group-hover:text-primary transition-colors duration-300">{{ member.name }}</h3>
-          <p class="text-slate-400 text-sm">{{ member.role }}</p>
-        </div>
-      </div>
+      <!-- Framed Collaborative Team Canvas -->
+      <div class="max-w-5xl mx-auto bg-gradient-to-b from-slate-50/90 via-white to-slate-50/60 border border-slate-200/90 rounded-3xl p-8 sm:p-14 shadow-sm relative overflow-hidden">
+        <!-- Ambient decorative background glow -->
+        <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-violet-100/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-indigo-100/30 rounded-full blur-3xl pointer-events-none"></div>
 
-      <!-- Second Row (4 members) - visible on lg+ as flex -->
-      <div class="hidden lg:flex justify-center gap-6">
-        <div 
-          v-for="(member, index) in teamMembers.slice(3)" 
-          :key="'lg-' + (index + 3)"
-          :data-index="index + 3"
-          class="team-card group text-center p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50 hover:border-primary/50 transition-all duration-500 hover:-translate-y-3 hover:shadow-xl hover:shadow-primary/10 w-full max-w-[220px]"
-        >
-          <div class="team-avatar w-20 h-20 mx-auto mb-5 flex items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-violet-500/20 border-2 border-primary/30 group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/30 transition-all duration-500">
-            <component :is="member.icon" class="h-10 w-10 text-primary group-hover:scale-110 transition-transform duration-300" aria-hidden="true" />
-          </div>
-          <h3 class="text-lg font-bold text-white mb-1 group-hover:text-primary transition-colors duration-300">{{ member.name }}</h3>
-          <p class="text-slate-400 text-sm">{{ member.role }}</p>
-        </div>
-      </div>
+        <!-- Dynamic Connection Canvas -->
+        <div ref="containerRef" class="relative max-w-4xl mx-auto py-4 sm:py-8">
+          <!-- SVG Connections Background (visible on md+) -->
+          <svg 
+            class="absolute inset-0 w-full h-full pointer-events-none z-0 hidden md:block" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line 
+              v-for="(line, idx) in lines" 
+              :key="idx"
+              :x1="line.x1"
+              :y1="line.y1"
+              :x2="line.x2"
+              :y2="line.y2"
+              :stroke="isLineActive(line) ? '#8B5CF6' : '#E2E8F0'"
+              :stroke-width="isLineActive(line) ? 2.5 : 1.5"
+              class="transition-all duration-300"
+            />
+          </svg>
 
-      <!-- Mobile/Tablet Grid (2 cols) - hidden on lg+ -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:hidden">
-        <div 
-          v-for="(member, index) in teamMembers" 
-          :key="'sm-' + index"
-          :data-index="index"
-          class="team-card group text-center p-3 sm:p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/10"
-        >
-          <div class="team-avatar w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 flex items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-violet-500/20 border-2 border-primary/30 group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/30 transition-all duration-500">
-            <component :is="member.icon" class="h-7 w-7 sm:h-8 sm:w-8 text-primary group-hover:scale-110 transition-transform duration-300" aria-hidden="true" />
+          <!-- Interconnected Team Nodes -->
+          <div class="relative z-10 flex flex-col items-center gap-10 sm:gap-14">
+            <!-- Row 1: 4 especialistas (Nombres ARRIBA) -->
+            <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-12 md:gap-18">
+              <div 
+                v-for="(member, idx) in row1" 
+                :key="member.name"
+                class="flex flex-col items-center group cursor-default w-24 sm:w-28 transition-transform duration-200 hover:-translate-y-1.5"
+                @mouseenter="hoveredIndex = idx"
+                @mouseleave="hoveredIndex = null"
+              >
+                <!-- Nombre arriba para primera fila -->
+                <span 
+                  :class="[
+                    'mb-3 text-xs sm:text-sm md:text-base font-bold text-center tracking-tight transition-colors leading-tight',
+                    hoveredIndex === idx ? 'text-violet-950 font-extrabold' : 'text-slate-800 group-hover:text-violet-900'
+                  ]"
+                >
+                  {{ member.name }}
+                </span>
+
+                <!-- Avatar circular -->
+                <div 
+                  :ref="el => setAvatarRef(el, idx)"
+                  :class="[
+                    'w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white border-2 shadow-sm flex items-center justify-center transition-all duration-300 relative',
+                    hoveredIndex === idx
+                      ? 'border-violet-600 shadow-lg shadow-violet-500/20 ring-4 ring-violet-100 scale-105'
+                      : isConnectedToHovered(idx)
+                        ? 'border-violet-400 shadow-md ring-2 ring-violet-50'
+                        : 'border-slate-200 group-hover:border-violet-500 group-hover:shadow-md'
+                  ]"
+                >
+                  <div class="w-16 h-16 sm:w-19 sm:h-19 rounded-full bg-gradient-to-tr from-slate-50 to-violet-50/50 flex items-center justify-center">
+                    <UserIcon 
+                      :class="[
+                        'w-9 h-9 sm:w-11 sm:h-11 transition-colors duration-200',
+                        hoveredIndex === idx || isConnectedToHovered(idx) ? 'text-violet-600' : 'text-slate-400 group-hover:text-violet-600'
+                      ]" 
+                      aria-hidden="true" 
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2: 3 especialistas centrados e intercalados (Nombres ABAJO) -->
+            <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-12 md:gap-18">
+              <div 
+                v-for="(member, idx) in row2" 
+                :key="member.name"
+                class="flex flex-col items-center group cursor-default w-24 sm:w-28 transition-transform duration-200 hover:-translate-y-1.5"
+                @mouseenter="hoveredIndex = idx + 4"
+                @mouseleave="hoveredIndex = null"
+              >
+                <!-- Avatar circular -->
+                <div 
+                  :ref="el => setAvatarRef(el, idx + 4)"
+                  :class="[
+                    'w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white border-2 shadow-sm flex items-center justify-center transition-all duration-300 relative',
+                    hoveredIndex === idx + 4
+                      ? 'border-violet-600 shadow-lg shadow-violet-500/20 ring-4 ring-violet-100 scale-105'
+                      : isConnectedToHovered(idx + 4)
+                        ? 'border-violet-400 shadow-md ring-2 ring-violet-50'
+                        : 'border-slate-200 group-hover:border-violet-500 group-hover:shadow-md'
+                  ]"
+                >
+                  <div class="w-16 h-16 sm:w-19 sm:h-19 rounded-full bg-gradient-to-tr from-slate-50 to-violet-50/50 flex items-center justify-center">
+                    <UserIcon 
+                      :class="[
+                        'w-9 h-9 sm:w-11 sm:h-11 transition-colors duration-200',
+                        hoveredIndex === idx + 4 || isConnectedToHovered(idx + 4) ? 'text-violet-600' : 'text-slate-400 group-hover:text-violet-600'
+                      ]" 
+                      aria-hidden="true" 
+                    />
+                  </div>
+                </div>
+
+                <!-- Nombre abajo para segunda fila -->
+                <span 
+                  :class="[
+                    'mt-3 text-xs sm:text-sm md:text-base font-bold text-center tracking-tight transition-colors leading-tight',
+                    hoveredIndex === idx + 4 ? 'text-violet-950 font-extrabold' : 'text-slate-800 group-hover:text-violet-900'
+                  ]"
+                >
+                  {{ member.name }}
+                </span>
+              </div>
+            </div>
           </div>
-          <h3 class="text-sm sm:text-base font-bold text-white mb-0.5 group-hover:text-primary transition-colors duration-300">{{ member.name }}</h3>
-          <p class="text-slate-400 text-xs sm:text-sm">{{ member.role }}</p>
         </div>
       </div>
     </div>
@@ -74,75 +137,118 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
-import {
-  UserIcon,
-  CodeBracketIcon,
-  CommandLineIcon,
-  CpuChipIcon,
-  PuzzlePieceIcon,
-  LightBulbIcon,
-  RocketLaunchIcon
-} from '@heroicons/vue/24/outline'
-
-const teamRef = ref(null)
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { UserIcon } from '@heroicons/vue/24/solid'
 
 const teamMembers = [
-  { name: 'Irvin Benitez', role: 'Desarrollador', icon: CodeBracketIcon },
-  { name: 'Derek Britton', role: 'Desarrollador', icon: CommandLineIcon },
-  { name: 'Dereck Diaz', role: 'Desarrollador', icon: CpuChipIcon },
-  { name: 'Adrian Jimenez', role: 'Desarrollador', icon: PuzzlePieceIcon },
-  { name: 'Daniel Nie', role: 'Desarrollador', icon: LightBulbIcon },
-  { name: 'Carlos Reina', role: 'Desarrollador', icon: RocketLaunchIcon },
-  { name: 'Giancarlo Santillana', role: 'Desarrollador', icon: UserIcon }
+  { name: 'Carlos Reina' },
+  { name: 'Irvin Benitez' },
+  { name: 'Derek Britton' },
+  { name: 'Dereck Diaz' },
+  { name: 'Adrian Jimenez' },
+  { name: 'Daniel Nie' },
+  { name: 'Giancarlo Santillana' }
 ]
 
-let ctx
+const row1 = teamMembers.slice(0, 4)
+const row2 = teamMembers.slice(4)
 
-onMounted(async () => {
-  if (!teamRef.value) return
+const containerRef = ref(null)
+const avatarRefs = ref([])
+const rawPoints = ref([])
+const hoveredIndex = ref(null)
+
+const connections = [
+  // Fila 1 enlaces horizontales
+  [0, 1],
+  [1, 2],
+  [2, 3],
+  // Fila 2 enlaces horizontales
+  [4, 5],
+  [5, 6],
+  // Enlaces de red entre filas (triangulación de equipo)
+  [0, 4],
+  [1, 4],
+  [1, 5],
+  [2, 5],
+  [2, 6],
+  [3, 6]
+]
+
+const setAvatarRef = (el, idx) => {
+  if (el) {
+    avatarRefs.value[idx] = el
+  }
+}
+
+const updateLines = () => {
+  if (!containerRef.value) return
+  const containerRect = containerRef.value.getBoundingClientRect()
   
-  const { default: gsap } = await import('gsap')
-  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-  gsap.registerPlugin(ScrollTrigger)
+  const points = []
+  for (let i = 0; i < teamMembers.length; i++) {
+    const el = avatarRefs.value[i]
+    if (el) {
+      const rect = el.getBoundingClientRect()
+      points[i] = {
+        x: rect.left + rect.width / 2 - containerRect.left,
+        y: rect.top + rect.height / 2 - containerRect.top
+      }
+    }
+  }
+  rawPoints.value = points
+}
+
+const lines = computed(() => {
+  if (!rawPoints.value.length) return []
   
-  ctx = gsap.context(() => {
-    gsap.set('.team-title', { opacity: 0, y: 50 })
-    gsap.set('.team-subtitle', { opacity: 0, y: 30 })
-    gsap.set('.team-card', { opacity: 0, y: 80, rotateX: 15, scale: 0.9 })
-    gsap.set('.team-avatar', { scale: 0, rotation: -180 })
-    
-    gsap.to('.team-title', {
-      y: 0, opacity: 1, duration: 1, ease: 'power3.out',
-      scrollTrigger: { trigger: '.team-title', start: 'top 80%', once: true }
-    })
+  return connections.map(([from, to]) => {
+    const p1 = rawPoints.value[from]
+    const p2 = rawPoints.value[to]
+    if (!p1 || !p2) return null
 
-    gsap.to('.team-subtitle', {
-      y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power3.out',
-      scrollTrigger: { trigger: '.team-title', start: 'top 80%', once: true }
-    })
+    return {
+      from,
+      to,
+      x1: p1.x,
+      y1: p1.y,
+      x2: p2.x,
+      y2: p2.y
+    }
+  }).filter(Boolean)
+})
 
-    const cards = gsap.utils.toArray('.team-card')
-    cards.forEach((card, i) => {
-      gsap.to(card, {
-        y: 0, opacity: 1, rotateX: 0, scale: 1, duration: 1,
-        delay: i * 0.12 + Math.random() * 0.05, ease: 'back.out(1.2)',
-        scrollTrigger: { trigger: teamRef.value, start: 'top 75%', once: true }
+const isLineActive = (line) => {
+  if (hoveredIndex.value === null) return false
+  return line.from === hoveredIndex.value || line.to === hoveredIndex.value
+}
+
+const isConnectedToHovered = (idx) => {
+  if (hoveredIndex.value === null) return false
+  return connections.some(([from, to]) => 
+    (from === hoveredIndex.value && to === idx) ||
+    (to === hoveredIndex.value && from === idx)
+  )
+}
+
+let resizeObserver = null
+
+onMounted(() => {
+  nextTick(() => {
+    updateLines()
+    if (typeof ResizeObserver !== 'undefined' && containerRef.value) {
+      resizeObserver = new ResizeObserver(() => {
+        updateLines()
       })
-    })
-
-    const avatars = gsap.utils.toArray('.team-avatar')
-    avatars.forEach((avatar, i) => {
-      gsap.to(avatar, {
-        scale: 1, rotation: 0, duration: 0.6, delay: 0.3 + i * 0.1, ease: 'back.out(2)',
-        scrollTrigger: { trigger: teamRef.value, start: 'top 75%', once: true }
-      })
-    })
-  }, teamRef.value)
+      resizeObserver.observe(containerRef.value)
+    }
+    window.addEventListener('resize', updateLines)
+  })
 })
 
 onUnmounted(() => {
-  ctx && ctx.revert()
+  if (resizeObserver) resizeObserver.disconnect()
+  window.removeEventListener('resize', updateLines)
 })
 </script>
 
