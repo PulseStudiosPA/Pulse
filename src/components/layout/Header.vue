@@ -10,7 +10,7 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8 h-18 flex items-center justify-between py-3.5">
       
       <!-- Logo con color original Pulse -->
-      <a href="#home" class="flex items-center gap-3" aria-label="Inicio PULSE">
+      <a href="#home" class="flex items-center gap-3" aria-label="PULSE - Inicio">
         <img 
           src="/237520570.jpeg" 
           alt="PULSE Logo" 

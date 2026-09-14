@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#8B5CF6', // Violeta principal
+        primary: '#7C3AED', // Violeta con contraste accesible WCAG AA (>4.5:1)
         darkBg: '#0A0A2E', // Azul oscuro
       },
       fontFamily: {

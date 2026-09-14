@@ -20,7 +20,7 @@
           <div class="pt-2">
             <a 
               href="#contact" 
-              class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-violet-700 transition-colors group"
+              class="inline-flex items-center gap-2 text-sm font-bold text-violet-700 hover:text-violet-900 transition-colors group"
             >
               <span>Consultar cómo podemos ayudarte</span>
               <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>

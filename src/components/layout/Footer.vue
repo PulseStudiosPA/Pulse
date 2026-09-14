@@ -25,7 +25,7 @@
         
         <!-- IT Services (4 cols on md+) -->
         <div class="md:col-span-4 space-y-3">
-          <h4 class="text-white font-semibold text-xs uppercase tracking-wider">Servicios IT</h4>
+          <h3 class="text-white font-semibold text-xs uppercase tracking-wider">Servicios IT</h3>
           <ul class="space-y-2.5 text-sm text-slate-400">
             <li>
               <a href="#services" class="hover:text-primary transition-colors">
@@ -57,7 +57,7 @@
         
         <!-- Contact Information (3 cols on md+) -->
         <div class="md:col-span-3 space-y-3">
-          <h4 class="text-white font-semibold text-xs uppercase tracking-wider">Contacto</h4>
+          <h3 class="text-white font-semibold text-xs uppercase tracking-wider">Contacto</h3>
           <ul class="space-y-2 text-sm text-slate-400">
             <li>Lunes a Viernes: 8:00am - 5:00pm</li>
             <li>Sabados: 8:00am - 12:00pm</li>

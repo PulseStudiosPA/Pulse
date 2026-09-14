@@ -89,17 +89,17 @@
                       <div class="flex items-center gap-2">
                         <span 
                           class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
-                          :class="selectedServiceIndex === index ? 'bg-violet-100 text-violet-800' : 'bg-slate-200/60 text-slate-500'"
+                          :class="selectedServiceIndex === index ? 'bg-violet-100 text-violet-800' : 'bg-slate-200/80 text-slate-700'"
                         >
                           {{ service.category }}
                         </span>
                       </div>
-                      <h4 
+                      <h3 
                         class="text-sm font-bold truncate mt-0.5"
                         :class="selectedServiceIndex === index ? 'text-slate-900' : 'text-slate-700 group-hover:text-slate-900'"
                       >
                         {{ service.title }}
-                      </h4>
+                      </h3>
                       <p class="text-xs text-slate-500 truncate mt-0.5">
                         {{ service.shortSummary }}
                       </p>
@@ -117,7 +117,7 @@
             </div>
 
             <!-- Small helper caption -->
-            <div class="pt-4 mt-4 border-t border-slate-200/70 text-left text-xs text-slate-400">
+            <div class="pt-4 mt-4 border-t border-slate-200/70 text-left text-xs text-slate-600">
               Selecciona una solución para consultar su alcance detallado.
             </div>
           </div>
@@ -132,7 +132,7 @@
                   <span class="text-xs font-semibold uppercase tracking-wider text-violet-700 bg-violet-50 px-2.5 py-1 rounded-md border border-violet-200/60">
                     {{ activeService.category }}
                   </span>
-                  <span class="text-xs text-emerald-600 font-medium flex items-center gap-1.5">
+                  <span class="text-xs text-emerald-700 font-semibold flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                     Servicio Activo en Panamá
                   </span>
@@ -149,7 +149,7 @@
 
               <!-- Scope & Technical Deliverables -->
               <div>
-                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-600 mb-3">
                   Alcance Técnico y Mano de Obra
                 </h4>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -273,7 +273,7 @@
                 <span class="text-xs font-semibold uppercase tracking-wider text-violet-700 bg-violet-50 px-2.5 py-1 rounded-md border border-violet-200/60">
                   {{ activeService.category }}
                 </span>
-                <span class="text-xs text-emerald-600 font-medium flex items-center gap-1.5">
+                <span class="text-xs text-emerald-700 font-semibold flex items-center gap-1.5">
                   <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                   Activo en Panamá
                 </span>
@@ -290,7 +290,7 @@
 
             <!-- Scope & Technical Deliverables -->
             <div>
-              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-600 mb-2.5">
                 Alcance Técnico y Mano de Obra
               </h4>
               <div class="space-y-2">
@@ -346,16 +346,20 @@
                 <span>Anterior</span>
               </button>
 
-              <!-- Dot indicators -->
-              <div class="flex items-center gap-1.5">
+              <!-- Dot indicators with accessible 24px+ touch targets -->
+              <div class="flex items-center gap-1">
                 <button
                   v-for="(_, dotIdx) in itServices"
                   :key="dotIdx"
                   @click="selectService(dotIdx)"
                   :aria-label="`Ir al servicio ${dotIdx + 1}`"
-                  class="h-2 rounded-full transition-all duration-200"
-                  :class="selectedServiceIndex === dotIdx ? 'w-5 bg-primary' : 'w-2 bg-slate-300 hover:bg-slate-400'"
-                />
+                  class="h-7 min-w-[24px] px-1 flex items-center justify-center transition-all focus:outline-none"
+                >
+                  <span
+                    class="h-2 rounded-full transition-all duration-200 block"
+                    :class="selectedServiceIndex === dotIdx ? 'w-5 bg-primary' : 'w-2 bg-slate-300 hover:bg-slate-400'"
+                  />
+                </button>
               </div>
 
               <button

@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 DEPLOY_DROPLET.md
+.vercel
+.env*
+public/lighthouse.txt

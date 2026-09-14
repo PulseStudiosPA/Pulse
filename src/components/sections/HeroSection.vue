@@ -2,11 +2,16 @@
   <section id="home" class="relative bg-[#0A0A2E] pt-28 sm:pt-36 pb-16 sm:pb-20 border-b border-slate-800/80" ref="heroRef">
     <!-- Background Image with Panama City Skyline & Gradient Difuminación -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
-      <img 
-        src="/yosi-bitran-jVCXlJrnl5w-unsplash.jpg" 
-        alt="Panamá City Skyline" 
-        class="w-full h-full object-cover object-center sm:object-[center_35%] opacity-35"
-      />
+      <picture>
+        <source srcset="/yosi-bitran-jVCXlJrnl5w-unsplash.webp" type="image/webp">
+        <img 
+          src="/yosi-bitran-jVCXlJrnl5w-unsplash.jpg" 
+          alt="Panamá City Skyline" 
+          fetchpriority="high"
+          decoding="async"
+          class="w-full h-full object-cover object-center sm:object-[center_35%] opacity-35"
+        />
+      </picture>
       <!-- Gradients for seamless difuminación and maximum legibility -->
       <div class="absolute inset-0 bg-gradient-to-r from-[#0A0A2E] via-[#0A0A2E]/85 to-[#0A0A2E]/60"></div>
       <div class="absolute inset-0 bg-gradient-to-b from-[#0A0A2E]/70 via-transparent to-[#0A0A2E]"></div>

@@ -25,22 +25,14 @@ import { ref, onMounted, onUnmounted, defineAsyncComponent, nextTick } from 'vue
 // Critical above-the-fold components
 import Header from './components/layout/Header.vue'
 import HeroSection from './components/sections/HeroSection.vue'
+import ServicesSection from './components/sections/ServicesSection.vue'
+import AboutSection from './components/sections/AboutSection.vue'
+import ContactSection from './components/sections/ContactSection.vue'
+import Footer from './components/layout/Footer.vue'
 
-// Modular components (lazy-loaded for high performance & fast initial paint)
+// Modular view (lazy-loaded when navigating to #productos)
 const ProductosView = defineAsyncComponent(() => 
   import('./views/ProductosView.vue')
-)
-const ServicesSection = defineAsyncComponent(() => 
-  import('./components/sections/ServicesSection.vue')
-)
-const AboutSection = defineAsyncComponent(() => 
-  import('./components/sections/AboutSection.vue')
-)
-const ContactSection = defineAsyncComponent(() => 
-  import('./components/sections/ContactSection.vue')
-)
-const Footer = defineAsyncComponent(() => 
-  import('./components/layout/Footer.vue')
 )
 
 const currentView = ref('home')
