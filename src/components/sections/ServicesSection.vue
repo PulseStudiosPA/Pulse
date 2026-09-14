@@ -186,8 +186,8 @@
 
             <!-- Detail Action Footer -->
             <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
-              <a 
-                href="#contact" 
+              <a
+                href="#contact"
                 class="w-full sm:w-auto px-6 py-3 bg-primary hover:bg-violet-700 text-white font-bold text-xs rounded-lg transition-colors inline-flex items-center justify-center gap-2 shadow-sm"
               >
                 <span>Solicitar Propuesta</span>
@@ -196,6 +196,21 @@
               <span class="text-xs text-slate-500 text-center sm:text-right">
                 Diagnóstico inicial sin costo para empresas
               </span>
+            </div>
+
+            <!-- Cross-link to Productos (only when "Desarrollo de Software" is active) -->
+            <div
+              v-if="activeService.category === 'Desarrollo'"
+              class="mt-4 p-3.5 rounded-xl bg-violet-50/60 border border-violet-100 text-xs text-slate-700"
+            >
+              <span class="text-slate-500">¿Buscas un producto SaaS listo para usar?</span>{' '}
+              <a
+                href="#productos"
+                class="font-semibold text-violet-700 hover:text-violet-800 transition-colors"
+              >
+                Conoce Maya y Stash
+                <span aria-hidden="true">&rarr;</span>
+              </a>
             </div>
 
           </div>
@@ -212,27 +227,27 @@
           <!-- Mobile Switcher Bar -->
           <div class="bg-slate-50/80 border-b border-slate-200 px-4 py-3">
             <div class="flex items-center justify-between gap-2 mb-2">
-              <div class="flex items-center gap-2">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                  Solución {{ selectedServiceIndex + 1 }} de {{ itServices.length }}
+              <div class="flex items-center gap-2 min-w-0 flex-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 whitespace-nowrap tabular-nums">
+                  {{ selectedServiceIndex + 1 }} / {{ itServices.length }}
                 </span>
-                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-violet-100 text-violet-800">
+                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-violet-100 text-violet-800 truncate min-w-0">
                   {{ activeService.category }}
                 </span>
               </div>
 
               <!-- Quick Mini Prev/Next arrows in header -->
-              <div class="flex items-center gap-1">
-                <button 
-                  @click="prevService" 
+              <div class="flex items-center gap-1 shrink-0">
+                <button
+                  @click="prevService"
                   :disabled="selectedServiceIndex === 0"
                   aria-label="Solución anterior"
                   class="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 transition-colors disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-100 active:bg-slate-200 shadow-2xs"
                 >
                   <ChevronLeftIcon class="w-4 h-4" />
                 </button>
-                <button 
-                  @click="nextService" 
+                <button
+                  @click="nextService"
                   :disabled="selectedServiceIndex === itServices.length - 1"
                   aria-label="Solución siguiente"
                   class="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 transition-colors disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-100 active:bg-slate-200 shadow-2xs"
@@ -243,8 +258,8 @@
             </div>
 
             <!-- Horizontal Scrollable Pills -->
-            <div 
-              ref="mobileTabsContainerRef" 
+            <div
+              ref="mobileTabsContainerRef"
               class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none no-scrollbar"
               style="-webkit-overflow-scrolling: touch;"
             >
@@ -255,8 +270,8 @@
                 @click="selectService(index)"
                 type="button"
                 class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200"
-                :class="selectedServiceIndex === index 
-                  ? 'bg-primary text-white shadow-sm ring-1 ring-primary' 
+                :class="selectedServiceIndex === index
+                  ? 'bg-primary text-white shadow-sm ring-1 ring-primary'
                   : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200'"
               >
                 <component :is="service.icon" class="w-3.5 h-3.5 flex-shrink-0" />
@@ -335,19 +350,24 @@
               </span>
             </div>
 
-            <!-- Bottom Pagination Controls -->
-            <div class="pt-4 border-t border-slate-200 flex items-center justify-between gap-2">
+            <!-- Bottom Pagination Controls.
+                 On very narrow screens the text labels collapse to icons only
+                 (and dots shrink) so "Anterior + 5 dots + Siguiente" never
+                 overflows the container. -->
+            <div class="pt-4 border-t border-slate-200 flex items-center justify-between gap-1.5 sm:gap-2">
               <button
                 @click="prevService"
                 :disabled="selectedServiceIndex === 0"
-                class="px-3 py-2 rounded-lg border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100 active:bg-slate-200 disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-1 transition-colors"
+                aria-label="Solución anterior"
+                class="shrink-0 px-2.5 sm:px-3 py-2 rounded-lg border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100 active:bg-slate-200 disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-1 transition-colors"
               >
                 <ChevronLeftIcon class="w-3.5 h-3.5" />
-                <span>Anterior</span>
+                <span class="hidden sm:inline">Anterior</span>
               </button>
 
-              <!-- Dot indicators with accessible 24px+ touch targets -->
-              <div class="flex items-center gap-1">
+              <!-- Dot indicators. Touch target is 24x24 minimum; the visible
+                   dot scales with state. -->
+              <div class="flex items-center gap-0.5 sm:gap-1 min-w-0">
                 <button
                   v-for="(_, dotIdx) in itServices"
                   :key="dotIdx"
@@ -356,8 +376,8 @@
                   class="h-7 min-w-[24px] px-1 flex items-center justify-center transition-all focus:outline-none"
                 >
                   <span
-                    class="h-2 rounded-full transition-all duration-200 block"
-                    :class="selectedServiceIndex === dotIdx ? 'w-5 bg-primary' : 'w-2 bg-slate-300 hover:bg-slate-400'"
+                    class="h-1.5 sm:h-2 rounded-full transition-all duration-200 block"
+                    :class="selectedServiceIndex === dotIdx ? 'w-4 sm:w-5 bg-primary' : 'w-1.5 sm:w-2 bg-slate-300 hover:bg-slate-400'"
                   />
                 </button>
               </div>
@@ -365,9 +385,10 @@
               <button
                 @click="nextService"
                 :disabled="selectedServiceIndex === itServices.length - 1"
-                class="px-3 py-2 rounded-lg bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 active:bg-slate-950 disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-1 transition-colors shadow-sm"
+                aria-label="Solución siguiente"
+                class="shrink-0 px-2.5 sm:px-3 py-2 rounded-lg bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 active:bg-slate-950 disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-1 transition-colors shadow-sm"
               >
-                <span>Siguiente</span>
+                <span class="hidden sm:inline">Siguiente</span>
                 <ChevronRightIcon class="w-3.5 h-3.5" />
               </button>
             </div>

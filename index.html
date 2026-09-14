@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-PA">
 
 <head>
   <meta charset="UTF-8" />
@@ -14,7 +14,20 @@
     content="redes empresariales Panamá, ciberseguridad Panamá, soporte IT Panamá, software última milla Maya, WMS bodegas Stash, desarrollo software Panamá, auditoría IT, soporte técnico remoto, infraestructura tecnológica" />
   <meta name="author" content="PULSE" />
   <meta name="robots" content="index, follow" />
+
+  <!-- Google Search Console verification.
+       Reemplazar el contenido con el código que te da Search Console
+       (Configuración > Propiedad > Verificación > Etiqueta HTML). -->
+  <meta name="google-site-verification" content="REEMPLAZAR_CON_CODIGO_DE_SEARCH_CONSOLE" />
+
+  <meta name="geo.region" content="PA" />
+  <meta name="geo.placename" content="Ciudad de Panamá, Panamá" />
+  <meta name="geo.position" content="8.9824;-79.5199" />
+  <meta name="ICBM" content="8.9824, -79.5199" />
   <link rel="canonical" href="https://pulse.com.pa/" />
+
+  <!-- SEO: explicit sitemap reference for crawlers -->
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
@@ -44,21 +57,65 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "ProfessionalService",
+        "@type": "LocalBusiness",
         "@id": "https://pulse.com.pa/#organization",
         "name": "PULSE",
+        "alternateName": "PULSE Panamá",
         "url": "https://pulse.com.pa/",
         "logo": "https://pulse.com.pa/237520570.jpeg",
         "image": "https://pulse.com.pa/237520570.jpeg",
-        "description": "Hub de soluciones tecnológicas en Panamá: redes corporativas, ciberseguridad, auditoría IT, soporte técnico y desarrollo de software.",
+        "description": "Hub remoto de soluciones tecnológicas para empresas en todo Panamá: redes corporativas, ciberseguridad, auditoría IT, soporte técnico y desarrollo de software. Creadores de Maya (software de última milla) y Stash IMS (gestión de inventarios WMS). Atención remota por WhatsApp y visitas on-site según el proyecto. Base operativa en Panamá Oeste, sin oficina física abierta al público.",
         "telephone": "+507 6065-6128",
         "email": "pulsestudio07@gmail.com",
+        "priceRange": "$$",
+        "currenciesAccepted": "USD, PAB",
+        "paymentAccepted": "Cash, Bank Transfer, ACH, Yappy",
         "address": {
           "@type": "PostalAddress",
-          "addressLocality": "Ciudad de Panamá",
-          "addressRegion": "Panamá",
+          "addressLocality": "La Chorrera",
+          "addressRegion": "Panamá Oeste",
           "addressCountry": "PA"
         },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 8.8769,
+          "longitude": -79.7833
+        },
+        "areaServed": [
+          { "@type": "Country", "name": "Panamá" }
+        ],
+        "serviceArea": [
+          { "@type": "Country", "name": "Panamá" }
+        ],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "17:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "08:00",
+            "closes": "12:00"
+          }
+        ],
+        "availableChannel": [
+          {
+            "@type": "ServiceChannel",
+            "serviceType": "remote",
+            "name": "Atención remota por WhatsApp y videollamada",
+            "availableLanguage": ["es-PA", "es"]
+          },
+          {
+            "@type": "ServiceChannel",
+            "serviceType": "onsite",
+            "name": "Visitas on-site en todo Panamá según proyecto",
+            "availableLanguage": ["es-PA", "es"]
+          }
+        ],
+        "knowsLanguage": ["es-PA", "es", "en"],
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
           "name": "Servicios IT y Software",
@@ -104,6 +161,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+  <!-- Preload hero image (LCP candidate when image wins) -->
+  <link rel="preload" as="image" href="/yosi-bitran-jVCXlJrnl5w-unsplash.webp" type="image/webp" />
+
   <!-- Optimized Font Loading: Non-render-blocking with display=swap -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
@@ -114,28 +174,46 @@
   <!-- Theme Color -->
   <meta name="theme-color" content="#0A0A2E" />
 
-  <!-- Critical CSS for instant first paint -->
+  <!-- Critical CSS for instant first paint.
+       Sized to cover the dark hero shell so the first paint is never an
+       unstyled flash. The full Tailwind bundle loads async via Vite. -->
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0 }
 
-    html {
-      scroll-behavior: smooth
-    }
+    html { scroll-behavior: smooth }
 
     body {
       background: #0a0a2e;
-      font-family: Inter, system-ui, -apple-system, sans-serif;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: #fff;
-      min-height: 100vh
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
-    #app {
-      min-height: 100vh
+    #app { min-height: 100vh }
+
+    /* Hero shell so it never looks broken during the JS load window. */
+    #home { padding-top: 7rem; padding-bottom: 5rem; }
+    @media (min-width: 640px) {
+      #home { padding-top: 9rem; padding-bottom: 6rem; }
     }
+    #home h1 {
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      font-size: 1.875rem;
+      max-width: 80rem;
+      margin: 1.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+    @media (min-width: 640px) { #home h1 { font-size: 3rem; } }
+    @media (min-width: 1024px) { #home h1 { font-size: 3.75rem; } }
+
+    /* Anchor for any in-page scroll target so smooth-scroll doesn't fight. */
+    section[id], div[id] { scroll-margin-top: 5rem; }
   </style>
 </head>
 

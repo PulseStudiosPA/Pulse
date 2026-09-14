@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Página principal: Hub IT + intro a productos -->
+  <url>
+    <loc>https://pulse.com.pa/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Vista de productos SaaS (Maya + Stash) -->
+  <url>
+    <loc>https://pulse.com.pa/#productos</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Sección de servicios IT (anchor dentro de la home) -->
+  <url>
+    <loc>https://pulse.com.pa/#services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Sobre PULSE -->
+  <url>
+    <loc>https://pulse.com.pa/#about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Contacto / Cotización -->
+  <url>
+    <loc>https://pulse.com.pa/#contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

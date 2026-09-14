@@ -1,9 +1,14 @@
 <template>
   <div class="overflow-x-hidden bg-[#0A0A2E] text-slate-100 min-h-screen">
-    <Header />
-    
+    <Header v-if="currentView !== 'notfound'" />
+
+    <!-- View: 404 Not Found -->
+    <main v-if="currentView === 'notfound'" class="-mt-18">
+      <NotFoundView />
+    </main>
+
     <!-- View: Productos SaaS (Maya y Stash) -->
-    <main v-if="currentView === 'productos'">
+    <main v-else-if="currentView === 'productos'">
       <ProductosView />
     </main>
 
@@ -15,7 +20,7 @@
       <ContactSection />
     </main>
 
-    <Footer />
+    <Footer v-if="currentView !== 'notfound'" />
   </div>
 </template>
 
@@ -25,43 +30,106 @@ import { ref, onMounted, onUnmounted, defineAsyncComponent, nextTick } from 'vue
 // Critical above-the-fold components
 import Header from './components/layout/Header.vue'
 import HeroSection from './components/sections/HeroSection.vue'
-import ServicesSection from './components/sections/ServicesSection.vue'
-import AboutSection from './components/sections/AboutSection.vue'
-import ContactSection from './components/sections/ContactSection.vue'
-import Footer from './components/layout/Footer.vue'
 
-// Modular view (lazy-loaded when navigating to #productos)
-const ProductosView = defineAsyncComponent(() => 
+// Modular components (lazy-loaded for high performance & fast initial paint)
+const ProductosView = defineAsyncComponent(() =>
   import('./views/ProductosView.vue')
 )
+const NotFoundView = defineAsyncComponent(() =>
+  import('./views/NotFoundView.vue')
+)
+const ServicesSection = defineAsyncComponent(() =>
+  import('./components/sections/ServicesSection.vue')
+)
+const AboutSection = defineAsyncComponent(() =>
+  import('./components/sections/AboutSection.vue')
+)
+const ContactSection = defineAsyncComponent(() =>
+  import('./components/sections/ContactSection.vue')
+)
+const Footer = defineAsyncComponent(() =>
+  import('./components/layout/Footer.vue')
+)
+
+// Valid page routes. Hash URLs that match these are routed to their views.
+// Anything else (that has a #) is treated as an unknown anchor and shows 404.
+const PAGE_ROUTES = new Set(['home', 'services', 'about', 'contact'])
+const PRODUCT_ROUTES = new Set(['productos', '/productos', 'servicios-it'])
+const KNOWN_HASHES = new Set([
+  '', // bare hash
+  'home',
+  'services',
+  'productos',
+  '/productos',
+  'servicios-it',
+  'about',
+  'contact',
+])
 
 const currentView = ref('home')
 
+/** Sets the document's meta robots tag. */
+function setMetaRobots(content) {
+  if (typeof document === 'undefined') return
+  let meta = document.querySelector('meta[name="robots"]')
+  if (!meta) {
+    meta = document.createElement('meta')
+    meta.setAttribute('name', 'robots')
+    document.head.appendChild(meta)
+  }
+  meta.setAttribute('content', content)
+}
+
 const updateRoute = () => {
-  const hash = window.location.hash
-  if (hash.startsWith('#productos') || hash.startsWith('#/productos') || hash.startsWith('#servicios-it')) {
+  const rawHash = window.location.hash || ''
+  const hash = rawHash.replace(/^#/, '')
+
+  // Producto view takes precedence
+  if (PRODUCT_ROUTES.has(hash)) {
     currentView.value = 'productos'
+    setMetaRobots('index, follow')
     window.scrollTo({ top: 0, behavior: 'instant' })
-  } else {
+    return
+  }
+
+  // Empty or home → home
+  if (hash === '' || hash === 'home') {
     currentView.value = 'home'
-    if (hash && hash.length > 1 && hash !== '#home') {
-      nextTick(() => {
-        setTimeout(() => {
-          const target = document.querySelector(hash)
-          if (target) {
-            const headerHeight = 70
-            const targetPosition = target.offsetTop - headerHeight
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            })
-          }
-        }, 100)
-      })
-    } else {
+    setMetaRobots('index, follow')
+    if (hash === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
+    return
   }
+
+  // Known section anchors → home + scroll
+  if (PAGE_ROUTES.has(hash)) {
+    currentView.value = 'home'
+    setMetaRobots('index, follow')
+    nextTick(() => {
+      setTimeout(() => {
+        const target = document.querySelector('#' + hash)
+        if (target) {
+          const headerHeight = 70
+          const targetPosition = target.offsetTop - headerHeight
+          window.scrollTo({ top: targetPosition, behavior: 'smooth' })
+        }
+      }, 100)
+    })
+    return
+  }
+
+  // Anything else (has a # but doesn't match a known page) → 404
+  if (rawHash.length > 0) {
+    currentView.value = 'notfound'
+    setMetaRobots('noindex, follow')
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    return
+  }
+
+  // Fallback to home
+  currentView.value = 'home'
+  setMetaRobots('index, follow')
 }
 
 const handleHashClick = (e) => {
@@ -71,10 +139,11 @@ const handleHashClick = (e) => {
   const href = anchor.getAttribute('href')
   if (!href || href === '#' || href.length <= 1) return
 
-  if (href.startsWith('#productos') || href.startsWith('#servicios-it')) {
+  if (PRODUCT_ROUTES.has(href.replace(/^#/, ''))) {
     e.preventDefault()
     window.location.hash = '#productos'
     currentView.value = 'productos'
+    setMetaRobots('index, follow')
     window.scrollTo({ top: 0, behavior: 'instant' })
     return
   }
@@ -83,6 +152,7 @@ const handleHashClick = (e) => {
     e.preventDefault()
     window.location.hash = '#home'
     currentView.value = 'home'
+    setMetaRobots('index, follow')
     window.scrollTo({ top: 0, behavior: 'smooth' })
     return
   }
@@ -92,6 +162,7 @@ const handleHashClick = (e) => {
     e.preventDefault()
     currentView.value = 'home'
     window.location.hash = href
+    setMetaRobots('index, follow')
     nextTick(() => {
       const scrollToTarget = (attempts = 0) => {
         const target = document.querySelector(href)
@@ -115,7 +186,7 @@ const handleHashClick = (e) => {
     const targetPosition = target.offsetTop - headerHeight
     window.scrollTo({
       top: targetPosition,
-      behavior: 'smooth'
+      behavior: 'smooth',
     })
     history.pushState(null, '', href)
   }

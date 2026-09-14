@@ -17,12 +17,20 @@
             Nos encargamos de que la tecnología de tu negocio funcione siempre bien: resolvemos problemas del día a día, protegemos tu información y te ayudamos a operar con tranquilidad en Panamá.
           </p>
 
-          <div class="pt-2">
-            <a 
-              href="#contact" 
-              class="inline-flex items-center gap-2 text-sm font-bold text-violet-700 hover:text-violet-900 transition-colors group"
+          <div class="pt-2 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <a
+              href="#contact"
+              class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-violet-700 transition-colors group"
             >
               <span>Consultar cómo podemos ayudarte</span>
+              <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+            </a>
+            <span class="text-slate-300" aria-hidden="true">·</span>
+            <a
+              href="#productos"
+              class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-violet-700 transition-colors group"
+            >
+              <span>O usa Maya y Stash directamente</span>
               <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </a>
           </div>
