@@ -11,7 +11,8 @@ export default {
         darkBg: '#0A0A2E', // Azul oscuro
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['"Instrument Serif"', 'Georgia', 'Cambria', '"Times New Roman"', 'serif'],
       },
       animation: {
         'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
@@ -47,9 +48,6 @@ export default {
             transform: 'translateX(25px)',
           },
         },
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       backdropBlur: {
         xs: '2px',

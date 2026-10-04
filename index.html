@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Primary Meta Tags -->
-  <title>PULSE | Infraestructura IT, Ciberseguridad y Software Operativo en Panamá</title>
-  <meta name="title" content="PULSE | Infraestructura IT, Ciberseguridad y Software Operativo en Panamá" />
+  <title>PULSE | Consultoría IT, Ciberseguridad y Software en Panamá</title>
   <meta name="description"
-    content="Soluciones tecnológicas integrales en Panamá: redes corporativas, ciberseguridad perimetral, auditoría IT, soporte técnico continuo y software propietario (Maya: logística y última milla, Stash: gestión de bodegas WMS)." />
+    content="Consultoría tecnológica para empresas en Panamá: redes, ciberseguridad, auditoría IT, soporte administrado y software a la medida. Diagnóstico inicial sin costo." />
   <meta name="keywords"
-    content="redes empresariales Panamá, ciberseguridad Panamá, soporte IT Panamá, software última milla Maya, WMS bodegas Stash, desarrollo software Panamá, auditoría IT, soporte técnico remoto, infraestructura tecnológica" />
+    content="consultoría IT Panamá, ciberseguridad Panamá, soporte IT administrado Panamá, redes empresariales Panamá, auditoría IT, desarrollo de software Panamá, software última milla Maya, WMS bodegas Stash" />
   <meta name="author" content="PULSE" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
   <!-- Google Search Console verification.
        Reemplazar el contenido con el código que te da Search Console
@@ -24,7 +23,12 @@
   <meta name="geo.placename" content="Ciudad de Panamá, Panamá" />
   <meta name="geo.position" content="8.9824;-79.5199" />
   <meta name="ICBM" content="8.9824, -79.5199" />
+  <!-- Canonical + hreflang. Each language lives on its own crawlable URL
+       (?lang=en); src/i18n keeps canonical/og:url in sync at runtime. -->
   <link rel="canonical" href="https://pulse.com.pa/" />
+  <link rel="alternate" hreflang="es-PA" href="https://pulse.com.pa/" />
+  <link rel="alternate" hreflang="en" href="https://pulse.com.pa/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://pulse.com.pa/" />
 
   <!-- SEO: explicit sitemap reference for crawlers -->
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
@@ -32,9 +36,10 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://pulse.com.pa/" />
-  <meta property="og:title" content="PULSE | Infraestructura IT, Ciberseguridad y Software Empresarial" />
+  <meta property="og:site_name" content="PULSE" />
+  <meta property="og:title" content="PULSE | Consultoría IT, Ciberseguridad y Software en Panamá" />
   <meta property="og:description"
-    content="Blindamos y aceleramos la operación de tu empresa con redes, ciberseguridad, soporte IT y software operativo especializado (Maya y Stash)." />
+    content="Consultoría tecnológica para empresas en Panamá: redes, ciberseguridad, auditoría IT, soporte administrado y software a la medida. Diagnóstico inicial sin costo." />
   <meta property="og:image" content="https://pulse.com.pa/237520570.jpeg" />
   <meta property="og:image:secure_url" content="https://pulse.com.pa/237520570.jpeg" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -42,14 +47,15 @@
   <meta property="og:image:height" content="374" />
   <meta property="og:image:alt" content="PULSE" />
   <meta property="og:locale" content="es_PA" />
+  <meta property="og:locale:alternate" content="en_US" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary" />
-  <meta property="twitter:url" content="https://pulse.com.pa/" />
-  <meta property="twitter:title" content="PULSE | Infraestructura IT, Ciberseguridad y Software Empresarial" />
-  <meta property="twitter:description"
-    content="Blindamos y aceleramos la operación de tu empresa con redes, ciberseguridad, soporte IT y software operativo especializado (Maya y Stash)." />
-  <meta property="twitter:image" content="https://pulse.com.pa/237520570.jpeg" />
+  <!-- Twitter / X (uses name=, not property=) -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="PULSE | Consultoría IT, Ciberseguridad y Software en Panamá" />
+  <meta name="twitter:description"
+    content="Consultoría tecnológica para empresas en Panamá: redes, ciberseguridad, auditoría IT, soporte administrado y software a la medida." />
+  <meta name="twitter:image" content="https://pulse.com.pa/237520570.jpeg" />
+  <meta name="twitter:image:alt" content="Logo de PULSE" />
 
   <!-- Schema.org Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -57,7 +63,7 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "LocalBusiness",
+        "@type": "ProfessionalService",
         "@id": "https://pulse.com.pa/#organization",
         "name": "PULSE",
         "alternateName": "PULSE Panamá",
@@ -116,6 +122,23 @@
           }
         ],
         "knowsLanguage": ["es-PA", "es", "en"],
+        "knowsAbout": [
+          "IT consulting",
+          "Cybersecurity",
+          "Network infrastructure",
+          "IT audit",
+          "Backup and disaster recovery",
+          "Managed IT services",
+          "Custom software development"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+507 6065-6128",
+          "email": "pulsestudio07@gmail.com",
+          "contactType": "sales",
+          "areaServed": "PA",
+          "availableLanguage": ["Spanish", "English"]
+        },
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
           "name": "Servicios IT y Software",
@@ -127,6 +150,14 @@
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Soporte Técnico e IT Administrado" } }
           ]
         }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://pulse.com.pa/#website",
+        "url": "https://pulse.com.pa/",
+        "name": "PULSE",
+        "inLanguage": ["es-PA", "en"],
+        "publisher": { "@id": "https://pulse.com.pa/#organization" }
       },
       {
         "@type": "SoftwareApplication",
@@ -164,19 +195,20 @@
   <!-- Preload hero image (LCP candidate when image wins) -->
   <link rel="preload" as="image" href="/yosi-bitran-jVCXlJrnl5w-unsplash.webp" type="image/webp" />
 
-  <!-- Optimized Font Loading: Non-render-blocking with display=swap -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <!-- Fonts: Inter (UI) + Instrument Serif italic (display accent).
+       Non-render-blocking with display=swap. -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&display=swap" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
   </noscript>
 
   <!-- Theme Color -->
   <meta name="theme-color" content="#0A0A2E" />
 
   <!-- Critical CSS for instant first paint.
-       Sized to cover the dark hero shell so the first paint is never an
-       unstyled flash. The full Tailwind bundle loads async via Vite. -->
+       Only the page shell: the app renders client-side, so section-level
+       rules here would just fight Tailwind (ID selectors win). -->
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0 }
 
@@ -194,26 +226,8 @@
 
     #app { min-height: 100vh }
 
-    /* Hero shell so it never looks broken during the JS load window. */
-    #home { padding-top: 7rem; padding-bottom: 5rem; }
-    @media (min-width: 640px) {
-      #home { padding-top: 9rem; padding-bottom: 6rem; }
-    }
-    #home h1 {
-      color: #fff;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      line-height: 1.1;
-      font-size: 1.875rem;
-      max-width: 80rem;
-      margin: 1.5rem auto 0;
-      padding: 0 1.5rem;
-    }
-    @media (min-width: 640px) { #home h1 { font-size: 3rem; } }
-    @media (min-width: 1024px) { #home h1 { font-size: 3.75rem; } }
-
     /* Anchor for any in-page scroll target so smooth-scroll doesn't fight. */
-    section[id], div[id] { scroll-margin-top: 5rem; }
+    section[id] { scroll-margin-top: 5rem; }
   </style>
 </head>
 

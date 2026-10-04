@@ -3,24 +3,29 @@
     <Header v-if="currentView !== 'notfound'" />
 
     <!-- View: 404 Not Found -->
-    <main v-if="currentView === 'notfound'" class="-mt-18">
+    <main v-if="currentView === 'notfound'" id="main">
       <NotFoundView />
     </main>
 
     <!-- View: Productos SaaS (Maya y Stash) -->
-    <main v-else-if="currentView === 'productos'">
+    <main v-else-if="currentView === 'productos'" id="main" class="pt-16 sm:pt-[72px]">
       <ProductosView />
     </main>
 
     <!-- View: Landing Page (Home) -->
-    <main v-else>
+    <main v-else id="main">
       <HeroSection />
+      <TrustStrip />
       <ServicesSection />
+      <ProcessSection />
+      <EngagementSection />
       <AboutSection />
+      <FaqSection />
       <ContactSection />
     </main>
 
     <Footer v-if="currentView !== 'notfound'" />
+    <WhatsAppFab v-if="currentView === 'home'" />
   </div>
 </template>
 
@@ -30,6 +35,7 @@ import { ref, onMounted, onUnmounted, defineAsyncComponent, nextTick } from 'vue
 // Critical above-the-fold components
 import Header from './components/layout/Header.vue'
 import HeroSection from './components/sections/HeroSection.vue'
+import TrustStrip from './components/sections/TrustStrip.vue'
 
 // Modular components (lazy-loaded for high performance & fast initial paint)
 const ProductosView = defineAsyncComponent(() =>
@@ -40,6 +46,18 @@ const NotFoundView = defineAsyncComponent(() =>
 )
 const ServicesSection = defineAsyncComponent(() =>
   import('./components/sections/ServicesSection.vue')
+)
+const ProcessSection = defineAsyncComponent(() =>
+  import('./components/sections/ProcessSection.vue')
+)
+const EngagementSection = defineAsyncComponent(() =>
+  import('./components/sections/EngagementSection.vue')
+)
+const FaqSection = defineAsyncComponent(() =>
+  import('./components/sections/FaqSection.vue')
+)
+const WhatsAppFab = defineAsyncComponent(() =>
+  import('./components/ui/WhatsAppFab.vue')
 )
 const AboutSection = defineAsyncComponent(() =>
   import('./components/sections/AboutSection.vue')
@@ -53,19 +71,8 @@ const Footer = defineAsyncComponent(() =>
 
 // Valid page routes. Hash URLs that match these are routed to their views.
 // Anything else (that has a #) is treated as an unknown anchor and shows 404.
-const PAGE_ROUTES = new Set(['home', 'services', 'about', 'contact'])
+const PAGE_ROUTES = new Set(['home', 'services', 'process', 'methodology', 'engagement', 'about', 'faq', 'contact'])
 const PRODUCT_ROUTES = new Set(['productos', '/productos', 'servicios-it'])
-const KNOWN_HASHES = new Set([
-  '', // bare hash
-  'home',
-  'services',
-  'productos',
-  '/productos',
-  'servicios-it',
-  'about',
-  'contact',
-])
-
 const currentView = ref('home')
 
 /** Sets the document's meta robots tag. */
@@ -108,7 +115,8 @@ const updateRoute = () => {
     setMetaRobots('index, follow')
     nextTick(() => {
       setTimeout(() => {
-        const target = document.querySelector('#' + hash)
+        // #methodology is the legacy anchor of the process section.
+        const target = document.querySelector('#' + (hash === 'methodology' ? 'process' : hash))
         if (target) {
           const headerHeight = 70
           const targetPosition = target.offsetTop - headerHeight
