@@ -61,6 +61,23 @@
             </span>
           </div>
         </div>
+
+        <div v-reveal="240" class="mt-6 flex items-center gap-4">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">{{ m.contact.channels.social }}</span>
+          <ul class="flex items-center gap-2">
+            <li v-for="social in SOCIAL_LINKS" :key="social.id">
+              <a
+                :href="social.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                :aria-label="`${m.a11y.socialPrefix} ${social.name}`"
+                class="flex items-center justify-center w-10 h-10 rounded-xl bg-white/[0.03] ring-1 ring-white/10 text-slate-300 hover:text-white hover:ring-violet-400/50 transition-colors"
+              >
+                <SocialIcon :name="social.id" class="w-4 h-4" />
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <!-- Right: form → WhatsApp -->
@@ -156,8 +173,9 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue'
 import { ClockIcon, EnvelopeIcon, MapPinIcon } from '@heroicons/vue/24/outline'
-import { useI18n, WHATSAPP_NUMBER, CONTACT_EMAIL, CONTACT_PHONE } from '@/i18n'
+import { useI18n, WHATSAPP_NUMBER, CONTACT_EMAIL, CONTACT_PHONE, SOCIAL_LINKS } from '@/i18n'
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon.vue'
+import SocialIcon from '@/components/ui/SocialIcon.vue'
 
 const { m } = useI18n()
 

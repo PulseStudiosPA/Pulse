@@ -3,7 +3,7 @@ import { messages, LOCALES, type Locale, type Messages } from './messages'
 
 export * from './messages'
 
-const SITE_URL = 'https://pulse.com.pa/'
+const SITE_URL = 'https://www.pulsestudio.dev/'
 const STORAGE_KEY = 'pulse-locale'
 const DEFAULT_LOCALE: Locale = 'es'
 

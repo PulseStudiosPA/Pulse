@@ -1,18 +1,43 @@
 <template>
-  <footer class="relative bg-[#070724] border-t border-white/5 pt-20 pb-10 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <footer class="relative bg-[#070724] border-t border-white/5 pt-16 pb-8 overflow-hidden">
+    <div
+      class="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[48rem] h-72 rounded-full bg-violet-700/10 blur-[120px] pointer-events-none"
+      aria-hidden="true"
+    />
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
         <div class="md:col-span-4">
-          <img
-            src="/pulse-logo/svg/pulse-logo-texto-blanco.svg"
-            :alt="m.a11y.logoAlt"
-            width="103"
-            height="80"
-            loading="lazy"
-            class="h-20 w-auto"
-          />
-          <p class="mt-5 text-sm text-slate-400 leading-relaxed max-w-sm">{{ m.footer.description }}</p>
-          <p class="mt-4 text-xs text-slate-500">{{ m.footer.location }}</p>
+          <a href="#home" class="inline-block" :aria-label="m.a11y.home">
+            <img src="/pulse-logo/svg/pulse-logo-texto-blanco.svg" :alt="m.a11y.logoAlt" width="124" height="96" class="h-24 w-auto" />
+          </a>
+          <p class="mt-6 text-sm text-slate-400 leading-relaxed max-w-sm">{{ m.footer.description }}</p>
+          <p class="mt-3 text-xs text-slate-500">{{ m.footer.location }}</p>
+
+          <ul class="mt-6 flex items-center gap-2">
+            <li v-for="social in SOCIAL_LINKS" :key="social.id">
+              <a
+                :href="social.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                :aria-label="`${m.a11y.socialPrefix} ${social.name}`"
+                class="flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 ring-1 ring-white/10 text-slate-300 hover:text-white hover:bg-primary hover:ring-primary transition-colors"
+              >
+                <SocialIcon :name="social.id" class="w-4 h-4" />
+              </a>
+            </li>
+            <li>
+              <a
+                :href="`https://wa.me/${WHATSAPP_NUMBER}`"
+                target="_blank"
+                rel="noopener noreferrer"
+                :aria-label="`${m.a11y.socialPrefix} WhatsApp`"
+                class="flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 ring-1 ring-white/10 text-slate-300 hover:text-slate-950 hover:bg-[#25D366] hover:ring-[#25D366] transition-colors"
+              >
+                <WhatsAppIcon class="w-4 h-4" />
+              </a>
+            </li>
+          </ul>
         </div>
 
         <nav class="md:col-span-3" :aria-label="m.footer.servicesTitle">
@@ -50,19 +75,7 @@
         </div>
       </div>
 
-      <!-- Oversized brand wordmark as a watermark sign-off -->
-      <div class="relative mt-20 select-none" aria-hidden="true">
-        <img
-          src="/pulse-logo/svg/pulse-logo-texto-blanco.svg"
-          alt=""
-          width="354"
-          height="275"
-          loading="lazy"
-          class="mx-auto h-40 md:h-64 w-auto opacity-[0.06]"
-        />
-      </div>
-
-      <div class="mt-10 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="mt-14 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
         <p>&copy; {{ currentYear }} PULSE. {{ m.footer.rights }}</p>
         <a href="#home" class="hover:text-white transition-colors">{{ m.footer.backToTop }} &uarr;</a>
       </div>
@@ -71,7 +84,9 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n, WHATSAPP_NUMBER, CONTACT_EMAIL, CONTACT_PHONE } from '@/i18n'
+import { useI18n, WHATSAPP_NUMBER, CONTACT_EMAIL, CONTACT_PHONE, SOCIAL_LINKS } from '@/i18n'
+import SocialIcon from '@/components/ui/SocialIcon.vue'
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon.vue'
 
 const { m } = useI18n()
 const currentYear = new Date().getFullYear()

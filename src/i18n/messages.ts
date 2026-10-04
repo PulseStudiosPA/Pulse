@@ -5,6 +5,14 @@ export const WHATSAPP_NUMBER = '50760656128'
 export const CONTACT_EMAIL = 'pulsestudio07@gmail.com'
 export const CONTACT_PHONE = '+507 6065-6128'
 
+export const SOCIAL_LINKS = [
+  { id: 'linkedin', name: 'LinkedIn', href: 'https://www.linkedin.com/company/pulsestudio-dev' },
+  { id: 'instagram', name: 'Instagram', href: 'https://www.instagram.com/pulsestudioff' },
+  { id: 'tiktok', name: 'TikTok', href: 'https://www.tiktok.com/@pulsestudioff' },
+] as const
+
+export type SocialId = (typeof SOCIAL_LINKS)[number]['id']
+
 export type ServiceId = 'network' | 'security' | 'audit' | 'software' | 'support'
 
 const es = {
@@ -25,6 +33,7 @@ const es = {
     home: 'PULSE — Inicio',
     logoAlt: 'Logo de PULSE',
     consoleLabel: 'Ilustración: panel de estado operativo que PULSE mantiene',
+    socialPrefix: 'PULSE en',
   },
   nav: {
     tagline: 'Consultoría IT · Panamá',
@@ -267,6 +276,7 @@ const es = {
       hoursValue: 'Lun–Vie 8:00–17:00 · Sáb 8:00–12:00',
       location: 'Base operativa',
       locationValue: 'Panamá Oeste · atención en todo el país',
+      social: 'Síguenos',
     },
     whatsapp: {
       intro: 'Hola PULSE, me gustaría solicitar información:',
@@ -319,6 +329,7 @@ const en: Messages = {
     home: 'PULSE — Home',
     logoAlt: 'PULSE logo',
     consoleLabel: 'Illustration: operational status panel that PULSE maintains',
+    socialPrefix: 'PULSE on',
   },
   nav: {
     tagline: 'IT Consulting · Panama',
@@ -558,6 +569,7 @@ const en: Messages = {
       hoursValue: 'Mon–Fri 8:00–17:00 · Sat 8:00–12:00',
       location: 'Operations base',
       locationValue: 'Panamá Oeste · service nationwide',
+      social: 'Follow us',
     },
     whatsapp: {
       intro: 'Hi PULSE, I would like to request information:',

@@ -680,14 +680,14 @@ const productosJsonLd = computed(() => {
     '@type': 'Offer',
     availability: 'https://schema.org/InStock',
     description: j.offer,
-    url: 'https://pulse.com.pa/#contact',
+    url: 'https://www.pulsestudio.dev/#contact',
   }
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'SoftwareApplication',
-        '@id': 'https://pulse.com.pa/#software-maya',
+        '@id': 'https://www.pulsestudio.dev/#software-maya',
         name: 'Maya Last Mile Software',
         applicationCategory: 'BusinessApplication',
         applicationSubCategory: 'Last Mile Delivery & Route Optimization',
@@ -696,11 +696,11 @@ const productosJsonLd = computed(() => {
         inLanguage: lang,
         offers: offer,
         featureList: j.mayaFeatures,
-        creator: { '@id': 'https://pulse.com.pa/#organization' },
+        creator: { '@id': 'https://www.pulsestudio.dev/#organization' },
       },
       {
         '@type': 'SoftwareApplication',
-        '@id': 'https://pulse.com.pa/#software-stash',
+        '@id': 'https://www.pulsestudio.dev/#software-stash',
         name: 'Stash Warehouse Management System (IMS)',
         applicationCategory: 'BusinessApplication',
         applicationSubCategory: 'Inventory Management & Warehouse Management System (WMS)',
@@ -710,7 +710,7 @@ const productosJsonLd = computed(() => {
         offers: offer,
         featureList: j.stashFeatures,
         sameAs: 'https://stash-ims-landing.vercel.app/',
-        creator: { '@id': 'https://pulse.com.pa/#organization' },
+        creator: { '@id': 'https://www.pulsestudio.dev/#organization' },
       },
       {
         '@type': 'FAQPage',

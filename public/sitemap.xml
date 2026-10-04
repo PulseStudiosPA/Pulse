@@ -8,19 +8,19 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://pulse.com.pa/</loc>
+    <loc>https://www.pulsestudio.dev/</loc>
     <lastmod>2026-10-03</lastmod>
-    <xhtml:link rel="alternate" hreflang="es-PA" href="https://pulse.com.pa/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://pulse.com.pa/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://pulse.com.pa/" />
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://www.pulsestudio.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pulsestudio.dev/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pulsestudio.dev/" />
   </url>
 
   <url>
-    <loc>https://pulse.com.pa/?lang=en</loc>
+    <loc>https://www.pulsestudio.dev/?lang=en</loc>
     <lastmod>2026-10-03</lastmod>
-    <xhtml:link rel="alternate" hreflang="es-PA" href="https://pulse.com.pa/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://pulse.com.pa/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://pulse.com.pa/" />
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://www.pulsestudio.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pulsestudio.dev/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pulsestudio.dev/" />
   </url>
 
 </urlset>
