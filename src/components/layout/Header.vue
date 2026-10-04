@@ -1,183 +1,213 @@
 <template>
-  <header 
-    ref="headerRef"
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b"
-    :class="{
-      'bg-[#0A0A2E]/95 backdrop-blur-md border-slate-800 shadow-md': scrolled,
-      'bg-[#0A0A2E] border-slate-800/80': !scrolled
-    }"
+  <header
+    class="fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 border-b"
+    :class="scrolled || mobileMenuOpen || isProductosPage
+      ?'bg-[#0A0A2E]/80 backdrop-blur-xl border-white/10 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.5)]'
+      : 'bg-transparent border-transparent'"
   >
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 h-18 flex items-center justify-between py-3.5">
-      
-      <!-- Logo con color original Pulse -->
-      <a href="#home" class="flex items-center gap-3" aria-label="PULSE - Inicio">
-        <img 
-          src="/237520570.jpeg" 
-          alt="PULSE Logo" 
-          class="w-9 h-9 rounded-lg object-cover shadow-sm" 
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-white focus:text-slate-900 focus:text-sm focus:font-semibold"
+    >
+      {{ m.a11y.skipToContent }}
+    </a>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-[72px] flex items-center justify-between gap-4">
+      <a href="#home" class="flex items-center gap-3 shrink-0" :aria-label="m.a11y.home">
+        <img
+          src="/pulse-logo/svg/pulse-icono-blanco.svg"
+          :alt="m.a11y.logoAlt"
+          width="40"
+          height="40"
+          class="w-10 h-10"
         />
-        <div>
-          <span class="text-xl font-bold tracking-tight text-white">PULSE</span>
-          <span class="hidden sm:inline-block text-[11px] font-medium text-slate-400 ml-2 pl-2 border-l border-slate-800">
-            Tecnología & Soporte IT
+        <span class="flex flex-col leading-none">
+          <span class="text-[17px] font-bold tracking-tight text-white">PULSE</span>
+          <span class="hidden sm:block mt-1 text-[10.5px] font-medium tracking-wide text-slate-400">
+            {{ m.nav.tagline }}
           </span>
-        </div>
+        </span>
       </a>
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center gap-6" aria-label="Navegación principal">
-        <a 
-          v-for="item in navigation" 
-          :key="item.name" 
+      <nav class="hidden lg:flex items-center gap-1" :aria-label="m.a11y.mainNav">
+        <a
+          v-for="item in navigation"
+          :key="item.id"
           :href="item.href"
-          class="text-sm font-medium transition-colors"
-          :class="item.active ? 'text-violet-400 font-semibold' : 'text-slate-300 hover:text-white'"
+          class="relative px-3 py-2 text-sm font-medium rounded-lg transition-colors"
+          :class="item.active ? 'text-white' : 'text-slate-400 hover:text-white'"
+          :aria-current="item.active ? 'true' : undefined"
         >
-          {{ item.name }}
+          {{ item.label }}
+          <span
+            class="absolute left-3 right-3 -bottom-px h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent transition-opacity duration-300"
+            :class="item.active ? 'opacity-100' : 'opacity-0'"
+            aria-hidden="true"
+          />
         </a>
       </nav>
 
-      <!-- Desktop Actions -->
-      <div class="hidden md:flex items-center gap-3">
-        <a 
-          href="#contact" 
-          class="px-4 py-2 bg-primary hover:bg-violet-700 text-white text-xs font-semibold rounded-lg transition-colors shadow-sm"
-        >
-          Solicitar Propuesta
-        </a>
-      </div>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <LanguageSwitch />
 
-      <!-- Mobile Button -->
-      <button 
-        @click="mobileMenuOpen = !mobileMenuOpen" 
-        class="md:hidden p-2 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800"
-        :aria-expanded="mobileMenuOpen"
-        aria-label="Menú"
-      >
-        <svg v-if="!mobileMenuOpen" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        <svg v-else class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+        <a
+          href="#contact"
+          class="hidden md:inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary hover:bg-violet-500 text-white text-[13px] font-semibold transition-colors shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_8px_24px_-8px_rgba(124,58,237,0.7)]"
+        >
+          {{ m.nav.cta }}
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+
+        <button
+          type="button"
+          class="lg:hidden p-2 -mr-2 text-slate-300 hover:text-white rounded-lg"
+          :aria-expanded="mobileMenuOpen"
+          aria-controls="mobile-menu"
+          :aria-label="mobileMenuOpen ? m.a11y.closeMenu : m.a11y.openMenu"
+          @click="mobileMenuOpen = !mobileMenuOpen"
+        >
+          <span class="relative block w-5 h-4" aria-hidden="true">
+            <span
+              class="absolute left-0 h-0.5 w-5 bg-current rounded transition-transform duration-300"
+              :class="mobileMenuOpen ? 'top-[7px] rotate-45' : 'top-0'"
+            />
+            <span
+              class="absolute left-0 top-[7px] h-0.5 w-5 bg-current rounded transition-opacity duration-200"
+              :class="mobileMenuOpen ? 'opacity-0' : 'opacity-100'"
+            />
+            <span
+              class="absolute left-0 h-0.5 w-5 bg-current rounded transition-transform duration-300"
+              :class="mobileMenuOpen ? 'top-[7px] -rotate-45' : 'top-[14px]'"
+            />
+          </span>
+        </button>
+      </div>
     </div>
 
-    <!-- Mobile Navigation Drawer -->
-    <div 
-      v-if="mobileMenuOpen" 
-      class="md:hidden bg-[#0A0A2E] border-b border-slate-800 px-6 py-4 space-y-3"
+    <!-- Scroll progress -->
+    <div
+      class="absolute left-0 bottom-0 h-px bg-gradient-to-r from-violet-600 via-violet-400 to-violet-300 origin-left"
+      :style="{ transform: `scaleX(${progress})` }"
+      aria-hidden="true"
+    />
+
+    <Transition
+      enter-active-class="transition duration-300 ease-out"
+      enter-from-class="opacity-0 -translate-y-2"
+      leave-active-class="transition duration-200 ease-in"
+      leave-to-class="opacity-0 -translate-y-2"
     >
-      <nav class="space-y-2">
-        <a 
-          v-for="item in navigation" 
-          :key="item.name" 
-          :href="item.href"
+      <div
+        v-if="mobileMenuOpen"
+        id="mobile-menu"
+        class="lg:hidden border-t border-white/10 px-4 sm:px-6 pb-6 pt-3"
+      >
+        <nav class="flex flex-col" :aria-label="m.a11y.mainNav">
+          <a
+            v-for="(item, i) in navigation"
+            :key="item.id"
+            :href="item.href"
+            class="flex items-center justify-between py-3.5 border-b border-white/5 text-base font-medium transition-colors"
+            :class="item.active ? 'text-white' : 'text-slate-300'"
+            :style="{ transitionDelay: `${i * 30}ms` }"
+            @click="mobileMenuOpen = false"
+          >
+            {{ item.label }}
+            <span class="text-slate-500" aria-hidden="true">&rarr;</span>
+          </a>
+        </nav>
+        <a
+          href="#contact"
+          class="mt-5 flex w-full items-center justify-center gap-2 py-3.5 rounded-full bg-primary text-white font-semibold text-sm"
           @click="mobileMenuOpen = false"
-          class="block py-2 text-sm font-medium transition-colors"
-          :class="item.active ? 'text-violet-400 font-semibold' : 'text-slate-300 hover:text-white'"
         >
-          {{ item.name }}
-        </a>
-      </nav>
-      <div class="pt-3 border-t border-slate-800 flex flex-col gap-2">
-        <a 
-          href="#contact" 
-          @click="mobileMenuOpen = false"
-          class="w-full py-2.5 px-4 text-center rounded-lg bg-primary text-white font-semibold text-xs"
-        >
-          Solicitar Propuesta
+          {{ m.nav.cta }}
+          <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
-    </div>
+    </Transition>
   </header>
 </template>
 
-<script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+<script setup lang="ts">
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useI18n } from '@/i18n'
+import LanguageSwitch from './LanguageSwitch.vue'
+
+const { m } = useI18n()
 
 const scrolled = ref(false)
+const progress = ref(0)
 const mobileMenuOpen = ref(false)
-const headerRef = ref(null)
 const currentHash = ref(typeof window !== 'undefined' ? window.location.hash : '')
 const activeSection = ref('home')
 
-const navItems = [
-  { name: 'Inicio', href: '#home', id: 'home' },
-  { name: 'Servicios IT', href: '#services', id: 'services' },
-  { name: 'Productos', href: '#productos', id: 'productos' },
-  { name: 'Nosotros', href: '#about', id: 'about' },
-  { name: 'Contacto', href: '#contact', id: 'contact' }
-]
+const SECTION_IDS = ['services', 'process', 'about', 'contact'] as const
 
-const isProductosPage = computed(() => {
-  return currentHash.value.startsWith('#productos') || 
-         currentHash.value.startsWith('#/productos') || 
-         currentHash.value.startsWith('#servicios-it')
-})
+const isProductosPage = computed(() =>
+  ['#productos', '#/productos', '#servicios-it'].some((h) => currentHash.value.startsWith(h)),
+)
 
 const navigation = computed(() => {
-  if (isProductosPage.value) {
-    return navItems.map(item => ({
-      ...item,
-      active: item.id === 'productos'
-    }))
-  }
-  return navItems.map(item => ({
-    ...item,
-    active: item.id === activeSection.value
-  }))
+  const items = [
+    { id: 'services', href: '#services', label: m.value.nav.services },
+    { id: 'process', href: '#process', label: m.value.nav.process },
+    { id: 'productos', href: '#productos', label: m.value.nav.products },
+    { id: 'about', href: '#about', label: m.value.nav.about },
+    { id: 'faq', href: '#faq', label: m.value.nav.faq },
+    { id: 'contact', href: '#contact', label: m.value.nav.contact },
+  ]
+  const active = isProductosPage.value ? 'productos' : activeSection.value
+  return items.map((item) => ({ ...item, active: item.id === active }))
 })
 
-const updateActiveSectionFromScroll = () => {
-  const scrollY = window.scrollY
-  scrolled.value = scrollY > 20
+let ticking = false
 
-  if (isProductosPage.value) {
-    activeSection.value = 'productos'
-    return
-  }
+function measure(): void {
+  ticking = false
+  const y = window.scrollY
+  const max = document.documentElement.scrollHeight - window.innerHeight
+  scrolled.value = y > 12
+  progress.value = max > 0 ? Math.min(1, y / max) : 0
 
-  const sections = ['contact', 'about', 'services', 'home']
-  const offset = 140
-
-  for (const id of sections) {
+  if (isProductosPage.value) return
+  const probe = y + window.innerHeight * 0.35
+  let current = 'home'
+  for (const id of [...SECTION_IDS, 'faq']) {
     const el = document.getElementById(id)
-    if (el) {
-      const top = el.offsetTop
-      if (scrollY + offset >= top) {
-        activeSection.value = id
-        return
-      }
-    }
+    if (el && probe >= el.offsetTop) current = id
   }
-  activeSection.value = 'home'
+  activeSection.value = current
 }
 
-const handleHashChange = () => {
+function onScroll(): void {
+  if (ticking) return
+  ticking = true
+  requestAnimationFrame(measure)
+}
+
+function onHashChange(): void {
   currentHash.value = window.location.hash
-  if (currentHash.value.startsWith('#productos') || currentHash.value.startsWith('#servicios-it')) {
-    activeSection.value = 'productos'
-  } else if (currentHash.value && currentHash.value.length > 1) {
-    activeSection.value = currentHash.value.replace('#', '')
-  } else {
-    updateActiveSectionFromScroll()
-  }
+  mobileMenuOpen.value = false
+  onScroll()
+}
+
+function onKeydown(e: KeyboardEvent): void {
+  if (e.key === 'Escape') mobileMenuOpen.value = false
 }
 
 onMounted(() => {
-  currentHash.value = window.location.hash
-  if (currentHash.value.startsWith('#productos') || currentHash.value.startsWith('#servicios-it')) {
-    activeSection.value = 'productos'
-  } else {
-    updateActiveSectionFromScroll()
-  }
-  window.addEventListener('scroll', updateActiveSectionFromScroll, { passive: true })
-  window.addEventListener('hashchange', handleHashChange)
+  measure()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onScroll, { passive: true })
+  window.addEventListener('hashchange', onHashChange)
+  window.addEventListener('keydown', onKeydown)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', updateActiveSectionFromScroll)
-  window.removeEventListener('hashchange', handleHashChange)
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('resize', onScroll)
+  window.removeEventListener('hashchange', onHashChange)
+  window.removeEventListener('keydown', onKeydown)
 })
 </script>

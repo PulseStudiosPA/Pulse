@@ -1,98 +1,59 @@
 <template>
-  <section id="about" class="py-20 md:py-28 bg-white text-slate-900 border-t border-b border-slate-200 relative" ref="aboutRef">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        
-        <!-- Content: Concise and non-technical -->
-        <div class="lg:col-span-5 space-y-5">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-violet-200/80 bg-violet-50 text-xs font-bold uppercase tracking-wider text-violet-700">
-            Sobre Pulse
-          </div>
-          
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-            Compromiso técnico con la continuidad operativa de tu empresa
+  <section id="about" class="relative py-24 sm:py-32 bg-[#F7F6FC] text-slate-900 overflow-hidden">
+    <div
+      class="absolute -top-32 -right-32 w-[36rem] h-[36rem] rounded-full bg-violet-300/30 blur-[120px] pointer-events-none"
+      aria-hidden="true"
+    />
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16">
+        <div class="lg:col-span-5 self-center">
+          <p v-reveal class="eyebrow !text-violet-700">{{ m.about.eyebrow }}</p>
+          <h2 v-reveal="60" class="mt-5 text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-slate-950 text-balance">
+            {{ m.about.title }}
           </h2>
-          
-          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            Nos encargamos de que la tecnología de tu negocio funcione siempre bien: resolvemos problemas del día a día, protegemos tu información y te ayudamos a operar con tranquilidad en Panamá.
+          <p v-reveal="120" class="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed">
+            {{ m.about.text }}
           </p>
-
-          <div class="pt-2 flex flex-wrap items-center gap-x-5 gap-y-2">
-            <a
-              href="#contact"
-              class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-violet-700 transition-colors group"
-            >
-              <span>Consultar cómo podemos ayudarte</span>
-              <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
-            </a>
-            <span class="text-slate-300" aria-hidden="true">·</span>
-            <a
-              href="#productos"
-              class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-violet-700 transition-colors group"
-            >
-              <span>O usa Maya y Stash directamente</span>
-              <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Everyday Practical Solutions Cards -->
-        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-          <div 
-            v-for="(pillar, index) in pillars" 
-            :key="index"
-            class="p-6 bg-slate-50/90 rounded-2xl border border-slate-200/90 hover:border-violet-300 hover:shadow-md transition-all space-y-3 shadow-sm"
+          <a
+            v-reveal="180"
+            href="#productos"
+            class="group mt-8 inline-flex items-center gap-2 px-5 py-3 rounded-full bg-slate-950 hover:bg-primary text-white text-sm font-semibold transition-colors"
           >
-            <div class="w-11 h-11 rounded-xl bg-violet-100 border border-violet-200/80 flex items-center justify-center text-primary">
-              <component :is="pillar.icon" class="w-5 h-5 text-primary" />
-            </div>
-            
-            <h3 class="text-base sm:text-lg font-bold text-slate-900">
-              {{ pillar.title }}
-            </h3>
-            
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-              {{ pillar.description }}
-            </p>
-          </div>
+            {{ m.about.productsCta }}
+            <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">&rarr;</span>
+          </a>
         </div>
 
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 sm:auto-rows-fr gap-4">
+          <article
+            v-for="(pillar, i) in m.about.pillars"
+            :key="pillar.title"
+            v-reveal="i * 80"
+            class="group h-full rounded-3xl bg-white p-7 ring-1 ring-slate-200/80 shadow-[0_1px_2px_rgba(15,23,42,0.04)] hover:shadow-[0_24px_48px_-20px_rgba(124,58,237,0.25)] hover:ring-violet-300 transition-[box-shadow,transform] duration-300 hover:-translate-y-1"
+          >
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-violet-50 ring-1 ring-violet-200 text-primary">
+              <component :is="icons[i]" class="w-5 h-5" aria-hidden="true" />
+            </span>
+            <h3 class="mt-6 text-lg font-semibold text-slate-950">{{ pillar.title }}</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">{{ pillar.description }}</p>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
 import {
-  WrenchScrewdriverIcon,
+  ChatBubbleLeftRightIcon,
   ShieldCheckIcon,
-  FolderArrowDownIcon,
-  CodeBracketIcon
+  UserGroupIcon,
+  CubeTransparentIcon,
 } from '@heroicons/vue/24/outline'
+import { useI18n } from '@/i18n'
 
-const aboutRef = ref(null)
+const { m } = useI18n()
 
-const pillars = [
-  {
-    title: 'Soporte rápido para tu oficina',
-    description: 'Si se cae el internet, una computadora no enciende o una impresora falla, te atendemos directamente en tus instalaciones sin vueltas ni esperas.',
-    icon: WrenchScrewdriverIcon
-  },
-  {
-    title: 'Protección contra virus y hackeos',
-    description: 'Cuidamos el dinero y la información de tu negocio. Bloqueamos páginas sospechosas, correos trampa y accesos no autorizados a tus equipos.',
-    icon: ShieldCheckIcon
-  },
-  {
-    title: 'Tus facturas y archivos siempre a salvo',
-    description: 'Guardamos copias automáticas de tu contabilidad y documentos clave para que jamás pierdas información importante si un equipo se daña.',
-    icon: FolderArrowDownIcon
-  },
-  {
-    title: 'Software a la medida de tu empresa',
-    description: 'Creamos sistemas y aplicaciones adaptadas exactamente a cómo funciona tu negocio, automatizando tareas repetitivas y ahorrándote tiempo.',
-    icon: CodeBracketIcon
-  }
-]
+const icons = [ChatBubbleLeftRightIcon, ShieldCheckIcon, UserGroupIcon, CubeTransparentIcon]
 </script>
