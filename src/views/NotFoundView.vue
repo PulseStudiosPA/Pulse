@@ -2,6 +2,9 @@
   <div class="relative isolate min-h-screen bg-[#0A0A2E] text-white flex items-center justify-center px-4 sm:px-6 overflow-hidden">
     <div class="absolute inset-0 -z-10 bg-grid pointer-events-none" aria-hidden="true" />
     <div class="max-w-xl w-full text-center py-24">
+      <a href="#home" class="mx-auto mb-10 flex w-14 h-14" :aria-label="m.a11y.home">
+        <img src="/pulse-logo/svg/pulse-icono-blanco.svg" alt="" width="56" height="56" class="w-14 h-14" />
+      </a>
       <p class="eyebrow justify-center">{{ m.notFound.badge }}</p>
 
       <h1 class="mt-6 text-8xl sm:text-9xl font-semibold tracking-[-0.05em] leading-none">404</h1>

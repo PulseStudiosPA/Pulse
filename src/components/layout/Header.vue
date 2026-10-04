@@ -15,11 +15,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-[72px] flex items-center justify-between gap-4">
       <a href="#home" class="flex items-center gap-3 shrink-0" :aria-label="m.a11y.home">
         <img
-          src="/237520570.jpeg"
+          src="/pulse-logo/svg/pulse-icono-blanco.svg"
           :alt="m.a11y.logoAlt"
-          width="36"
-          height="36"
-          class="w-9 h-9 rounded-xl object-cover ring-1 ring-white/10"
+          width="40"
+          height="40"
+          class="w-10 h-10"
         />
         <span class="flex flex-col leading-none">
           <span class="text-[17px] font-bold tracking-tight text-white">PULSE</span>
