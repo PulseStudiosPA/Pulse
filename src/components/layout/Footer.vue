@@ -9,7 +9,7 @@
       <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
         <div class="md:col-span-4">
           <a href="#home" class="inline-block" :aria-label="m.a11y.home">
-            <img src="/pulse-logo/svg/pulse-logo-texto-blanco.svg" :alt="m.a11y.logoAlt" width="124" height="96" class="h-24 w-auto" />
+            <BrandLogo class="h-24 w-auto" :label="m.a11y.logoAlt" />
           </a>
           <p class="mt-6 text-sm text-slate-400 leading-relaxed max-w-sm">{{ m.footer.description }}</p>
           <p class="mt-3 text-xs text-slate-500">{{ m.footer.location }}</p>
@@ -85,6 +85,7 @@
 
 <script setup lang="ts">
 import { useI18n, WHATSAPP_NUMBER, CONTACT_EMAIL, CONTACT_PHONE, SOCIAL_LINKS } from '@/i18n'
+import BrandLogo from '@/components/ui/BrandLogo.vue'
 import SocialIcon from '@/components/ui/SocialIcon.vue'
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon.vue'
 
