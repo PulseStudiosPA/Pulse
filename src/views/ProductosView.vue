@@ -22,7 +22,7 @@
         class="apple-press inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-100/80 text-xs font-semibold text-slate-700 hover:bg-slate-200/80 hover:text-slate-900 border border-slate-200/60 transition-colors"
       >
         <span aria-hidden="true">&larr;</span>
-        <span>Volver al Inicio</span>
+        <span>{{ p.back }}</span>
       </a>
     </div>
 
@@ -33,20 +33,23 @@
       <div class="max-w-3xl">
         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-50/80 border border-violet-100 text-[11px] font-semibold uppercase tracking-[0.08em] text-violet-700">
           <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
-          <span>Productos &middot; PULSE</span>
+          <span>{{ p.eyebrow }}</span>
         </div>
 
         <!-- H1 SEO-optimized: includes the strongest search terms
              (Maya, Stash, Panamá, última milla, inventarios). -->
         <h1 class="mt-6 text-4xl sm:text-5xl lg:text-[64px] font-extrabold text-slate-950 tracking-[-0.035em] leading-[1.05]">
-          Maya y Stash en Panamá:
+          {{ p.h1Start }}
           <span class="block text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-violet-500 to-indigo-500 tracking-[-0.035em]">
-            software operativo para que nunca pierdas ventas ni tiempo.
+            {{ p.h1Accent }}
           </span>
         </h1>
 
         <p class="mt-6 text-lg sm:text-xl text-slate-600 leading-relaxed font-normal max-w-2xl">
-          <strong class="text-slate-800">Maya</strong> optimiza tu <strong class="text-slate-800">última milla</strong> con rutas inteligentes, prueba de entrega digital y rastreo en vivo para el destinatario. <strong class="text-slate-800">Stash IMS</strong> controla inventarios, bodegas y transferencias con alertas predictivas e integración nativa con Alegra. Software SaaS desarrollado en Panamá para PyMEs.
+          <template v-for="(seg, i) in p.intro" :key="i"
+            ><strong v-if="seg.strong" class="text-slate-800">{{ seg.text }}</strong
+            ><template v-else>{{ seg.text }}</template></template
+          >
         </p>
       </div>
     </section>
@@ -69,7 +72,7 @@
               <div class="flex items-center justify-between">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-violet-50 border border-violet-100/80 text-[11px] font-bold uppercase tracking-[0.08em] text-violet-700">
                   <span class="w-1 h-1 rounded-full bg-violet-500"></span>
-                  Logística y Despachos
+                  {{ p.maya.tag }}
                 </span>
                 <span class="text-[11px] font-mono font-bold text-slate-400 tracking-wider">01</span>
               </div>
@@ -79,16 +82,16 @@
                   Maya
                 </h2>
                 <p class="text-sm font-semibold text-violet-600 mt-1.5 tracking-tight">
-                  Plataforma de Última Milla
+                  {{ p.maya.subtitle }}
                 </p>
               </div>
 
               <p class="text-[15px] text-slate-600 leading-relaxed">
-                Maya coordina a tus operadores de despacho, conductores y destinatarios finales en una sola plataforma con trazabilidad total y optimización inteligente.
+                {{ p.maya.description }}
               </p>
 
               <ul class="space-y-3 text-[14px] text-slate-700">
-                <li v-for="item in mayaFeatures" :key="item.title" class="flex items-start gap-3">
+                <li v-for="item in p.maya.features" :key="item.title" class="flex items-start gap-3">
                   <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-violet-100/80 flex items-center justify-center">
                     <CheckCircleIcon class="w-3.5 h-3.5 text-violet-600" />
                   </span>
@@ -98,12 +101,12 @@
 
               <div class="pt-2 border-t border-slate-100">
                 <a
-                  href="https://wa.me/50760656128?text=Hola%20PULSE,%20deseo%20solicitar%20una%20demostraci%C3%B3n%20comercial%20de%20Maya%20(Software%20de%20%C3%9Altima%20Milla)."
+                  :href="waLink(p.maya.whatsappText)"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="apple-press inline-flex items-center gap-2 px-5 py-3 bg-slate-950 hover:bg-violet-600 text-white font-semibold text-sm rounded-full transition-colors duration-200"
                 >
-                  <span>Solicitar Demostración de Maya</span>
+                  <span>{{ p.maya.cta }}</span>
                   <span class="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">&rarr;</span>
                 </a>
               </div>
@@ -120,7 +123,7 @@
               <div class="flex items-center justify-between">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-50 border border-indigo-100/80 text-[11px] font-bold uppercase tracking-[0.08em] text-indigo-700">
                   <span class="w-1 h-1 rounded-full bg-indigo-500"></span>
-                  Inventarios y WMS
+                  {{ p.stash.tag }}
                 </span>
                 <span class="text-[11px] font-mono font-bold text-slate-400 tracking-wider">02</span>
               </div>
@@ -130,16 +133,16 @@
                   Stash IMS
                 </h2>
                 <p class="text-sm font-semibold text-indigo-600 mt-1.5 tracking-tight">
-                  Control Total de Inventario para PyMEs en Panamá
+                  {{ p.stash.subtitle }}
                 </p>
               </div>
 
               <p class="text-[15px] text-slate-600 leading-relaxed">
-                Stash IMS te avisa antes de que te quedes sin producto. Controla stock, bodegas, sucursales y transferencias internas sin hojas de cálculo confusas.
+                {{ p.stash.description }}
               </p>
 
               <ul class="space-y-3 text-[14px] text-slate-700">
-                <li v-for="item in stashFeatures" :key="item.title" class="flex items-start gap-3">
+                <li v-for="item in p.stash.features" :key="item.title" class="flex items-start gap-3">
                   <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-indigo-100/80 flex items-center justify-center">
                     <CheckCircleIcon class="w-3.5 h-3.5 text-indigo-600" />
                   </span>
@@ -149,12 +152,12 @@
 
               <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-2">
                 <a
-                  href="https://wa.me/50760656128?text=Hola%20PULSE,%20deseo%20solicitar%20una%20demostraci%C3%B3n%20comercial%20de%20Stash%20IMS%20(Software%20de%20Inventarios)."
+                  :href="waLink(p.stash.whatsappText)"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="apple-press inline-flex items-center gap-2 px-5 py-3 bg-slate-950 hover:bg-indigo-600 text-white font-semibold text-sm rounded-full transition-colors duration-200"
                 >
-                  <span>Solicitar Demostración de Stash</span>
+                  <span>{{ p.stash.cta }}</span>
                   <span class="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">&rarr;</span>
                 </a>
                 <a
@@ -163,7 +166,7 @@
                   rel="noopener noreferrer"
                   class="apple-press inline-flex items-center gap-1.5 px-4 py-3 bg-slate-100/80 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200/60 font-semibold text-sm rounded-full transition-colors"
                 >
-                  <span>Ver Sitio Web</span>
+                  <span>{{ p.stash.website }}</span>
                   <ArrowTopRightOnSquareIcon class="w-3.5 h-3.5 text-indigo-600" />
                 </a>
               </div>
@@ -180,13 +183,13 @@
     <section class="max-w-6xl mx-auto px-6 lg:px-8 py-20 sm:py-28">
       <div class="max-w-2xl mb-10 sm:mb-14">
         <div class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100/80 border border-slate-200/60 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-600">
-          Módulos Detallados
+          {{ p.modules.eyebrow }}
         </div>
         <h2 class="mt-5 text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-slate-950 tracking-[-0.03em] leading-[1.08]">
-          Explora las funcionalidades clave de cada plataforma.
+          {{ p.modules.title }}
         </h2>
         <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-          Selecciona cada módulo en el panel para conocer el impacto operativo y la tecnología que pondrás a trabajar en tu empresa.
+          {{ p.modules.subtitle }}
         </p>
       </div>
 
@@ -198,16 +201,16 @@
         <div class="lg:col-span-5 border-r border-slate-200/70 bg-slate-50/40 p-3 sm:p-4 flex flex-col">
           <div class="flex items-center justify-between px-3 py-2.5 mb-2">
             <span class="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500">
-              Módulos Operativos
+              {{ p.modules.listLabel }}
             </span>
             <span class="text-[10px] font-semibold text-slate-400 tabular-nums">
-              {{ selectedModuleIndex + 1 }} / {{ saasModules.length }}
+              {{ selectedModuleIndex + 1 }} / {{ modules.length }}
             </span>
           </div>
 
           <div class="space-y-1.5 flex-1">
             <button
-              v-for="(mod, index) in saasModules"
+              v-for="(mod, index) in modules"
               :key="index"
               @click="selectModule(index)"
               type="button"
@@ -223,7 +226,7 @@
                   class="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center transition-colors duration-200"
                   :class="
                     selectedModuleIndex === index
-                      ? mod.productBadge === 'Maya'
+                      ? mod.product === 'Maya'
                         ? 'bg-violet-600 text-white'
                         : 'bg-indigo-600 text-white'
                       : 'bg-slate-200/70 text-slate-500'
@@ -237,13 +240,13 @@
                       class="text-[9px] font-bold uppercase tracking-[0.1em] px-1.5 py-0.5 rounded"
                       :class="
                         selectedModuleIndex === index
-                          ? mod.productBadge === 'Maya'
+                          ? mod.product === 'Maya'
                             ? 'bg-violet-100 text-violet-700'
                             : 'bg-indigo-100 text-indigo-700'
                           : 'bg-slate-200/60 text-slate-500'
                       "
                     >
-                      {{ mod.productBadge }}
+                      {{ mod.product }}
                     </span>
                   </div>
                   <h4
@@ -266,7 +269,7 @@
                 class="w-4 h-4 flex-shrink-0 transition-transform duration-200"
                 :class="
                   selectedModuleIndex === index
-                    ? mod.productBadge === 'Maya'
+                    ? mod.product === 'Maya'
                       ? 'text-violet-600 translate-x-0.5'
                       : 'text-indigo-600 translate-x-0.5'
                     : 'text-slate-400'
@@ -276,14 +279,14 @@
           </div>
 
           <div class="px-3 py-2.5 mt-2 border-t border-slate-200/70 text-[11px] text-slate-400">
-            Haz clic en un módulo para inspeccionar su alcance técnico.
+            {{ p.modules.hint }}
           </div>
         </div>
 
         <!-- RIGHT: module detail -->
         <div
           class="lg:col-span-7 p-8 lg:p-12 flex flex-col justify-between transition-opacity duration-200"
-          :class="activeModule.productBadge === 'Maya' ? 'bg-violet-50/20' : 'bg-indigo-50/20'"
+          :class="activeModule.product === 'Maya' ? 'bg-violet-50/20' : 'bg-indigo-50/20'"
         >
           <div class="space-y-6">
             <div>
@@ -291,12 +294,12 @@
                 <span
                   class="text-[10px] font-bold uppercase tracking-[0.12em] px-2 py-1 rounded-full border"
                   :class="
-                    activeModule.productBadge === 'Maya'
+                    activeModule.product === 'Maya'
                       ? 'bg-violet-50 text-violet-700 border-violet-100'
                       : 'bg-indigo-50 text-indigo-700 border-indigo-100'
                   "
                 >
-                  {{ activeModule.productBadge }} &middot; {{ activeModule.category }}
+                  {{ activeModule.product }} &middot; {{ activeModule.category }}
                 </span>
               </div>
 
@@ -305,7 +308,7 @@
               </h3>
               <p
                 class="text-sm font-semibold mt-1.5"
-                :class="activeModule.productBadge === 'Maya' ? 'text-violet-600' : 'text-indigo-600'"
+                :class="activeModule.product === 'Maya' ? 'text-violet-600' : 'text-indigo-600'"
               >
                 {{ activeModule.tagline }}
               </p>
@@ -316,7 +319,7 @@
 
             <div>
               <h4 class="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500 mb-3">
-                Alcance Operativo y Capacidades
+                {{ p.modules.scopeLabel }}
               </h4>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <div
@@ -326,7 +329,7 @@
                 >
                   <CheckCircleIcon
                     class="w-4 h-4 flex-shrink-0 mt-0.5"
-                    :class="activeModule.productBadge === 'Maya' ? 'text-violet-600' : 'text-indigo-600'"
+                    :class="activeModule.product === 'Maya' ? 'text-violet-600' : 'text-indigo-600'"
                   />
                   <span>{{ bullet }}</span>
                 </div>
@@ -336,18 +339,18 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <div class="p-4 rounded-2xl bg-rose-50/60 border border-rose-100/80">
                 <span class="text-[10px] font-bold uppercase tracking-[0.12em] text-rose-700 block mb-1.5">
-                  Dolor que elimina
+                  {{ p.modules.painLabel }}
                 </span>
                 <span class="text-[13px] text-slate-700 leading-relaxed block">
-                  {{ activeModule.painEliminated }}
+                  {{ activeModule.pain }}
                 </span>
               </div>
               <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100/80">
                 <span class="text-[10px] font-bold uppercase tracking-[0.12em] text-emerald-700 block mb-1.5">
-                  Beneficio de negocio
+                  {{ p.modules.benefitLabel }}
                 </span>
                 <span class="text-[13px] text-slate-700 leading-relaxed block">
-                  {{ activeModule.businessBenefit }}
+                  {{ activeModule.benefit }}
                 </span>
               </div>
             </div>
@@ -355,17 +358,17 @@
 
           <div class="pt-6 mt-6 border-t border-slate-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <a
-              :href="activeModule.ctaLink"
+              :href="waLink(activeModule.whatsappText)"
               target="_blank"
               rel="noopener noreferrer"
               class="apple-press inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full font-semibold text-sm text-white transition-colors duration-200"
-              :class="activeModule.productBadge === 'Maya' ? 'bg-slate-950 hover:bg-violet-600' : 'bg-slate-950 hover:bg-indigo-600'"
+              :class="activeModule.product === 'Maya' ? 'bg-slate-950 hover:bg-violet-600' : 'bg-slate-950 hover:bg-indigo-600'"
             >
-              <span>{{ activeModule.ctaText }}</span>
+              <span>{{ activeModule.cta }}</span>
               <span aria-hidden="true">&rarr;</span>
             </a>
             <span class="text-[11px] text-slate-500 text-center sm:text-right">
-              Integración personalizada con tus operaciones actuales
+              {{ p.modules.integrationNote }}
             </span>
           </div>
         </div>
@@ -383,32 +386,32 @@
         <div class="flex items-center justify-between mb-3 px-1">
           <div class="flex items-center gap-2">
             <span class="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500 tabular-nums">
-              {{ selectedModuleIndex + 1 }} / {{ saasModules.length }}
+              {{ selectedModuleIndex + 1 }} / {{ modules.length }}
             </span>
             <span
               class="text-[10px] font-extrabold px-2 py-0.5 rounded-full"
               :class="
-                activeModule.productBadge === 'Maya'
+                activeModule.product === 'Maya'
                   ? 'bg-violet-100 text-violet-700'
                   : 'bg-indigo-100 text-indigo-700'
               "
             >
-              {{ activeModule.productBadge }}
+              {{ activeModule.product }}
             </span>
           </div>
           <div class="flex items-center gap-1">
             <button
               @click="goToPrev"
               :disabled="selectedModuleIndex === 0"
-              aria-label="Módulo anterior"
+              :aria-label="p.modules.prev"
               class="apple-press w-9 h-9 rounded-full border border-slate-200/80 bg-white text-slate-700 flex items-center justify-center transition-colors disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-100 active:bg-slate-200"
             >
               <ChevronLeftIcon class="w-4 h-4" />
             </button>
             <button
               @click="goToNext"
-              :disabled="selectedModuleIndex === saasModules.length - 1"
-              aria-label="Módulo siguiente"
+              :disabled="selectedModuleIndex === modules.length - 1"
+              :aria-label="p.modules.next"
               class="apple-press w-9 h-9 rounded-full border border-slate-200/80 bg-white text-slate-700 flex items-center justify-center transition-colors disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-100 active:bg-slate-200"
             >
               <ChevronRightIcon class="w-4 h-4" />
@@ -432,28 +435,28 @@
             class="flex"
           >
             <div
-              v-for="(mod, idx) in saasModules"
+              v-for="(mod, idx) in modules"
               :key="idx"
               class="w-full flex-shrink-0 p-6 sm:p-8 space-y-5"
-              :class="mod.productBadge === 'Maya' ? 'bg-violet-50/15' : 'bg-indigo-50/15'"
+              :class="mod.product === 'Maya' ? 'bg-violet-50/15' : 'bg-indigo-50/15'"
             >
               <div>
                 <span
                   class="text-[10px] font-bold uppercase tracking-[0.12em] px-2 py-1 rounded-full border"
                   :class="
-                    mod.productBadge === 'Maya'
+                    mod.product === 'Maya'
                       ? 'bg-violet-50 text-violet-700 border-violet-100'
                       : 'bg-indigo-50 text-indigo-700 border-indigo-100'
                   "
                 >
-                  {{ mod.productBadge }} &middot; {{ mod.category }}
+                  {{ mod.product }} &middot; {{ mod.category }}
                 </span>
                 <h3 class="text-[22px] font-extrabold text-slate-950 tracking-[-0.02em] leading-tight mt-3">
                   {{ mod.title }}
                 </h3>
                 <p
                   class="text-[13px] font-semibold mt-1"
-                  :class="mod.productBadge === 'Maya' ? 'text-violet-600' : 'text-indigo-600'"
+                  :class="mod.product === 'Maya' ? 'text-violet-600' : 'text-indigo-600'"
                 >
                   {{ mod.tagline }}
                 </p>
@@ -464,7 +467,7 @@
 
               <div>
                 <h4 class="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500 mb-2.5">
-                  Alcance Operativo y Capacidades
+                  {{ p.modules.scopeLabel }}
                 </h4>
                 <div class="space-y-2">
                   <div
@@ -474,7 +477,7 @@
                   >
                     <CheckCircleIcon
                       class="w-4 h-4 flex-shrink-0 mt-0.5"
-                      :class="mod.productBadge === 'Maya' ? 'text-violet-600' : 'text-indigo-600'"
+                      :class="mod.product === 'Maya' ? 'text-violet-600' : 'text-indigo-600'"
                     />
                     <span>{{ bullet }}</span>
                   </div>
@@ -484,30 +487,30 @@
               <div class="space-y-2.5">
                 <div class="p-3.5 rounded-2xl bg-rose-50/60 border border-rose-100/80">
                   <span class="text-[10px] font-bold uppercase tracking-[0.12em] text-rose-700 block mb-1">
-                    Dolor que elimina
+                    {{ p.modules.painLabel }}
                   </span>
                   <span class="text-[13px] text-slate-700 leading-relaxed block">
-                    {{ mod.painEliminated }}
+                    {{ mod.pain }}
                   </span>
                 </div>
                 <div class="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-100/80">
                   <span class="text-[10px] font-bold uppercase tracking-[0.12em] text-emerald-700 block mb-1">
-                    Beneficio de negocio
+                    {{ p.modules.benefitLabel }}
                   </span>
                   <span class="text-[13px] text-slate-700 leading-relaxed block">
-                    {{ mod.businessBenefit }}
+                    {{ mod.benefit }}
                   </span>
                 </div>
               </div>
 
               <a
-                :href="mod.ctaLink"
+                :href="waLink(mod.whatsappText)"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="apple-press w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full font-semibold text-sm text-white transition-colors"
-                :class="mod.productBadge === 'Maya' ? 'bg-slate-950 hover:bg-violet-600' : 'bg-slate-950 hover:bg-indigo-600'"
+                :class="mod.product === 'Maya' ? 'bg-slate-950 hover:bg-violet-600' : 'bg-slate-950 hover:bg-indigo-600'"
               >
-                <span>{{ mod.ctaText }}</span>
+                <span>{{ mod.cta }}</span>
                 <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
@@ -517,10 +520,10 @@
         <!-- Dot indicators (spring-animated width on active) -->
         <div class="flex items-center justify-center gap-1.5 mt-5">
           <button
-            v-for="(_, dotIdx) in saasModules"
+            v-for="(_, dotIdx) in modules"
             :key="dotIdx"
             @click="selectModule(dotIdx)"
-            :aria-label="`Ir al módulo ${dotIdx + 1}`"
+            :aria-label="`${p.modules.goTo} ${dotIdx + 1}`"
             class="h-1.5 rounded-full transition-all duration-200"
             :style="dotIdx === selectedModuleIndex ? { width: '24px', backgroundColor: dotColorFor(activeModule) } : { width: '6px', backgroundColor: '#cbd5e1' }"
             :aria-current="dotIdx === selectedModuleIndex ? 'true' : 'false'"
@@ -536,19 +539,19 @@
       <div class="max-w-6xl mx-auto px-6 lg:px-8 py-20 sm:py-28 space-y-12">
         <div class="max-w-2xl">
           <div class="inline-flex items-center px-3 py-1 rounded-full bg-white border border-slate-200/80 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-600">
-            Comparativa Operativa
+            {{ p.comparative.eyebrow }}
           </div>
           <h2 class="mt-5 text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-slate-950 tracking-[-0.03em] leading-[1.08]">
-            De la improvisación manual al control total.
+            {{ p.comparative.title }}
           </h2>
           <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            La adopción de software especializado no es un gasto: es la forma más rápida de blindar tus márgenes y garantizar que tus clientes vuelvan a comprarte.
+            {{ p.comparative.subtitle }}
           </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div
-            v-for="(card, cIdx) in comparativeCards"
+            v-for="(card, cIdx) in p.comparative.cards"
             :key="cIdx"
             class="apple-card group relative rounded-3xl bg-white p-6 sm:p-7 border border-slate-200/70 shadow-[0_1px_0_rgba(15,23,42,0.04)] hover:shadow-[0_24px_48px_-16px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-[box-shadow,transform] duration-300"
           >
@@ -559,7 +562,7 @@
             <div class="mt-5 space-y-3">
               <div class="p-3.5 rounded-2xl bg-rose-50/60 border border-rose-100/80">
                 <span class="text-[10px] font-bold uppercase tracking-[0.12em] text-rose-700 block mb-1.5">
-                  Método Tradicional
+                  {{ p.comparative.traditionalLabel }}
                 </span>
                 <span class="text-[13px] text-slate-700 leading-relaxed block">
                   {{ card.traditional }}
@@ -570,7 +573,7 @@
                   {{ card.solutionLabel }}
                 </span>
                 <span class="text-[13px] text-slate-700 leading-relaxed block">
-                  {{ card.withPulse }}
+                  {{ card.solution }}
                 </span>
               </div>
             </div>
@@ -592,26 +595,26 @@
           <div class="space-y-3 max-w-2xl">
             <span class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-violet-300">
               <span class="w-1 h-1 rounded-full bg-violet-400"></span>
-              Demostración Personalizada
+              {{ p.cta.eyebrow }}
             </span>
             <h3 class="text-2xl sm:text-[34px] font-extrabold text-white tracking-[-0.025em] leading-[1.1]">
-              ¿Quieres ver cómo funciona en la operación de tu empresa?
+              {{ p.cta.title }}
             </h3>
             <p class="text-slate-300 text-[15px] sm:text-base max-w-xl leading-relaxed">
-              Te mostramos cómo Maya o Stash resuelven los cuellos de botella de tu negocio en Panamá.
+              {{ p.cta.text }}
             </p>
             <a
               href="#services"
               class="inline-flex items-center gap-2 text-sm font-semibold text-violet-300 hover:text-white transition-colors group pt-1"
             >
-              <span>¿Necesitás también soporte IT, redes o ciberseguridad?</span>
+              <span>{{ p.cta.itLink }}</span>
               <span class="group-hover:translate-x-1 transition-transform" aria-hidden="true">&rarr;</span>
             </a>
           </div>
 
           <div class="flex flex-wrap gap-3 shrink-0">
             <a
-              href="https://wa.me/50760656128?text=Hola%20PULSE,%20deseo%20coordinar%20una%20demostraci%C3%B3n%20en%20vivo%20de%20sus%20plataformas%20SaaS."
+              :href="waLink(p.cta.whatsappText)"
               target="_blank"
               rel="noopener noreferrer"
               class="apple-press inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#25D366] hover:bg-[#1ebe5d] text-slate-950 font-bold text-sm transition-colors shadow-lg"
@@ -619,13 +622,13 @@
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
               </svg>
-              <span>Agendar Demo por WhatsApp</span>
+              <span>{{ p.cta.whatsapp }}</span>
             </a>
             <a
               href="#contact"
               class="apple-press inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-colors"
             >
-              <span>Formulario de Consulta</span>
+              <span>{{ p.cta.form }}</span>
               <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
@@ -652,15 +655,34 @@ import {
 } from '@heroicons/vue/24/outline'
 
 import { useAppleSpring } from '@/composables/useAppleSpring'
+import { useProductsI18n } from '@/i18n/products'
+import { WHATSAPP_NUMBER } from '@/i18n'
 import { usePointerGesture, projectMomentum } from '@/composables/usePointerGesture'
 
 // ----------------------------------------------------------------
-// SEO: JSON-LD structured data for the Productos page.
-// This is injected client-side. Google reads JSON-LD from JS in SPAs.
-// Includes: SoftwareApplication (Maya + Stash), BreadcrumbList, FAQPage.
+// i18n + SEO: JSON-LD for the Productos page, rebuilt per locale.
+// Marketing percentages stay in the visible copy but out of structured
+// data, which should only carry verifiable facts.
 // ----------------------------------------------------------------
-const productosJsonLd = JSON.stringify(
-  {
+const { p, m } = useProductsI18n()
+
+const moduleIcons = [TruckIcon, DevicePhoneMobileIcon, MapIcon, CubeIcon, BuildingStorefrontIcon, ArrowPathIcon]
+const modules = computed(() => p.value.modules.items.map((item, i) => ({ ...item, icon: moduleIcons[i] })))
+
+function waLink(text: string): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+}
+
+const productosJsonLd = computed(() => {
+  const j = p.value.jsonLd
+  const lang = m.value.meta.htmlLang
+  const offer = {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    description: j.offer,
+    url: 'https://pulse.com.pa/#contact',
+  }
+  return JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
       {
@@ -670,25 +692,10 @@ const productosJsonLd = JSON.stringify(
         applicationCategory: 'BusinessApplication',
         applicationSubCategory: 'Last Mile Delivery & Route Optimization',
         operatingSystem: 'Web, iOS, Android',
-        description:
-          'Software de última milla para PyMEs en Panamá: rutas optimizadas con IA, app móvil para conductores con prueba de entrega digital (POD), portal de rastreo en vivo para destinatarios, hasta 25% de ahorro en combustible.',
-        url: 'https://pulse.com.pa/#productos',
-        inLanguage: 'es-PA',
-        offers: {
-          '@type': 'Offer',
-          availability: 'https://schema.org/InStock',
-          priceCurrency: 'USD',
-          price: '0',
-          description: 'Solicitar demostración comercial personalizada',
-          url: 'https://pulse.com.pa/#contact',
-        },
-        featureList: [
-          'Planificación de rutas con IA',
-          'App móvil para transportistas con GPS',
-          'Prueba de entrega digital (POD) con firma y foto',
-          'Portal de rastreo en vivo para destinatarios',
-          'Optimización de combustible hasta 25%',
-        ],
+        description: j.mayaDescription,
+        inLanguage: lang,
+        offers: offer,
+        featureList: j.mayaFeatures,
         creator: { '@id': 'https://pulse.com.pa/#organization' },
       },
       {
@@ -698,94 +705,25 @@ const productosJsonLd = JSON.stringify(
         applicationCategory: 'BusinessApplication',
         applicationSubCategory: 'Inventory Management & Warehouse Management System (WMS)',
         operatingSystem: 'Web, Mobile',
-        description:
-          'Sistema de gestión de inventarios (WMS) en tiempo real para PyMEs en Panamá: control de stock por SKU, alertas predictivas de reorden, tablero de transferencias Kanban entre bodegas y tiendas, integración nativa con Alegra para facturación.',
-        url: 'https://pulse.com.pa/#productos',
-        inLanguage: 'es-PA',
-        offers: {
-          '@type': 'Offer',
-          availability: 'https://schema.org/InStock',
-          priceCurrency: 'USD',
-          price: '0',
-          description: 'Solicitar demostración comercial personalizada',
-          url: 'https://pulse.com.pa/#contact',
-        },
-        featureList: [
-          'Inventario en tiempo real multi-sede',
-          'Alertas predictivas de reorden',
-          'Tablero Kanban de transferencias en 4 etapas',
-          'Integración nativa con Alegra',
-          '99% de exactitud en inventario',
-        ],
+        description: j.stashDescription,
+        inLanguage: lang,
+        offers: offer,
+        featureList: j.stashFeatures,
+        sameAs: 'https://stash-ims-landing.vercel.app/',
         creator: { '@id': 'https://pulse.com.pa/#organization' },
       },
       {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Inicio',
-            item: 'https://pulse.com.pa/#home',
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Productos SaaS',
-            item: 'https://pulse.com.pa/#productos',
-          },
-        ],
-      },
-      {
         '@type': 'FAQPage',
-        mainEntity: [
-          {
-            '@type': 'Question',
-            name: '¿Qué es Maya y para qué sirve?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Maya es el software de última milla de PULSE para empresas en Panamá. Optimiza rutas con IA (hasta 25% de ahorro en combustible), incluye app móvil para conductores con prueba de entrega digital (firma y foto con GPS) y un portal público de rastreo en vivo para que tus clientes vean dónde viene su pedido sin llamar a tu oficina.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: '¿Qué es Stash IMS?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Stash IMS es el sistema de gestión de inventarios (WMS) de PULSE para PyMEs en Panamá. Controla stock en tiempo real por SKU, emite alertas predictivas de reorden, gestiona transferencias entre bodegas y tiendas mediante un tablero Kanban de 4 etapas, y se integra nativamente con Alegra para que cada factura rebaje el stock automáticamente.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: '¿Cuánto combustible puedo ahorrar con Maya?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Las PyMEs que usan Maya reportan hasta 25% de ahorro en combustible gracias a la planificación de rutas con IA, que agrupa entregas por zonas y optimiza la secuencia para reducir kilómetros recorridos por día.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: '¿Stash se integra con mi sistema de facturación Alegra?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Sí. Stash se sincroniza de forma nativa con Alegra. Cada factura o nota de entrega emitida en Alegra descuenta las unidades correspondientes en Stash sin digitación manual ni doble carga, ahorrando hasta 15 horas de oficina al mes.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: '¿Mis clientes pueden rastrear su pedido en tiempo real?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Sí. Maya envía automáticamente por WhatsApp un enlace público de rastreo donde el destinatario ve el estado de su entrega (Preparando, En camino, Próximo a entregar, Completado), la foto del paquete y la hora estimada de llegada. Las empresas que lo usan reportan mejoras de más del 40% en satisfacción del cliente.',
-            },
-          },
-        ],
+        inLanguage: lang,
+        mainEntity: j.faq.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: { '@type': 'Answer', text: item.a },
+        })),
       },
     ],
-  },
-  null,
-  2
-)
+  })
+})
 
 // ----------------------------------------------------------------
 // Reduced motion preference
@@ -797,228 +735,17 @@ function readReducedMotion() {
 }
 
 // ----------------------------------------------------------------
-// Static card content (Maya + Stash feature lists)
-// ----------------------------------------------------------------
-const mayaFeatures = [
-  {
-    title: 'Rutas optimizadas con IA',
-    body: 'Ordena las entregas por secuencia lógica para ahorrar hasta 25% en combustible.',
-  },
-  {
-    title: 'App móvil para transportistas',
-    body: 'Hojas de ruta digitales en el celular con navegación y estado de cada entrega.',
-  },
-  {
-    title: 'Prueba de entrega digital (POD)',
-    body: 'Firma en pantalla del cliente y fotos de respaldo con hora y geolocalización.',
-  },
-  {
-    title: 'Portal de rastreo al destinatario',
-    body: 'Enlace público donde tu cliente ve el mapa en vivo sin necesidad de llamar a tu oficina.',
-  },
-]
-
-const stashFeatures = [
-  {
-    title: 'Inventario en tiempo real',
-    body: 'Conteo automático por cajas y unidades sueltas con búsqueda instantánea por SKU.',
-  },
-  {
-    title: 'Alertas preventivas de reorden',
-    body: 'Notificaciones cuando el stock baja del nivel mínimo para pedir a tiempo a proveedores.',
-  },
-  {
-    title: 'Tablero de transferencias (Kanban)',
-    body: 'Flujo claro de 4 etapas entre bodega y tienda; el stock solo se descuenta al entregar.',
-  },
-  {
-    title: 'Integración con Alegra',
-    body: 'Sincronización automática con tu facturación para rebajar stock sin doble digitación.',
-  },
-]
-
-const comparativeCards = [
-  {
-    title: 'Trazabilidad de Entregas',
-    traditional:
-      'Desconexión entre la salida y la entrega, llamadas constantes y falta de pruebas claras si un cliente afirma no haber recibido su pedido.',
-    solutionLabel: 'Con Maya',
-    withPulse:
-      'Trazabilidad total desde la salida del paquete hasta su entrega, con firma digital, fotos con GPS y confirmación inmediata en tu panel.',
-  },
-  {
-    title: 'Control de Stock y Bodega',
-    traditional:
-      'Hojas de Excel desactualizadas, conteos manuales agotadores y productos agotados descubiertos frente al cliente.',
-    solutionLabel: 'Con Stash IMS',
-    withPulse:
-      'Stock en tiempo real (cajas y unidades), alertas predictivas de reorden y conteos por código de barras desde el celular.',
-  },
-  {
-    title: 'Transferencias y Facturación',
-    traditional:
-      'Doble digitación manual, extravíos de mercancía entre bodegas y tiendas, y ventas de productos que ya no existen.',
-    solutionLabel: 'Con Stash IMS',
-    withPulse:
-      'Tablero de 4 etapas para transferencias y rebaja de stock automática vinculada a facturación electrónica de Alegra.',
-  },
-]
-
-// ----------------------------------------------------------------
-// Modules data (preserved from original)
-// ----------------------------------------------------------------
-const saasModules = [
-  {
-    productBadge: 'Maya',
-    mobileLabel: 'Rutas',
-    category: 'Última Milla',
-    title: 'Planificación de Rutas y Despachos',
-    icon: TruckIcon,
-    shortSummary: 'Organización de recorridos y asignación a flota.',
-    tagline: 'Despacha más rápido',
-    description:
-      'Algoritmos inteligentes que organizan las secuencias de entrega considerando direcciones y capacidad vehicular. Reduce drásticamente los kilómetros recorridos por día y garantiza que los pedidos salgan en orden prioritario.',
-    bullets: [
-      'Agrupación lógica de entregas por zonas y corredores de Panamá',
-      'Cálculo de secuencia para reducir tiempos de entregas',
-      'Asignación directa a la flota propia o transportistas externos',
-      'Alertas tempranas de ventanas de entrega en riesgo de atraso',
-    ],
-    painEliminated: 'Horas perdidas armando rutas a mano o llamadas confusas a choferes.',
-    businessBenefit: 'Hasta 25% de ahorro en costos y menor desgaste de flota.',
-    ctaText: 'Solicitar Demostración',
-    ctaLink:
-      'https://wa.me/50760656128?text=Hola%20PULSE,%20me%20interesa%20la%20Planificaci%C3%B3n%20de%20Rutas%20de%20Maya.',
-  },
-  {
-    productBadge: 'Maya',
-    mobileLabel: 'App Chofer',
-    category: 'App Transportista',
-    title: 'Prueba Digital (POD)',
-    icon: DevicePhoneMobileIcon,
-    shortSummary: 'App para conductores con GPS, firma en pantalla y fotos.',
-    tagline: 'Cero papeleo físico y evidencia instantánea de entrega',
-    description:
-      'Tu conductor lleva toda su jornada en su teléfono. Visualiza cada parada con botón para abrir Waze/Google Maps, recopila firma y foto del destinatario en el acto.',
-    bullets: [
-      'Hoja de ruta digital interactiva sin necesidad de imprimir manifiestos',
-      'Captura de firma en pantalla táctil con validez de recepción',
-      'Fotografía de respaldo del paquete entregado con marca de hora y GPS',
-      'Reporte de incidentes o motivos de no entrega en tiempo real',
-    ],
-    painEliminated:
-      'Incertidumbre durante la ruta, falta de trazabilidad y reclamos por paquetes supuestamente no entregados.',
-    businessBenefit:
-      'Trazabilidad absoluta de inicio a fin y pruebas digitales (firma, foto y GPS) que certifican que el paquete llegó correctamente.',
-    ctaText: 'Solicitar Demostración',
-    ctaLink:
-      'https://wa.me/50760656128?text=Hola%20PULSE,%20deseo%20conocer%20la%20App%20de%20Conductores%20y%20POD%20de%20Maya.',
-  },
-  {
-    productBadge: 'Maya',
-    mobileLabel: 'Rastreo',
-    category: 'Atención al Cliente',
-    title: 'Portal de Rastreo en Vivo para Destinatarios',
-    icon: MapIcon,
-    shortSummary: 'Enlace público para que el cliente rastree su pedido sin llamar.',
-    tagline: 'Fideliza clientes y vacía la bandeja de reclamos',
-    description:
-      'Envía automáticamente por WhatsApp un enlace público donde el cliente verifica el estado de su entrega, la foto de su paquete y la hora estimada de llegada.',
-    bullets: [
-      'Página de rastreo personalizada con la marca de tu empresa',
-      'Visualización de estado: Preparando, En camino, Próximo a entregar, Completado',
-      'Notificaciones automáticas proactivas de llegada',
-      'Encuesta de satisfacción de entrega de 1 a 5 estrellas',
-    ],
-    painEliminated: 'Llamadas repetitivas de clientes ansiosos preguntando "¿dónde viene mi pedido?".',
-    businessBenefit: 'Mejora en más de 40% la satisfacción del cliente.',
-    ctaText: 'Solicitar Demostración',
-    ctaLink:
-      'https://wa.me/50760656128?text=Hola%20PULSE,%20quiero%20ver%20el%20Portal%20de%20Rastreo%20de%20Maya.',
-  },
-  {
-    productBadge: 'Stash IMS',
-    mobileLabel: 'Stock Real',
-    category: 'Control de Stock',
-    title: 'Inventario en Tiempo Real y Multi-sede',
-    icon: CubeIcon,
-    shortSummary: 'Conteo exacto, catálogo por SKU y control por bodega.',
-    tagline: 'Visibilidad total de existencias en cada metro cuadrado',
-    description:
-      'Elimina las discrepancias entre lo que dice el sistema y lo que hay en estanterías. Stash clasifica departamentos, categorías y subcategorías, calculando automáticamente cajas y unidades sueltas sin requerir complejas conversiones matemáticas.',
-    bullets: [
-      'Búsqueda rápida por nombre, SKU o código de barras',
-      'Diferenciación exacta entre unidades sueltas y cajas completas',
-      'Administración separada de bodegas centrales y tiendas sucursales',
-      'Control de capacidad física antes de recibir más mercancía de proveedores',
-    ],
-    painEliminated: 'Vender productos inexistentes, conteos ciegos y horas buscando cajas en la bodega.',
-    businessBenefit:
-      '99% de exactitud en inventario y auditorías físicas completadas en un tercio del tiempo.',
-    ctaText: 'Solicitar Demostración',
-    ctaLink:
-      'https://wa.me/50760656128?text=Hola%20PULSE,%20quiero%20probar%20el%20Control%20de%20Inventario%20de%20Stash%20IMS.',
-  },
-  {
-    productBadge: 'Stash IMS',
-    mobileLabel: 'Reorden',
-    category: 'Reorden & Alertas',
-    title: 'Alertas Predictivas y Tablero de Transferencias',
-    icon: BuildingStorefrontIcon,
-    shortSummary: 'Avisos preventivos de stock mínimo',
-    tagline: 'Nunca más pierdas una venta por quiebre de stock',
-    description:
-      'Configura el nivel mínimo de seguridad por cada producto. Apenas las existencias cruzan ese umbral, Stash emite una alerta visual en el panel para reponer a tiempo. Además, gestiona los pedidos entre sucursales mediante un tablero Kanban transparente de 4 pasos.',
-    bullets: [
-      'Alertas automáticas en pantalla de productos en estado crítico',
-      'Tablero de 4 etapas: Solicitado, Leído, En camino y Entregado',
-      'El stock se descuenta únicamente cuando el receptor confirma la llegada',
-      'Historial completo de quién pidió la mercancía, cuándo y quién la despachó',
-    ],
-    painEliminated:
-      'Descubrir que se acabó un producto estrella cuando el cliente ya está listo para pagar.',
-    businessBenefit: 'Cero ventas perdidas por falta de existencias y control estricto de mermas internas.',
-    ctaText: 'Solicitar Demostración',
-    ctaLink:
-      'https://wa.me/50760656128?text=Hola%20PULSE,%20me%20interesan%20las%20Alertas%20y%20Transferencias%20de%20Stash%20IMS.',
-  },
-  {
-    productBadge: 'Stash IMS',
-    mobileLabel: 'Alegra',
-    category: 'Integraciones',
-    title: 'Integración Automática con Facturación Alegra',
-    icon: ArrowPathIcon,
-    shortSummary: 'Cada venta emitida descuenta el inventario al instante.',
-    tagline: 'Factura con tranquilidad sabiendo que tu stock está al día',
-    description:
-      'Si tu empresa utiliza Alegra para facturación electrónica o contabilidad, Stash se sincroniza de forma nativa. Cada factura o nota de entrega generada rebaja las unidades correspondientes en Stash sin intervención humana ni desfases.',
-    bullets: [
-      'Sincronización en segundo plano sin alterar la velocidad de tu punto de venta',
-      'Eliminación total del error humano por digitación manual de salidas',
-      'Historial de movimientos enlazado directamente al número de factura de venta',
-      'Disponible en planes comerciales para bodegas y múltiples tiendas',
-    ],
-    painEliminated:
-      'Tener que meter la misma venta en dos sistemas distintos o cuadrar facturas al final del mes.',
-    businessBenefit: 'Ahorro de hasta 15 horas de oficina al mes y conciliación contable sin tropiezos.',
-    ctaText: 'Consultar Demostración',
-    ctaLink:
-      'https://wa.me/50760656128?text=Hola%20PULSE,%20quiero%20informaci%C3%B3n%20sobre%20la%20integraci%C3%B3n%20Alegra%20con%20Stash%20IMS.',
-  },
-]
-
-// ----------------------------------------------------------------
 // Module selector state + spring-driven carousel (mobile)
 // ----------------------------------------------------------------
 const selectedModuleIndex = ref<number>(0)
-const activeModule = computed(() => saasModules[selectedModuleIndex.value]!)
+const activeModule = computed(() => modules.value[selectedModuleIndex.value]!)
 
-function dotColorFor(mod: (typeof saasModules)[number]): string {
-  return mod.productBadge === 'Maya' ? '#7c3aed' : '#4f46e5'
+function dotColorFor(mod: { product: string }): string {
+  return mod.product === 'Maya' ? '#7c3aed' : '#4f46e5'
 }
 
 function selectModule(index: number): void {
-  if (index < 0 || index >= saasModules.length) return
+  if (index < 0 || index >= modules.value.length) return
   selectedModuleIndex.value = index
   // On mobile we also animate the carousel. On desktop we just update state.
   nextTick(() => {
@@ -1029,7 +756,7 @@ function selectModule(index: number): void {
 }
 
 function goToNext() {
-  if (selectedModuleIndex.value < saasModules.length - 1) {
+  if (selectedModuleIndex.value < modules.value.length - 1) {
     selectModule(selectedModuleIndex.value + 1)
   }
 }
@@ -1080,7 +807,7 @@ function measureSlideWidth(): void {
 
 function clampOffset(offset: number): number {
   const max = 0
-  const min = -(saasModules.length - 1) * slideWidth.value
+  const min = -(modules.value.length - 1) * slideWidth.value
   if (offset > max + 8) {
     // Rubbery resistance at the left edge (first slide).
     const over = offset - max
@@ -1136,7 +863,7 @@ function handleCarouselRelease({ delta, velocity }: { delta: number; velocity: n
   // Choose nearest slide index from the projected point.
   const rawIndex = -projected / slideWidth.value
   let targetIndex = Math.round(rawIndex)
-  targetIndex = Math.max(0, Math.min(saasModules.length - 1, targetIndex))
+  targetIndex = Math.max(0, Math.min(modules.value.length - 1, targetIndex))
 
   const targetX = -targetIndex * slideWidth.value
 
